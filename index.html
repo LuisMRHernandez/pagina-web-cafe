@@ -9,53 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<head>
+</head>
 <body>
-    <!-- LANG BAR -->
-    <div class="lang-bar">
-        <button class="lang-btn active" onclick="setLang('es')">ES</button>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-    </div>
 
     <!-- NAV -->
     <nav id="navbar">
-        <a href="#inicio" class="nav-logo">
-            <img src="imagenes/logo_kitopamba.png" alt="Kitopamba Logo" class="nav-logo-img">
-            <div class="nav-logo-texto">
-                Kitopamba
-                <span data-es>Café Especial · Ecomindala · Nariño</span>
-                <span data-en>Specialty Coffee · Ecomindala · Nariño</span>
-            </div>
-        </a>
-        <div class="nav-links">
-            <a href="#finca" data-es>La Finca</a>
-            <a href="#finca" data-en>The Farm</a>
-            <a href="#galeria" data-es>Galería</a>
-            <a href="#galeria" data-en>Gallery</a>
-            <a href="#variedades" data-es>Variedades</a>
-            <a href="#variedades" data-en>Varieties</a>
-            <a href="#tienda" data-es>Tienda</a>
-            <a href="#tienda" data-en>Shop</a>
-            <a href="#impacto" data-es>Impacto</a>
-            <a href="#impacto" data-en>Impact</a>
-            <a href="#fincas" data-es>Nuestra Red Cafetera</a>
-            <a href="#fincas" data-en>Allied Farms</a>
-            <a href="#contacto" class="nav-cta" data-es>Contacto</a>
-            <a href="#contacto" class="nav-cta" data-en>Contact</a>
+        <a href="#inicio" class="nav-logo"></a>
+        <div class="nav-right">
             <button class="nav-cart-btn" onclick="toggleCarrito()" aria-label="Carrito">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
                 </svg>
                 <span class="cart-badge" id="cartBadge">0</span>
-            </button>
-        </div>
-        <!-- HAMBURGER (solo móvil) -->
-        <div style="display:flex;align-items:center;gap:10px;">
-            <button class="nav-cart-btn" onclick="toggleCarrito()" aria-label="Carrito" id="navCartMobile">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-                </svg>
-                <span class="cart-badge" id="cartBadgeMobile">0</span>
             </button>
             <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileMenu()" aria-label="Menú">
                 <span></span><span></span><span></span>
@@ -63,76 +28,375 @@
         </div>
     </nav>
 
-    <!-- MOBILE MENU -->
+    <!-- MENÚ LATERAL -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
     <div class="mobile-menu" id="mobileMenu">
+        <div class="menu-lang-row">
+            <button class="menu-lang-btn active" onclick="setLang('es')">ES</button>
+            <span class="menu-lang-sep">/</span>
+            <button class="menu-lang-btn" onclick="setLang('en')">EN</button>
+        </div>
+        <div class="menu-divider-line"></div>
+        <a href="#tienda" onclick="closeMobileMenu()" data-es>Tienda</a>
+        <a href="#tienda" onclick="closeMobileMenu()" data-en>Shop</a>
         <a href="#finca" onclick="closeMobileMenu()" data-es>La Finca</a>
         <a href="#finca" onclick="closeMobileMenu()" data-en>The Farm</a>
         <a href="#galeria" onclick="closeMobileMenu()" data-es>Galería</a>
         <a href="#galeria" onclick="closeMobileMenu()" data-en>Gallery</a>
-        <a href="#variedades" onclick="closeMobileMenu()" data-es>Variedades</a>
-        <a href="#variedades" onclick="closeMobileMenu()" data-en>Varieties</a>
-        <a href="#tienda" onclick="closeMobileMenu()" data-es>Tienda</a>
-        <a href="#tienda" onclick="closeMobileMenu()" data-en>Shop</a>
+        <a href="#variedades" onclick="closeMobileMenu()" data-es>Mundo Cafe</a>
+        <a href="#variedades" onclick="closeMobileMenu()" data-en>World coffee</a>
         <a href="#impacto" onclick="closeMobileMenu()" data-es>Impacto</a>
         <a href="#impacto" onclick="closeMobileMenu()" data-en>Impact</a>
         <a href="#fincas" onclick="closeMobileMenu()" data-es>Nuestra Red Cafetera</a>
         <a href="#fincas" onclick="closeMobileMenu()" data-en>Allied Farms</a>
-        <button class="mobile-menu-cart" onclick="closeMobileMenu(); toggleCarrito();">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            <span data-es>Carrito</span>
-            <span data-en>Cart</span>
-            <span class="mobile-menu-cart-badge" id="cartBadgeMenu">0</span>
-        </button>
         <a href="#contacto" class="nav-cta" onclick="closeMobileMenu()" data-es>Contacto</a>
         <a href="#contacto" class="nav-cta" onclick="closeMobileMenu()" data-en>Contact</a>
     </div>
 
-    <!-- HERO -->
+    <!-- ══ HERO ══ -->
     <section id="inicio">
-    <div class="hero-texture"></div>
-    <div class="hero-pattern"></div>
+        <video class="hero-video" autoplay muted loop playsinline poster="imagenes/hero.jpeg">
+            <source src="videos/finca-kitopamba2.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-pattern"></div>
         <div class="hero-content">
-            <p class="hero-eyebrow" data-es>Cafés Especiales · Nariño, Colombia</p>
-            <p class="hero-eyebrow" data-en>Specialty Coffee · Nariño, Colombia</p>
-            <h1 class="hero-title" data-es>El sabor único de<br><em>Kitopamba</em></h1>
-            <h1 class="hero-title" data-en>The unique taste of<br><em>Kitopamba</em></h1>
-            <p class="hero-subtitle" data-es>Bourbon Rosado y Geisha desde los 2.200 metros del Cañón del Juanambu</p>
-            <p class="hero-subtitle" data-en>Pink Bourbon and Geisha from 2,200 meters in the Juanambu Canyon</p>
-            <div class="hero-stats">
-                <div class="hero-stat"><div class="num">2200</div><div class="lbl" data-es>m.s.n.m.</div><div class="lbl" data-en>m.a.s.l.</div></div>
-                <div class="hero-stat"><div class="num">90+</div><div class="lbl" data-es>Puntos SCA</div><div class="lbl" data-en>SCA Points</div></div>
-                <div class="hero-stat"><div class="num">100%</div><div class="lbl" data-es>Café Especial</div><div class="lbl" data-en>Specialty Grade</div></div>
-            </div>
-            <div class="hero-btns">
-                <a href="#tienda" class="btn-primary" data-es>Comprar Kitopamba</a>
-                <a href="#tienda" class="btn-primary" data-en>Buy Kitopamba</a>
+            <h1 class="hero-title reveal-hero" style="animation-delay:0.2s" data-es><em>Kitupamba</em></h1>
+            <h1 class="hero-title reveal-hero" style="animation-delay:0.2s" data-en><em>Kitupamba</em></h1>
+            <p class="hero-subtitle reveal-hero" data-es><strong>En la tradición de nuestros ancestros, las mindalas eran algo más que comercio simple; eran encuentros para compartir, para intercambiar productos, saberes, historias y proyectos.
+            Desde Altos de Kitupamba te invitamos a unirte a este mundo del Buen vivir Andino y redescubrir los más exquisitos y excepcionales cafés de Nariño, Colombia.</strong></p>
+            <p class="hero-subtitle reveal-hero" data-en><strong>In the tradition of our ancestors, mindalas were far more than simple commerce; they were gatherings to share, to exchange products, knowledge, stories, and projects.
+            From Altos de Kitupamba, we invite you to join this world of Andean Good Living and rediscover the most exquisite and exceptional coffees from Nariño, Colombia.</strong></p>
+            <div class="hero-btns reveal-hero" style="animation-delay:0.8s">
+                <a href="#tienda" class="btn-primary" data-es>Explorar oferta</a>
+                <a href="#tienda" class="btn-primary" data-en>Buy Kitopamba coffee</a>
                 <a href="#finca" class="btn-outline" data-es>Conocer la Finca</a>
                 <a href="#finca" class="btn-outline" data-en>Discover the Farm</a>
             </div>
         </div>
-        <div class="hero-scroll" data-es>Explorar</div>
-        <div class="hero-scroll" data-en>Explore</div>
+        <div class="hero-scroll">
+            <span data-es>Explorar</span>
+            <span data-en>Explore</span>
+        </div>
     </section>
 
-    <!-- FINCA -->
-    <section id="finca" class="reveal">
-        <div>
-            <p class="section-tag" data-es>Nuestra Finca</p>
-            <p class="section-tag" data-en>Our Farm</p>
-            <h2 class="section-title" data-es>Altos de<br><em>Kitopamba</em></h2>
-            <h2 class="section-title" data-en>Altos de<br><em>Kitopamba</em></h2>
-            <div class="divider"></div>
-            <p class="lead lead-justify" data-es>En las cumbres del cañón de Juanambu de Buesaco, Nariño, a <strong>2.200 metros sobre el nivel del mar</strong>, el café de alta especialidad no es una coincidencia: es una ciencia exacta nacida de la pasión. En la finca <strong>Altos de Kitopamba</strong> fusionamos la riqueza de nuestros suelos volcánicos con la tecnología más avanzada de <strong>Internet de las Cosas (IoT)</strong> y la agricultura de precisión. Monitoreamos en tiempo real la nutrición de la tierra, el uso eficiente del agua y cada hora de fermentación y secado en nuestro beneficiadero. Este control digital nos permite eliminar el error humano, protegiendo el medio ambiente y asegurando tazas excepcionales y consistentes de <strong>Bourbon Rosado y Geisha</strong>. No solo cultivamos café premium; programamos la perfección en cada grano para entregarle una experiencia sensorial única, respaldada por datos y premiada con puntajes de nivel mundial.</p>
-            <p class="lead lead-justify" data-en>In the highlands of the Juanambu Canyon in Buesaco, Nariño, at <strong>2,200 meters above sea level</strong>, specialty coffee is no coincidence: it's an exact science born from passion. At <strong>Altos de Kitopamba</strong> farm, we fuse the richness of our volcanic soils with cutting-edge <strong>Internet of Things (IoT)</strong> technology and precision agriculture. We monitor soil nutrition, efficient water use, and every hour of fermentation and drying in our processing facility in real time. This digital control allows us to eliminate human error, protecting the environment and ensuring exceptional and consistent cups of <strong>Pink Bourbon and Geisha</strong> coffee. We don't just grow premium coffee; we program perfection into every bean to deliver a unique sensory experience, backed by data and awarded with world-class scores.</p>
-            <div class="finca-details">
-                <div class="finca-detail"><div class="icon">🌋</div><h4 data-es>Suelo</h4><h4 data-en>Soil</h4><p data-es>Suelo volcánico rico en minerales y materia orgánica</p><p data-en>Volcanic soil rich in minerals and organic matter</p></div>
-                <div class="finca-detail"><div class="icon">🌡️</div><h4 data-es>Proceso</h4><h4 data-en>Process</h4><p data-es>Fermentación controlada y secado lento en camas elevadas</p><p data-en>Controlled fermentation and slow drying on raised beds</p></div>
-                <div class="finca-detail"><div class="icon">🌿</div><h4 data-es>Altitud</h4><h4 data-en>Altitude</h4><p data-es>2.200 metros sobre el nivel del mar</p><p data-en>2,200 meters above sea level</p></div>
-                <div class="finca-detail"><div class="icon">☀️</div><h4 data-es>Cosecha</h4><h4 data-en>Harvest</h4><p data-es>Recolección manual, selección estricta de cerezas maduras</p><p data-en>Hand-picked, strict selection of ripe cherries</p></div>
+    <!-- MARQUEE 1 -->
+    <div class="marquee-band">
+        <div class="marquee-track">
+            <span>Bourbon Rosado</span><span class="dot">·</span>
+            <span>Geisha Washed</span><span class="dot">·</span>
+            <span>2200 m.s.n.m.</span><span class="dot">·</span>
+            <span>Kitopamba</span><span class="dot">·</span>
+            <span>90+ SCA Points</span><span class="dot">·</span>
+            <span>Buesaco, Nariño</span><span class="dot">·</span>
+            <span>Specialty Coffee</span><span class="dot">·</span>
+            <span>Ecomindala</span><span class="dot">·</span>
+            <span>IoT Precision</span><span class="dot">·</span>
+            <span>Café Especial</span><span class="dot">·</span>
+            <span>Bourbon Rosado</span><span class="dot">·</span>
+            <span>Geisha Washed</span><span class="dot">·</span>
+            <span>2200 m.s.n.m.</span><span class="dot">·</span>
+            <span>Kitopamba</span><span class="dot">·</span>
+            <span>90+ SCA Points</span><span class="dot">·</span>
+            <span>Buesaco, Nariño</span><span class="dot">·</span>
+            <span>Specialty Coffee</span><span class="dot">·</span>
+            <span>Ecomindala</span><span class="dot">·</span>
+            <span>IoT Precision</span><span class="dot">·</span>
+            <span>Café Especial</span><span class="dot">·</span>
+        </div>
+    </div>
+
+    <!-- ══ TIENDA ══ -->
+    <section id="tienda" class="reveal">
+        <!-- Encabezado elegante de la tienda -->
+        <div class="tienda-header">
+            <p class="section-tag" data-es>Kitopamba · Ecomindala · Buesaco, Nariño</p>
+            <p class="section-tag" data-en>Kitopamba · Ecomindala · Buesaco, Nariño</p>
+            <h2 class="tienda-header-title" data-es>Nuestros <em>Cafés</em></h2>
+            <h2 class="tienda-header-title" data-en>Our <em>Coffees</em></h2>
+            <div class="tienda-header-divider"></div>
+            <div class="tienda-header-stats">
+                <div class="tienda-header-stat">
+                    <strong>90+</strong>
+                    <span data-es>Puntos SCA</span><span data-en>SCA Points</span>
+                </div>
+                <div class="tienda-header-dot">·</div>
+                <div class="tienda-header-stat">
+                    <strong>2.200</strong>
+                    <span>m.s.n.m.</span>
+                </div>
+                <div class="tienda-header-dot">·</div>
+                <div class="tienda-header-stat">
+                    <strong>100%</strong>
+                    <span data-es>IoT Monitoreado</span><span data-en>IoT Monitored</span>
+                </div>
+                <div class="tienda-header-dot">·</div>
+                <div class="tienda-header-stat">
+                    <strong>5</strong>
+                    <span data-es>Variedades</span><span data-en>Varieties</span>
+                </div>
             </div>
         </div>
+
+        <!-- Filtros -->
+        <div class="shop-filters">
+            <span class="sf-label" data-es>Filtrar</span>
+            <span class="sf-label" data-en>Filter</span>
+            <button class="sf-btn active" onclick="filterProducts('todos', this)" data-es>Todos</button>
+            <button class="sf-btn active" onclick="filterProducts('todos', this)" data-en>All</button>
+            <button class="sf-btn" onclick="filterProducts('verde', this)" data-es>Café Verde</button>
+            <button class="sf-btn" onclick="filterProducts('verde', this)" data-en>Green Coffee</button>
+            <button class="sf-btn" onclick="filterProducts('tostado', this)" data-es>Tostado</button>
+            <button class="sf-btn" onclick="filterProducts('tostado', this)" data-en>Roasted</button>
+        </div>
+
+        <!-- Selector de moneda -->
+        <div class="currency-row">
+            <span class="currency-label" data-es>Moneda:</span>
+            <span class="currency-label" data-en>Currency:</span>
+            <button class="currency-btn active" onclick="setCurrency('USD', this)">USD $</button>
+            <button class="currency-btn" onclick="setCurrency('COP', this)">COP $</button>
+        </div>
+
+        <!-- Grid de productos -->
+        <div class="shop-main">
+            <div class="products-grid" id="productsGrid">
+
+                <!-- TARJETA DE SERVICIO — Café Verde -->
+                <div class="product-card service-card" data-category="verde">
+                    <div class="service-card-inner">
+                        <div class="service-icons-row">
+                            <span class="service-icon">🔬</span>
+                            <span class="service-icon">📊</span>
+                            <span class="service-icon">🏔️</span>
+                        </div>
+                        <div class="service-badge-pill" data-es>Servicio Especializado</div>
+                        <div class="service-badge-pill" data-en>Specialized Service</div>
+                        <div class="service-title" data-es>Selección de Café Verde <em>Nariño</em></div>
+                        <div class="service-title" data-en>Green Coffee Selection <em>Nariño</em></div>
+                        <p class="service-desc" data-es>
+                            Identificamos, analizamos y garantizamos la calidad consistente de las mejores cosechas de Nariño. Cada lote es evaluado con estrictos protocolos de catación, trazabilidad IoT y análisis fisicoquímico para que recibas únicamente granos de excelencia.
+                        </p>
+                        <p class="service-desc" data-en>
+                            We identify, analyze, and guarantee consistent quality from the finest Nariño harvests. Every lot is evaluated with strict cupping protocols, IoT traceability and physicochemical analysis so you receive only beans of excellence.
+                        </p>
+                        <div class="service-features">
+                            <div class="service-feature"><span>✓</span><span data-es>Catación profesional SCA</span><span data-en>SCA professional cupping</span></div>
+                            <div class="service-feature"><span>✓</span><span data-es>Trazabilidad IoT lote a lote</span><span data-en>IoT traceability lot by lot</span></div>
+                            <div class="service-feature"><span>✓</span><span data-es>Análisis de fermentación y secado</span><span data-en>Fermentation & drying analysis</span></div>
+                            <div class="service-feature"><span>✓</span><span data-es>Garantía de origen Nariño</span><span data-en>Nariño origin guarantee</span></div>
+                        </div>
+                        <a href="#contacto" class="service-cta-btn">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                            <span data-es>Consultar disponibilidad</span><span data-en>Check availability</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 6. Bourbon Rosado – Tostado -->
+                <div class="product-card" data-category="tostado" onclick="openProduct('to-bourbon')">
+                    <div class="pc-img">
+                        <img src="imagenes/CafeTostado/BourbonRosado.png" alt="Bourbon Rosado Tostado">
+                        <span class="pc-badge" data-es>Tostado</span>
+                        <span class="pc-badge" data-en>Roasted</span>
+                        <span class="pc-score">88+ pts</span>
+                    </div>
+                    <div class="pc-info">
+                        <span class="pc-tag" data-es>Kitopamba · Planta de tostión · Pasto</span>
+                        <span class="pc-tag" data-en>Kitopamba · Roasting Plant · Pasto</span>
+                        <div class="pc-name">Bourbon Rosado</div>
+                        <div class="pc-variety" data-es>Pink Bourbon · Natural · Tostado Medio</div>
+                        <div class="pc-variety" data-en>Pink Bourbon · Natural · Medium Roast</div>
+                        <div class="pc-quick-specs">
+                            <span class="pc-spec-pill">Tropical</span>
+                            <span class="pc-spec-pill">Maracuyá</span>
+                            <span class="pc-spec-pill">Caramelo</span>
+                            <span class="pc-spec-pill">Cacao</span>
+                        </div>
+                    </div>
+                    <div class="pc-footer">
+                        <div class="pc-footer-price-row">
+                            <div class="pc-price" id="list-price-to-bourbon">USD $17 <small>/ 250g</small></div>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-bourbon')" data-es>Ver producto</button>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-bourbon')" data-en>View product</button>
+                        </div>
+                        <button class="pc-buy-now-btn" onclick="event.stopPropagation(); buyNowCard('to-bourbon')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                            <span data-es>Comprar ahora</span><span data-en>Buy now</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 7. Geisha – Tostado -->
+                <div class="product-card" data-category="tostado" onclick="openProduct('to-geisha')">
+                    <div class="pc-img">
+                        <img src="imagenes/CafeTostado/Geisha.png" alt="Geisha Tostado">
+                        <span class="pc-badge" data-es>Tostado</span>
+                        <span class="pc-badge" data-en>Roasted</span>
+                        <span class="pc-score">90 pts</span>
+                    </div>
+                    <div class="pc-info">
+                        <span class="pc-tag" data-es>Kitopamba · Planta de tostión · Pasto</span>
+                        <span class="pc-tag" data-en>Kitopamba · Roasting Plant · Pasto</span>
+                        <div class="pc-name">Geisha</div>
+                        <div class="pc-variety" data-es>Variedad Geisha · Lavado · Tostado Claro</div>
+                        <div class="pc-variety" data-en>Geisha Variety · Washed · Light Roast</div>
+                        <div class="pc-quick-specs">
+                            <span class="pc-spec-pill">Floral</span>
+                            <span class="pc-spec-pill">Jazmín</span>
+                            <span class="pc-spec-pill">Té blanco</span>
+                            <span class="pc-spec-pill">Durazno</span>
+                        </div>
+                    </div>
+                    <div class="pc-footer">
+                        <div class="pc-footer-price-row">
+                            <div class="pc-price" id="list-price-to-geisha">USD $22 <small>/ 250g</small></div>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-geisha')" data-es>Ver producto</button>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-geisha')" data-en>View product</button>
+                        </div>
+                        <button class="pc-buy-now-btn" onclick="event.stopPropagation(); buyNowCard('to-geisha')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                            <span data-es>Comprar ahora</span><span data-en>Buy now</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 8. Caturra – Tostado -->
+                <div class="product-card" data-category="tostado" onclick="openProduct('to-caturra')">
+                    <div class="pc-img">
+                        <img src="imagenes/CafeTostado/Caturro.png" alt="Caturra Tostado">
+                        <span class="pc-badge" data-es>Tostado</span>
+                        <span class="pc-badge" data-en>Roasted</span>
+                    </div>
+                    <div class="pc-info">
+                        <span class="pc-tag" data-es>Kitopamba · Planta de tostión · Pasto</span>
+                        <span class="pc-tag" data-en>Kitopamba · Roasting Plant · Pasto</span>
+                        <div class="pc-name">Caturra</div>
+                        <div class="pc-variety" data-es>Variedad Caturra · Lavado · Tostado Medio</div>
+                        <div class="pc-variety" data-en>Caturra Variety · Washed · Medium Roast</div>
+                        <div class="pc-quick-specs">
+                            <span class="pc-spec-pill">Cítrico</span>
+                            <span class="pc-spec-pill">Caramelo</span>
+                            <span class="pc-spec-pill">Naranja</span>
+                            <span class="pc-spec-pill">Panela</span>
+                        </div>
+                    </div>
+                    <div class="pc-footer">
+                        <div class="pc-footer-price-row">
+                            <div class="pc-price" id="list-price-to-caturra">USD $14 <small>/ 250g</small></div>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-caturra')" data-es>Ver producto</button>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-caturra')" data-en>View product</button>
+                        </div>
+                        <button class="pc-buy-now-btn" onclick="event.stopPropagation(); buyNowCard('to-caturra')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                            <span data-es>Comprar ahora</span><span data-en>Buy now</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 9. Castillo – Tostado -->
+                <div class="product-card" data-category="tostado" onclick="openProduct('to-castillo')">
+                    <div class="pc-img">
+                        <img src="imagenes/CafeTostado/Castillo.png" alt="Castillo Tostado">
+                        <span class="pc-badge" data-es>Tostado</span>
+                        <span class="pc-badge" data-en>Roasted</span>
+                    </div>
+                    <div class="pc-info">
+                        <span class="pc-tag" data-es>Kitopamba · Planta de tostión · Pasto</span>
+                        <span class="pc-tag" data-en>Kitopamba · Roasting Plant · Pasto</span>
+                        <div class="pc-name">Castillo</div>
+                        <div class="pc-variety" data-es>Variedad Castillo · Lavado · Tostado Oscuro</div>
+                        <div class="pc-variety" data-en>Castillo Variety · Washed · Dark Roast</div>
+                        <div class="pc-quick-specs">
+                            <span class="pc-spec-pill">Chocolate</span>
+                            <span class="pc-spec-pill">Nuez</span>
+                            <span class="pc-spec-pill">Caramelo</span>
+                            <span class="pc-spec-pill">Manzana</span>
+                        </div>
+                    </div>
+                    <div class="pc-footer">
+                        <div class="pc-footer-price-row">
+                            <div class="pc-price" id="list-price-to-castillo">USD $13 <small>/ 250g</small></div>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-castillo')" data-es>Ver producto</button>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-castillo')" data-en>View product</button>
+                        </div>
+                        <button class="pc-buy-now-btn" onclick="event.stopPropagation(); buyNowCard('to-castillo')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                            <span data-es>Comprar ahora</span><span data-en>Buy now</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 10. Colombia – Tostado -->
+                <div class="product-card" data-category="tostado" onclick="openProduct('to-colombia')">
+                    <div class="pc-img">
+                        <img src="imagenes/CafeTostado/colombia.png" alt="Colombia Tostado">
+                        <span class="pc-badge" data-es>Tostado</span>
+                        <span class="pc-badge" data-en>Roasted</span>
+                    </div>
+                    <div class="pc-info">
+                        <span class="pc-tag" data-es>Kitopamba · Planta de tostión · Pasto</span>
+                        <span class="pc-tag" data-en>Kitopamba · Roasting Plant · Pasto</span>
+                        <div class="pc-name">Colombia</div>
+                        <div class="pc-variety" data-es>Variedad Colombia · Lavado · Tostado Medio</div>
+                        <div class="pc-variety" data-en>Colombia Variety · Washed · Medium Roast</div>
+                        <div class="pc-quick-specs">
+                            <span class="pc-spec-pill">Frutal</span>
+                            <span class="pc-spec-pill">Cítrico</span>
+                            <span class="pc-spec-pill">Miel</span>
+                            <span class="pc-spec-pill">Avellana</span>
+                        </div>
+                    </div>
+                    <div class="pc-footer">
+                        <div class="pc-footer-price-row">
+                            <div class="pc-price" id="list-price-to-colombia">USD $13 <small>/ 250g</small></div>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-colombia')" data-es>Ver producto</button>
+                            <button class="pc-btn" onclick="event.stopPropagation(); openProduct('to-colombia')" data-en>View product</button>
+                        </div>
+                        <button class="pc-buy-now-btn" onclick="event.stopPropagation(); buyNowCard('to-colombia')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                            <span data-es>Comprar ahora</span><span data-en>Buy now</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- /products-grid -->
+            <div class="shop-empty" id="shopEmpty">
+                <div style="font-size:48px;margin-bottom:16px;opacity:0.3">☕</div>
+                <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--verde);margin-bottom:8px" data-es>Sin productos en esta categoría</h3>
+                <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--verde);margin-bottom:8px" data-en>No products in this category</h3>
+            </div>
+        </div><!-- /shop-main -->
+    </section>
+
+    <!-- MARQUEE 2 -->
+    <div class="marquee-band marquee-band--light">
+        <div class="marquee-track marquee-track--reverse">
+            <span>Pink Bourbon Natural</span><span class="dot">·</span>
+            <span>Fermentación Controlada</span><span class="dot">·</span>
+            <span>Cañón del Juanambu</span><span class="dot">·</span>
+            <span>Taza de Excelencia</span><span class="dot">·</span>
+            <span>Agricultura de Precisión</span><span class="dot">·</span>
+            <span>Secado en Camas Elevadas</span><span class="dot">·</span>
+            <span>Suelo Volcánico</span><span class="dot">·</span>
+            <span>Single Origin</span><span class="dot">·</span>
+            <span>Pink Bourbon Natural</span><span class="dot">·</span>
+            <span>Fermentación Controlada</span><span class="dot">·</span>
+            <span>Cañón del Juanambu</span><span class="dot">·</span>
+            <span>Taza de Excelencia</span><span class="dot">·</span>
+            <span>Agricultura de Precisión</span><span class="dot">·</span>
+            <span>Secado en Camas Elevadas</span><span class="dot">·</span>
+            <span>Suelo Volcánico</span><span class="dot">·</span>
+            <span>Single Origin</span><span class="dot">·</span>
+        </div>
+    </div>
+
+    <!-- ══ FINCA ══ -->
+    <section id="finca" class="reveal">
         <div class="finca-visual">
+            <div class="imagen-finca">
+                <img src="imagenes/finca.jpeg" alt="Finca Altos de Kitopamba – Ecomindala">
+            </div>
             <div class="finca-visual-bg">
                 <div class="altitude-display">2200</div>
                 <div class="altitude-label" data-es>metros sobre el nivel del mar</div>
@@ -142,372 +406,280 @@
                 <div class="score">90</div>
                 <div class="score-lbl">SCA Points</div>
             </div>
-            <div class="imagen-finca">
-                <img src="imagenes/finca-principal.jpg" alt="Finca Altos de Kitopamba – Ecomindala">
+        </div>
+        <div class="finca-info">
+            <p class="section-tag" data-es>Nuestra Finca</p>
+            <p class="section-tag" data-en>Our Farm</p>
+            <h2 class="section-title" data-es>Altos de<br><em>Kitopamba</em></h2>
+            <h2 class="section-title" data-en>Altos de<br><em>Kitopamba</em></h2>
+            <div class="divider"></div>
+            <p class="lead lead-justify" data-es>
+                En las cumbres del cañón de Juanambú de Buesaco, Nariño, a
+                <strong>2.200 metros sobre el nivel del mar</strong>, el café de alta especialidad no es una coincidencia: es una ciencia exacta nacida de la pasión.
+                En la finca <strong>Altos de Kitopamba</strong> fusionamos la riqueza de nuestros suelos volcánicos con la tecnología más avanzada de <strong>Internet de las Cosas (IoT)</strong> y la agricultura de precisión.
+                Monitoreamos en tiempo real la nutrición de la tierra, el uso eficiente del agua y cada hora de fermentación y secado en nuestro beneficiadero.
+                Este control digital nos permite eliminar el error humano, protegiendo el medio ambiente y asegurando tazas excepcionales y consistentes de <strong>Bourbon Rosado y Geisha</strong>.
+            </p>
+            <p class="lead lead-justify" data-en>
+                In the highlands of the Juanambú Canyon in Buesaco, Nariño, at
+                <strong>2,200 meters above sea level</strong>, specialty coffee is no coincidence: it is an exact science born from passion.
+            </p>
+            <div class="finca-details">
+                <div class="finca-detail reveal-stagger">
+                    <div class="icon">🌋</div>
+                    <h4 data-es>Suelo</h4><h4 data-en>Soil</h4>
+                    <p data-es>Suelo volcánico rico en minerales y materia orgánica</p>
+                    <p data-en>Volcanic soil rich in minerals and organic matter</p>
+                </div>
+                <div class="finca-detail reveal-stagger">
+                    <div class="icon">🌡️</div>
+                    <h4 data-es>Proceso</h4><h4 data-en>Process</h4>
+                    <p data-es>Fermentación controlada y secado lento en camas elevadas</p>
+                    <p data-en>Controlled fermentation and slow drying on raised beds</p>
+                </div>
+                <div class="finca-detail reveal-stagger">
+                    <div class="icon">🌿</div>
+                    <h4 data-es>Altitud</h4><h4 data-en>Altitude</h4>
+                    <p data-es>2.200 metros sobre el nivel del mar</p>
+                    <p data-en>2,200 meters above sea level</p>
+                </div>
+                <div class="finca-detail reveal-stagger">
+                    <div class="icon">☀️</div>
+                    <h4 data-es>Cosecha</h4><h4 data-en>Harvest</h4>
+                    <p data-es>Recolección manual, selección estricta de cerezas maduras</p>
+                    <p data-en>Hand-picked, strict selection of ripe cherries</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- GALERÍA -->
-    <section id="galeria" class="reveal">
-        <p class="section-tag" data-es>Experiencia Cafetera</p>
-        <p class="section-tag" data-en>Coffee Experience</p>
-        <h2 class="section-title" data-es>Nuestra<br><em>Galería</em></h2>
-        <h2 class="section-title" data-en>Our<br><em>Gallery</em></h2>
-        <div class="divider"></div>
-        <p class="lead" data-es>Cada lote de <strong>Kitopamba</strong> cuenta una historia. Desde las montañas del Cañón del Juanambu hasta cada proceso de cultivo, fermentación y secado, compartimos la esencia de nuestra finca y el trabajo detrás de cada taza excepcional.</p>
-        <p class="lead" data-en>Every <strong>Kitopamba</strong> lot tells a story. From the mountains of the Juanambu Canyon to each cultivation, fermentation and drying process, we share the essence of our farm and the work behind every exceptional cup.</p>
-
-        <!-- VIDEO -->
-        <div class="video-container">
-            <video controls poster="imagenes/poster-video.png">
-                <source src="videos/finca-kitopamba.mp4" type="video/mp4">
-                Tu navegador no soporta video.
-            </video>
+    <!-- MARQUEE 3 entre finca y galería -->
+    <div class="marquee-band">
+        <div class="marquee-track">
+            <span>Bourbon Rosado</span><span class="dot">·</span>
+            <span>Geisha Washed</span><span class="dot">·</span>
+            <span>2200 m.s.n.m.</span><span class="dot">·</span>
+            <span>Kitopamba</span><span class="dot">·</span>
+            <span>90+ SCA Points</span><span class="dot">·</span>
+            <span>Buesaco, Nariño</span><span class="dot">·</span>
+            <span>Specialty Coffee</span><span class="dot">·</span>
+            <span>Ecomindala</span><span class="dot">·</span>
+            <span>IoT Precision</span><span class="dot">·</span>
+            <span>Café Especial</span><span class="dot">·</span>
+            <span>Bourbon Rosado</span><span class="dot">·</span>
+            <span>Geisha Washed</span><span class="dot">·</span>
+            <span>2200 m.s.n.m.</span><span class="dot">·</span>
+            <span>Kitopamba</span><span class="dot">·</span>
+            <span>90+ SCA Points</span><span class="dot">·</span>
+            <span>Buesaco, Nariño</span><span class="dot">·</span>
+            <span>Specialty Coffee</span><span class="dot">·</span>
+            <span>Ecomindala</span><span class="dot">·</span>
+            <span>IoT Precision</span><span class="dot">·</span>
+            <span>Café Especial</span><span class="dot">·</span>
         </div>
+    </div>
 
-        <!-- BOTÓN -->
-        <div class="galeria-btn-container">
-            <button class="galeria-btn" onclick="toggleGaleria()">
-                <span data-es>Explorar galería</span>
-                <span data-en>Explore gallery</span>
+    <!-- ══ GALERÍA — SLIDER DE PANTALLA COMPLETA ══ -->
+    <section id="galeria">
+        <div class="slider-wrap">
+            <div class="slider-track" id="sliderTrack">
+                <div class="slide active">
+                    <img src="imagenes/Galeria/galeria1.jpeg" alt="Finca Kitopamba">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide">
+                    <img src="imagenes/Galeria/galeria2.jpeg" alt="Cultivo Kitopamba">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide">
+                    <img src="imagenes/Galeria/galeria3.jpeg" alt="Recolección">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide">
+                    <img src="imagenes/Galeria/galeria4.jpeg" alt="Secado">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide">
+                    <img src="imagenes/Galeria/galeria5.jpeg" alt="Café Kitopamba">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide">
+                    <img src="imagenes/Galeria/galeria6.jpeg" alt="Tostado">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide">
+                    <img src="imagenes/Galeria/galeria7.jpeg" alt="Proceso">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide">
+                    <img src="imagenes//Galeria/galeria8.jpeg" alt="Beneficiadero">
+                    <div class="slide-overlay"></div>
+                </div>
+            </div>
+
+            <!-- Texto centrado sobre las imágenes -->
+            <div class="slider-content">
+                <p class="section-tag" data-es>Experiencia Cafetera</p>
+                <p class="section-tag" data-en>Coffee Experience</p>
+                <h2 class="section-title" data-es>Nuestra<br><em>Galería</em></h2>
+                <h2 class="section-title" data-en>Our<br><em>Gallery</em></h2>
+                <div class="slider-divider"></div>
+                <p class="slider-lead" data-es>Cada lote de <strong>Kitopamba</strong> cuenta una historia. Desde las montañas del Cañón del Juanambu hasta cada proceso de cultivo, fermentación y secado.</p>
+                <p class="slider-lead" data-en>Every <strong>Kitopamba</strong> lot tells a story. From the mountains of the Juanambu Canyon to each cultivation, fermentation and drying process.</p>
+            </div>
+
+            <!-- Flechas de navegación -->
+            <button class="slider-arrow slider-prev" onclick="sliderPrev()" aria-label="Anterior">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
-        </div>
+            <button class="slider-arrow slider-next" onclick="sliderNext()" aria-label="Siguiente">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
 
-        <!-- FOTOS OCULTAS -->
-        <div class="galeria-grid" id="galeriaGrid">
-            <img src="imagenes/galeria1.jpeg" alt="Finca Kitopamba">
-            <img src="imagenes/galeria2.jpeg" alt="Cultivo Kitopamba">
-            <img src="imagenes/galeria3.jpeg" alt="Recolección">
-            <img src="imagenes/galeria4.jpeg" alt="Secado">
-            <img src="imagenes/galeria5.jpeg" alt="Café Kitopamba">
-            <img src="imagenes/galeria6.jpeg" alt="Tostado">
-            <img src="imagenes/galeria7.jpeg" alt="Proceso">
-            <img src="imagenes/galeria8.jpeg" alt="Beneficiadero">
+            <!-- Puntos indicadores -->
+            <div class="slider-dots" id="sliderDots"></div>
+
+            <!-- Barra de progreso -->
+            <div class="slider-progress"><div class="slider-progress-bar" id="sliderProgressBar"></div></div>
         </div>
     </section>
 
-    <!-- VARIEDADES -->
-    <section id="variedades" class="reveal">
-        <p class="section-tag" data-es>Cafés Kitopamba</p>
-        <p class="section-tag" data-en>Kitopamba Coffees</p>
-        <h2 class="section-title" data-es>Variedades<br><em>de excepción</em></h2>
-        <h2 class="section-title" data-en>Exceptional<br><em>Varieties</em></h2>
-        <div class="divider"></div>
-        <div class="variedades-grid">
-            <div class="variedad-card">
-                <div class="score-chip">90 pts</div>
-                <div class="variedad-tag">Kitopamba · Altos del Juanambu</div>
-                <div class="variedad-nombre">Geisha</div>
-                <p class="variedad-desc" data-es>La reina del café especial. Perfil floral y afrutado de excepcional claridad, con notas de jazmín, durazno y bergamota. Puntaje SCA superior a 90.</p>
-                <p class="variedad-desc" data-en>The queen of specialty coffee. Exceptional floral and fruity profile with jasmine, peach, and bergamot notes. SCA score above 90.</p>
-                <div class="variedad-specs">
-                    <div class="variedad-spec"><span data-es>Proceso</span><span data-en>Process</span><strong data-es>Lavado</strong><strong data-en>Washed</strong></div>
-                    <div class="variedad-spec"><span data-es>Altitud</span><span data-en>Altitude</span><strong>2.200 m</strong></div>
-                    <div class="variedad-spec"><span data-es>Notas</span><span data-en>Tasting Notes</span><strong data-es>Floral, Bergamota</strong><strong data-en>Floral, Bergamot</strong></div>
-                    <div class="variedad-spec"><span data-es>Disponible</span><span data-en>Available</span><strong data-es>Verde / Tostado</strong><strong data-en>Green / Roasted</strong></div>
+    <!-- ══ MUNDO CAFÉ ══ -->
+    <section id="variedades" class="reveal mundo-cafe-section">
+        <!-- Cabecera -->
+        <div class="mc-header">
+            <div class="mc-header-left">
+                <p class="section-tag" data-es>Noticias · Colombia &amp; Mundo</p>
+                <p class="section-tag" data-en>News · Colombia &amp; World</p>
+                <h2 class="section-title" data-es>Mundo<br><em>Café</em></h2>
+                <h2 class="section-title" data-en>Coffee<br><em>World</em></h2>
+                <div class="divider"></div>
+                <p class="lead" data-es>Lo que pasa en el café colombiano y en los mercados globales. Noticias del sector, tendencias de especialidad y novedades de <strong>Kitopamba</strong>.</p>
+                <p class="lead" data-en>What's happening in Colombian coffee and global markets. Sector news, specialty trends and <strong>Kitopamba</strong> updates.</p>
+            </div>
+            <div class="mc-header-right">
+                <div class="mc-live-badge">
+                    <span class="mc-live-dot"></span>
+                    <span data-es>Actualizado con IA</span>
+                    <span data-en>AI-updated</span>
                 </div>
-            </div>
-            <div class="variedad-card">
-                <div class="score-chip">88+</div>
-                <div class="variedad-tag">Kitopamba · Altos del Juanambu</div>
-                <div class="variedad-nombre" data-es>Bourbon Rosado</div>
-                <div class="variedad-nombre" data-en>Pink Bourbon</div>
-                <p class="variedad-desc" data-es>Variedad rara y codiciada. Cuerpo sedoso, dulzor pronunciado con notas de frutas tropicales, maracuyá y miel. Un café que cuenta la historia del territorio.</p>
-                <p class="variedad-desc" data-en>A rare and coveted variety. Silky body, pronounced sweetness with tropical fruit, passion fruit and honey notes. A coffee that tells the story of the land.</p>
-                <div class="variedad-specs">
-                    <div class="variedad-spec"><span data-es>Proceso</span><span data-en>Process</span><strong data-es>Natural / Honey</strong><strong data-en>Natural / Honey</strong></div>
-                    <div class="variedad-spec"><span>SCA</span><strong>88+ pts</strong></div>
-                    <div class="variedad-spec"><span data-es>Notas</span><span data-en>Notes</span><strong data-es>Tropical, Miel</strong><strong data-en>Tropical, Honey</strong></div>
-                    <div class="variedad-spec"><span data-es>Origen</span><span data-en>Origin</span><strong data-es>Finca propia</strong><strong data-en>Own farm</strong></div>
-                </div>
-            </div>
-            <div class="variedad-card">
-                <div class="variedad-tag" data-es>Red Cafetera Ecomindala</div>
-                <div class="variedad-tag" data-en>Ecomindala Coffee Network</div>
-                <div class="variedad-nombre" data-es>Caturra · Castillo · Colombia</div>
-                <div class="variedad-nombre" data-en>Caturra · Castillo · Colombia</div>
-                <p class="variedad-desc" data-es>Alianzas con fincas del territorio nariñense. Variedades clásicas trabajadas con el mismo rigor de calidad y la narrativa comunitaria que define a Ecomindala.</p>
-                <p class="variedad-desc" data-en>Partnerships with farms across Nariño. Classic varieties crafted with the same quality rigor and community narrative that defines Ecomindala.</p>
-                <div class="variedad-specs">
-                    <div class="variedad-spec"><span data-es>Origen</span><span data-en>Origin</span><strong data-es>Nariño, Colombia</strong><strong data-en>Nariño, Colombia</strong></div>
-                    <div class="variedad-spec"><span data-es>Carácter</span><span data-en>Character</span><strong data-es>Territorial</strong><strong data-en>Territorial</strong></div>
-                    <div class="variedad-spec"><span data-es>Proceso</span><span data-en>Process</span><strong data-es>Lavado / Natural</strong><strong data-en>Washed / Natural</strong></div>
-                    <div class="variedad-spec"><span data-es>Alianzas</span><span data-en>Partners</span><strong data-es>Fincas vecinas</strong><strong data-en>Neighboring farms</strong></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TIENDA -->
-    <section id="tienda" class="reveal">
-        <div class="tienda-header">
-            <div>
-                <p class="section-tag" data-es>Tienda Kitopamba</p>
-                <p class="section-tag" data-en>Kitopamba Shop</p>
-                <h2 class="section-title" data-es>Nuestros<br><em>productos</em></h2>
-                <h2 class="section-title" data-en>Our<br><em>Products</em></h2>
-            </div>
-            <div class="filtros">
-                <button class="filtro-btn active" onclick="mostrarProducto('verde')">
-                    <span data-es>Café Verde</span><span data-en>Green Coffee</span>
-                </button>
-                <button class="filtro-btn" onclick="mostrarProducto('pergamino')">
-                    <span data-es>Pergamino</span><span data-en>Parchment</span>
-                </button>
-                <button class="filtro-btn" onclick="mostrarProducto('tostado')">
-                    <span data-es>Tostado</span><span data-en>Roasted</span>
+                <button class="mc-refresh-btn" onclick="cargarNoticiasIA()" id="mcRefreshBtn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+                    <span data-es>Actualizar noticias</span>
+                    <span data-en>Refresh news</span>
                 </button>
             </div>
         </div>
 
-        <!-- CAFÉ VERDE -->
-        <section id="verde" class="producto-seccion">
-            <div>
-                <p class="section-tag titulo-verde" data-es>Kitopamba · Café Verde</p>
-                <p class="section-tag titulo-verde" data-en>Kitopamba · Green Coffee</p>
-                <h2 class="section-title" data-es>Café verde<br><em>de la mejor cosecha</em></h2>
-                <h2 class="section-title" data-en>Green Coffee<br><em>From the best harvest</em></h2>
-                <p class="lead" data-es>En <strong>Finca Altos de Kitopamba</strong>, nuestros cultivos son monitoreados mediante tecnología IoT y sensores inteligentes que registran variables clave como humedad del suelo, radiación solar, temperatura, precipitación y condiciones ambientales. Esto nos permite tomar decisiones precisas en tiempo real para garantizar un café verde de alta calidad, sostenible y consistente desde el origen.</p>
-                <p class="lead" data-en>At <strong>Kitopamba Farm</strong>, our crops are monitored through IoT technology and smart sensors that track key variables such as soil moisture, solar radiation, temperature, rainfall, and environmental conditions. This enables real-time precision decisions to ensure high-quality, sustainable, and consistent green coffee from origin.</p>
-                <div class="productos-grid">
-
-                    <!-- VERDE: Geisha Washed -->
-                    <div class="producto-card">
-                        <span class="prod-badge" data-es>Kitopamba · Verde · 90 pts</span>
-                        <span class="prod-badge" data-en>Kitopamba · Green · 90 pts</span>
-                        <div class="prod-nombre">Geisha Washed</div>
-                        <p class="prod-desc" data-es>Perfil floral excepcional. Lote limitado. Ideal para tostadores especializados.</p>
-                        <p class="prod-desc" data-en>Exceptional floral profile. Limited lot. Ideal for specialty roasters.</p>
-                        <div class="prod-footer">
-                            <div class="prod-precio-wrap">
-                                <div class="prod-precio" id="precio-verde-geisha">
-                                    <span class="precio-val">USD $32</span>
-                                    <small class="precio-peso">/ libra</small>
-                                </div>
-                            </div>
-                            <div class="prod-actions">
-                                <div class="btn-wrap">
-                                    <button class="btn-presentacion" onclick="abrirSelector('verde-geisha')" id="btn-verde-geisha">
-                                        <span data-es>Presentación</span>
-                                        <span data-en>Size</span>
-                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                                    </button>
-                                    <div class="selector-dropdown" id="selector-verde-geisha">
-                                        <div class="selector-header">
-                                            <span data-es>Elige tu presentación</span>
-                                            <span data-en>Choose your size</span>
-                                            <button class="selector-cerrar" onclick="cerrarSelector('verde-geisha')">✕</button>
-                                        </div>
-                                        <div class="selector-opciones">
-                                            <div class="selector-opcion" onclick="elegirPresentacion('verde-geisha', '250g', 18)"><span class="op-peso">250 g</span><span class="op-precio">USD $18</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('verde-geisha', '350g', 24)"><span class="op-peso">350 g</span><span class="op-precio">USD $24</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('verde-geisha', 'libra', 32)"><span class="op-peso">Libra</span><span class="op-precio">USD $32</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('verde-geisha', 'kilo', 58)"><span class="op-peso">Kilo</span><span class="op-precio">USD $58</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn-carrito" id="wa-verde-geisha" onclick="agregarAlCarrito('verde-geisha', 'Geisha Washed', 'Café Verde')">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                                <span data-es>Agregar</span>
-                                <span data-en>Add to Cart</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- VERDE: Pink Bourbon -->
-                    <div class="producto-card">
-                        <span class="prod-badge" data-es>Kitopamba · Verde · 88+ pts</span>
-                        <span class="prod-badge" data-en>Kitopamba · Green · 88+ pts</span>
-                        <div class="prod-nombre">Pink Bourbon Natural</div>
-                        <p class="prod-desc" data-es>Dulzor tropical pronunciado. Maracuyá, mango y miel.</p>
-                        <p class="prod-desc" data-en>Tropical sweetness, passion fruit, mango and honey.</p>
-                        <div class="prod-footer">
-                            <div class="prod-precio-wrap">
-                                <div class="prod-precio" id="precio-verde-bourbon">
-                                    <span class="precio-val">USD $25</span>
-                                    <small class="precio-peso">/ libra</small>
-                                </div>
-                            </div>
-                            <div class="prod-actions">
-                                <div class="btn-wrap">
-                                    <button class="btn-presentacion" onclick="abrirSelector('verde-bourbon')" id="btn-verde-bourbon">
-                                        <span data-es>Presentación</span>
-                                        <span data-en>Size</span>
-                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                                    </button>
-                                    <div class="selector-dropdown" id="selector-verde-bourbon">
-                                        <div class="selector-header">
-                                            <span data-es>Elige tu presentación</span>
-                                            <span data-en>Choose your size</span>
-                                            <button class="selector-cerrar" onclick="cerrarSelector('verde-bourbon')">✕</button>
-                                        </div>
-                                        <div class="selector-opciones">
-                                            <div class="selector-opcion" onclick="elegirPresentacion('verde-bourbon', '250g', 14)"><span class="op-peso">250 g</span><span class="op-precio">USD $14</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('verde-bourbon', '350g', 19)"><span class="op-peso">350 g</span><span class="op-precio">USD $19</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('verde-bourbon', 'libra', 25)"><span class="op-peso">Libra</span><span class="op-precio">USD $25</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('verde-bourbon', 'kilo', 44)"><span class="op-peso">Kilo</span><span class="op-precio">USD $44</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn-carrito" id="wa-verde-bourbon" onclick="agregarAlCarrito('verde-bourbon', 'Pink Bourbon Natural', 'Café Verde')">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                                <span data-es>Agregar</span>
-                                <span data-en>Add to Cart</span>
-                            </button>
-                        </div>
-                    </div>
-
+        <!-- Slider de noticias externas (cargadas con IA) -->
+        <div class="mc-news-slider">
+            <div class="mc-news-track" id="mcNewsTrack">
+                <!-- Tarjetas generadas por JS -->
+                <div class="mc-skeleton-wrap" id="mcSkeleton">
+                    <div class="mc-skeleton"></div>
+                    <div class="mc-skeleton"></div>
+                    <div class="mc-skeleton"></div>
                 </div>
             </div>
-        </section>
+            <button class="mc-arrow mc-arrow-prev" onclick="mcSliderPrev()" aria-label="Anterior">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="mc-arrow mc-arrow-next" onclick="mcSliderNext()" aria-label="Siguiente">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="mc-dots" id="mcDots"></div>
+        </div>
 
-        <!-- CAFÉ PERGAMINO -->
-        <section id="pergamino" class="producto-seccion" style="display:none;">
-            <div>
-                <p class="section-tag titulo-verde" data-es>Kitopamba · Pergamino</p>
-                <p class="section-tag titulo-verde" data-en>Kitopamba · Parchment</p>
-                <h2 class="section-title" data-es>Café pergamino<br><em>cuidadosamente procesado</em></h2>
-                <h2 class="section-title" data-en>Parchment coffee<br><em>carefully processed</em></h2>
-                <p class="lead" data-es>Nuestro café pergamino <strong>Kitopamba</strong> atraviesa un proceso cuidadosamente monitoreado desde la fermentación hasta el secado. Sensores ambientales y sistemas de control supervisan temperatura, humedad y condiciones del proceso, garantizando estabilidad, conservación de atributos sensoriales y una calidad homogénea en cada lote.</p>
-                <p class="lead" data-en>Our <strong>Kitopamba</strong> parchment coffee goes through a carefully monitored process from fermentation to drying. Environmental sensors and control systems supervise temperature, humidity, and process conditions, ensuring stability, preservation of sensory attributes, and consistent quality in every lot.</p>
-                <div class="productos-grid">
-                    <div class="producto-card">
-                        <span class="prod-badge" data-es>Kitopamba · Pergamino · 90 pts</span>
-                        <span class="prod-badge" data-en>Kitopamba · Parchment · 90 pts</span>
-                        <div class="prod-nombre">Geisha Washed</div>
-                        <p class="prod-desc" data-es>Perfil floral excepcional. Lote limitado. Ideal para tostadores especializados.</p>
-                        <p class="prod-desc" data-en>Exceptional floral profile. Limited lot. Ideal for specialty roasters.</p>
-                        <div class="prod-footer">
-                            <div class="prod-precio">USD $28 <small>/250g</small></div>
-                            <button class="prod-add" data-es>Agregar</button>
-                            <button class="prod-add" data-en>Add</button>
-                        </div>
-                    </div>
-                    <div class="producto-card">
-                        <span class="prod-badge" data-es>Kitopamba · Pergamino · 88+ pts</span>
-                        <span class="prod-badge" data-en>Kitopamba · Parchment · 88+ pts</span>
-                        <div class="prod-nombre">Pink Bourbon Natural</div>
-                        <p class="prod-desc" data-es>Dulzor tropical pronunciado. Maracuyá, mango y miel.</p>
-                        <p class="prod-desc" data-en>Tropical sweetness, passion fruit, mango and honey.</p>
-                        <div class="prod-footer">
-                            <div class="prod-precio">USD $22 <small>/250g</small></div>
-                            <button class="prod-add" data-es>Agregar</button>
-                            <button class="prod-add" data-en>Add</button>
-                        </div>
-                    </div>
+        <!-- Divisor -->
+        <div class="mc-divider-row">
+            <div class="mc-divider-line"></div>
+            <span class="mc-divider-label" data-es>☕ Desde Kitopamba</span>
+            <span class="mc-divider-label" data-en>☕ From Kitopamba</span>
+            <div class="mc-divider-line"></div>
+        </div>
+
+        <!-- Grid de publicaciones propias de Kitopamba -->
+        <div class="mc-own-grid">
+
+            <article class="mc-own-card reveal-stagger">
+                <div class="mc-own-img-wrap">
+                    <img src="imagenes/Mundocafe/finca-principal.jpg" alt="Cosecha 2025" onerror="this.parentElement.style.background='var(--verde)'">
+                    <span class="mc-own-cat" data-es>Cosecha</span>
+                    <span class="mc-own-cat" data-en>Harvest</span>
                 </div>
-            </div>
-        </section>
-
-        <!-- CAFÉ TOSTADO -->
-        <section id="tostado" class="producto-seccion" style="display:none;">
-            <div>
-                <p class="section-tag titulo-tostado" data-es>Kitopamba · Planta de Tostión · Pasto</p>
-                <p class="section-tag titulo-tostado" data-en>Kitopamba · Roastery · Pasto</p>
-                <h2 class="section-title" data-es>Café tostado<br><em>con precisión</em></h2>
-                <h2 class="section-title" data-en>Coffee roasted<br><em>with precision</em></h2>
-                <p class="lead" data-es>El café tostado <strong>Kitopamba</strong> es desarrollado mediante perfiles cuidadosamente definidos y controlados para resaltar las características únicas de cada variedad. Monitoreamos variables como temperatura, tiempo y flujo de aire para lograr perfiles de taza consistentes, equilibrados y expresivos en cada tostión.</p>
-                <p class="lead" data-en><strong>Kitopamba</strong> roasted coffee is developed through carefully designed and controlled profiles to highlight the unique characteristics of each variety. We monitor variables such as temperature, time, and airflow to achieve consistent, balanced, and expressive cup profiles in every roast.</p>
-                <div class="productos-grid">
-
-                    <!-- TOSTADO: Geisha Washed -->
-                    <div class="producto-card">
-                        <span class="prod-badge" data-es>Kitopamba · Tostado · 90 pts</span>
-                        <span class="prod-badge" data-en>Kitopamba · Roasted · 90 pts</span>
-                        <div class="prod-nombre">Geisha Washed</div>
-                        <p class="prod-desc" data-es>Perfil floral excepcional. Lote limitado. Ideal para tostadores especializados.</p>
-                        <p class="prod-desc" data-en>Exceptional floral profile. Limited lot. Ideal for specialty roasters.</p>
-                        <div class="prod-footer">
-                            <div class="prod-precio-wrap">
-                                <div class="prod-precio" id="precio-tostado-geisha">
-                                    <span class="precio-val">USD $38</span>
-                                    <small class="precio-peso">/ libra</small>
-                                </div>
-                            </div>
-                            <div class="prod-actions">
-                                <div class="btn-wrap">
-                                    <button class="btn-presentacion" onclick="abrirSelector('tostado-geisha')" id="btn-tostado-geisha">
-                                        <span data-es>Presentación</span>
-                                        <span data-en>Size</span>
-                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                                    </button>
-                                    <div class="selector-dropdown" id="selector-tostado-geisha">
-                                        <div class="selector-header">
-                                            <span data-es>Elige tu presentación</span>
-                                            <span data-en>Choose your size</span>
-                                            <button class="selector-cerrar" onclick="cerrarSelector('tostado-geisha')">✕</button>
-                                        </div>
-                                        <div class="selector-opciones">
-                                            <div class="selector-opcion" onclick="elegirPresentacion('tostado-geisha', '250g', 22)"><span class="op-peso">250 g</span><span class="op-precio">USD $22</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('tostado-geisha', '350g', 29)"><span class="op-peso">350 g</span><span class="op-precio">USD $29</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('tostado-geisha', 'libra', 38)"><span class="op-peso">Libra</span><span class="op-precio">USD $38</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('tostado-geisha', 'kilo', 68)"><span class="op-peso">Kilo</span><span class="op-precio">USD $68</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn-carrito" id="wa-tostado-geisha" onclick="agregarAlCarrito('tostado-geisha', 'Geisha Washed', 'Café Tostado')">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                                <span data-es>Agregar</span>
-                                <span data-en>Add to Cart</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- TOSTADO: Pink Bourbon -->
-                    <div class="producto-card">
-                        <span class="prod-badge" data-es>Kitopamba · Tostado · 88+ pts</span>
-                        <span class="prod-badge" data-en>Kitopamba · Roasted · 88+ pts</span>
-                        <div class="prod-nombre">Pink Bourbon Natural</div>
-                        <p class="prod-desc" data-es>Dulzor tropical pronunciado. Maracuyá, mango y miel.</p>
-                        <p class="prod-desc" data-en>Tropical sweetness, passion fruit, mango and honey.</p>
-                        <div class="prod-footer">
-                            <div class="prod-precio-wrap">
-                                <div class="prod-precio" id="precio-tostado-bourbon">
-                                    <span class="precio-val">USD $30</span>
-                                    <small class="precio-peso">/ libra</small>
-                                </div>
-                            </div>
-                            <div class="prod-actions">
-                                <div class="btn-wrap">
-                                    <button class="btn-presentacion" onclick="abrirSelector('tostado-bourbon')" id="btn-tostado-bourbon">
-                                        <span data-es>Presentación</span>
-                                        <span data-en>Size</span>
-                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                                    </button>
-                                    <div class="selector-dropdown" id="selector-tostado-bourbon">
-                                        <div class="selector-header">
-                                            <span data-es>Elige tu presentación</span>
-                                            <span data-en>Choose your size</span>
-                                            <button class="selector-cerrar" onclick="cerrarSelector('tostado-bourbon')">✕</button>
-                                        </div>
-                                        <div class="selector-opciones">
-                                            <div class="selector-opcion" onclick="elegirPresentacion('tostado-bourbon', '250g', 17)"><span class="op-peso">250 g</span><span class="op-precio">USD $17</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('tostado-bourbon', '350g', 23)"><span class="op-peso">350 g</span><span class="op-precio">USD $23</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('tostado-bourbon', 'libra', 30)"><span class="op-peso">Libra</span><span class="op-precio">USD $30</span></div>
-                                            <div class="selector-opcion" onclick="elegirPresentacion('tostado-bourbon', 'kilo', 54)"><span class="op-peso">Kilo</span><span class="op-precio">USD $54</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="btn-carrito" id="wa-tostado-bourbon" onclick="agregarAlCarrito('tostado-bourbon', 'Pink Bourbon Natural', 'Café Tostado')">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                                <span data-es>Agregar</span>
-                                <span data-en>Add to Cart</span>
-                            </button>
-                        </div>
-                    </div>
-
+                <div class="mc-own-body">
+                    <div class="mc-own-date">Junio 2025</div>
+                    <h3 class="mc-own-title" data-es>Cosecha 2025: Geisha alcanza 90.3 puntos SCA en cata internacional</h3>
+                    <h3 class="mc-own-title" data-en>2025 Harvest: Geisha scores 90.3 SCA points in international cupping</h3>
+                    <p class="mc-own-desc" data-es>Esta temporada el lote de Geisha Lavado de Altos de Kitopamba superó sus propios récords. La fermentación anaerobia de 36 horas y el secado lento en camas africanas dieron como resultado una taza excepcional con notas de jazmín, bergamota y té blanco.</p>
+                    <p class="mc-own-desc" data-en>This season our Washed Geisha lot from Altos de Kitopamba broke its own records. The 36-hour anaerobic fermentation and slow drying on raised beds produced an exceptional cup with jasmine, bergamot and white tea notes.</p>
+                    <a href="#contacto" class="mc-own-link">
+                        <span data-es>Solicitar este lote</span><span data-en>Request this lot</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
                 </div>
-            </div>
-        </section>
+            </article>
 
+            <article class="mc-own-card reveal-stagger">
+                <div class="mc-own-img-wrap">
+                    <img src="imagenes/Mundocafe/cultivomonitor.jpeg" alt="IoT Kitopamba" onerror="this.parentElement.style.background='var(--verde)'">
+                    <span class="mc-own-cat">IoT</span>
+                </div>
+                <div class="mc-own-body">
+                    <div class="mc-own-date">Mayo 2025</div>
+                    <h3 class="mc-own-title" data-es>Cómo el monitoreo IoT en tiempo real cambió nuestra fermentación</h3>
+                    <h3 class="mc-own-title" data-en>How real-time IoT monitoring transformed our fermentation process</h3>
+                    <p class="mc-own-desc" data-es>Con sensores de pH, temperatura y grados Brix conectados 24/7, Guillermo Torres ahora toma decisiones basadas en datos precisos durante cada hora del proceso de beneficio. El resultado: consistencia lote a lote que antes era imposible de garantizar.</p>
+                    <p class="mc-own-desc" data-en>With pH, temperature and Brix sensors connected 24/7, Guillermo Torres now makes decisions based on precise data during every hour of the wet milling process. The result: lot-to-lot consistency that was previously impossible to guarantee.</p>
+                    <a href="#contacto" class="mc-own-link">
+                        <span data-es>Conocer más</span><span data-en>Learn more</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+            </article>
+
+            <article class="mc-own-card reveal-stagger">
+                <div class="mc-own-img-wrap">
+                    <img src="imagenes/Mundocafe/variedad.jpeg" alt="Bourbon Rosado" onerror="this.parentElement.style.background='var(--verde)'">
+                    <span class="mc-own-cat" data-es>Variedad</span>
+                    <span class="mc-own-cat" data-en>Variety</span>
+                </div>
+                <div class="mc-own-body">
+                    <div class="mc-own-date">Abril 2025</div>
+                    <h3 class="mc-own-title" data-es>Bourbon Rosado: la variedad más exclusiva de Nariño llega a Europa</h3>
+                    <h3 class="mc-own-title" data-en>Pink Bourbon: Nariño's most exclusive variety reaches Europe</h3>
+                    <p class="mc-own-desc" data-es>Los primeros lotes de Bourbon Rosado Natural de Kitopamba fueron exportados a tostadores de especialidad en Alemania y los Países Bajos. Una mutación genética única a 2.200 msnm que produce cerezas de color rosado con dulzor y complejidad frutal excepcionales.</p>
+                    <p class="mc-own-desc" data-en>The first Kitopamba Natural Pink Bourbon lots were exported to specialty roasters in Germany and the Netherlands. A unique genetic mutation at 2,200 masl producing pink-colored cherries with exceptional sweetness and fruity complexity.</p>
+                    <a href="#tienda" class="mc-own-link">
+                        <span data-es>Ver producto</span><span data-en>View product</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+            </article>
+        </div><!-- /mc-own-grid -->
     </section>
 
-    <!-- IMPACTO -->
+    <!-- MARQUEE 3 — antes de impacto -->
+    <div class="marquee-band">
+        <div class="marquee-track">
+            <span>Impacto Social</span><span class="dot">·</span>
+            <span>60% Mujeres Productoras</span><span class="dot">·</span>
+            <span>15+ Familias Cafeteras</span><span class="dot">·</span>
+            <span>100% Sostenible</span><span class="dot">·</span>
+            <span>Ecomindala</span><span class="dot">·</span>
+            <span>Nariño, Colombia</span><span class="dot">·</span>
+            <span>Café con Propósito</span><span class="dot">·</span>
+            <span>Impacto Social</span><span class="dot">·</span>
+            <span>60% Mujeres Productoras</span><span class="dot">·</span>
+            <span>15+ Familias Cafeteras</span><span class="dot">·</span>
+            <span>100% Sostenible</span><span class="dot">·</span>
+            <span>Ecomindala</span><span class="dot">·</span>
+            <span>Nariño, Colombia</span><span class="dot">·</span>
+            <span>Café con Propósito</span><span class="dot">·</span>
+        </div>
+    </div>
+
+    <!-- ══ IMPACTO ══ -->
     <section id="impacto" class="reveal">
         <p class="section-tag" data-es>Impacto Social y Ambiental</p>
         <p class="section-tag" data-en>Social & Environmental Impact</p>
@@ -515,27 +687,114 @@
         <h2 class="section-title" data-en>Coffee with<br><em>purpose</em></h2>
         <p class="lead" data-es>Cada taza <strong>Kitopamba</strong> que disfrutas contribuye al desarrollo de comunidades cafeteras en Nariño, con énfasis en el empoderamiento de mujeres, jóvenes productores y prácticas sostenibles impulsadas por <strong>Ecomindala</strong>.</p>
         <p class="lead" data-en>Every <strong>Kitopamba</strong> cup you enjoy contributes to the development of coffee-growing communities in Nariño, with emphasis on empowering women, young farmers and sustainable practices driven by <strong>Ecomindala</strong>.</p>
-        <div class="impacto-grid">
-            <div class="impacto-card"><div class="impacto-icon">👩‍🌾</div><div class="impacto-num">60%</div><div class="impacto-lbl" data-es>Mujeres productoras en nuestras alianzas</div><div class="impacto-lbl" data-en>Women farmers in our partnerships</div></div>
-            <div class="impacto-card"><div class="impacto-icon">🌱</div><div class="impacto-num">100%</div><div class="impacto-lbl" data-es>Prácticas agroecológicas y sostenibles</div><div class="impacto-lbl" data-en>Agroecological and sustainable practices</div></div>
-            <div class="impacto-card"><div class="impacto-icon">🤝</div><div class="impacto-num">15+</div><div class="impacto-lbl" data-es>Familias cafeteras aliadas en Nariño</div><div class="impacto-lbl" data-en>Partner coffee families in Nariño</div></div>
-            <div class="impacto-card"><div class="impacto-icon">🏔️</div><div class="impacto-num">5</div><div class="impacto-lbl" data-es>Municipios del territorio cafetero</div><div class="impacto-lbl" data-en>Municipalities of coffee territory</div></div>
+        <div class="impacto-slider">
+            <!-- Slide 1: Mujeres -->
+            <div class="impacto-slide active" style="background-image: url('imagenes/Impacto/mujeres.jpeg')">
+                <div class="impacto-slide-overlay"></div>
+                <div class="impacto-slide-content">
+                    <div class="impacto-slide-num">60%</div>
+                    <h3 class="impacto-slide-title" data-es>Mujeres que<br><em>mueven montañas</em></h3>
+                    <h3 class="impacto-slide-title" data-en>Women who<br><em>move mountains</em></h3>
+                    <p class="impacto-slide-desc" data-es>6 de cada 10 productores de nuestra red son mujeres cafeteras. Ellas lideran la cosecha, el beneficio y la toma de decisiones en sus fincas. Ecomindala las pone al centro.</p>
+                    <p class="impacto-slide-desc" data-en>6 out of 10 producers in our network are women coffee farmers. They lead harvesting, processing and decision-making on their farms. Ecomindala puts them at the center.</p>
+                </div>
+            </div>
+            <!-- Slide 2: Sostenibilidad -->
+            <div class="impacto-slide" style="background-image: url('imagenes/Impacto/tierra.jpeg')">
+                <div class="impacto-slide-overlay"></div>
+                <div class="impacto-slide-content">
+                    <div class="impacto-slide-num">100%</div>
+                    <h3 class="impacto-slide-title" data-es>La tierra primero,<br><em>siempre</em></h3>
+                    <h3 class="impacto-slide-title" data-en>The land first,<br><em>always</em></h3>
+                    <p class="impacto-slide-desc" data-es>Sin químicos agresivos, sin atajos. Cada finca aliada trabaja con prácticas agroecológicas que regeneran el suelo volcánico de Nariño y protegen las fuentes de agua del Cañón del Juanambu.</p>
+                    <p class="impacto-slide-desc" data-en>No harsh chemicals, no shortcuts. Every partner farm uses agroecological practices that regenerate Nariño's volcanic soil and protect the water sources of the Juanambu Canyon.</p>
+                </div>
+            </div>
+            <!-- Slide 3: Familias -->
+            <div class="impacto-slide" style="background-image: url('imagenes/Impacto/familias.jpeg')">
+                <div class="impacto-slide-overlay"></div>
+                <div class="impacto-slide-content">
+                    <div class="impacto-slide-num">15+</div>
+                    <h3 class="impacto-slide-title" data-es>Familias unidas<br><em>por el café</em></h3>
+                    <h3 class="impacto-slide-title" data-en>Families united<br><em>by coffee</em></h3>
+                    <p class="impacto-slide-desc" data-es>Más de 15 familias cafeteras de Nariño conectadas a nuestra red. Cada lote que comprás respalda directamente su sustento, su dignidad y el futuro de sus hijos en el campo.</p>
+                    <p class="impacto-slide-desc" data-en>More than 15 coffee families from Nariño connected to our network. Every lot you buy directly supports their livelihood, dignity and their children's future in the countryside.</p>
+                </div>
+            </div>
+            <!-- Slide 4: Territorio -->
+            <div class="impacto-slide" style="background-image: url('imagenes/Impacto/municipio.jpeg')">
+                <div class="impacto-slide-overlay"></div>
+                <div class="impacto-slide-content">
+                    <div class="impacto-slide-num">varios</div>
+                    <h3 class="impacto-slide-title" data-es>Municipios,<br><em>un solo propósito</em></h3>
+                    <h3 class="impacto-slide-title" data-en>Municipalities,<br><em>one purpose</em></h3>
+                    <p class="impacto-slide-desc" data-es>Buesaco, La Unión, San Lorenzo, El Tablón de Gómez entre otros. varios municipios nariñenses que producen algunos de los cafés más puntados de Colombia, a más de 2.000 metros.</p>
+                    <p class="impacto-slide-desc" data-en>Buesaco, La Unión, San Lorenzo, El Tablón de Gómez inter alia. several Nariño municipalities producing some of Colombia's highest-scoring coffees, above 2,000 meters.</p>
+                </div>
+            </div>
+            <!-- Controles -->
+            <button class="impacto-arrow impacto-prev" onclick="impactoPrev()" aria-label="Anterior">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="impacto-arrow impacto-next" onclick="impactoNext()" aria-label="Siguiente">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="impacto-dots" id="impactoDots">
+                <button class="impacto-dot active" onclick="impactoGoTo(0)"></button>
+                <button class="impacto-dot" onclick="impactoGoTo(1)"></button>
+                <button class="impacto-dot" onclick="impactoGoTo(2)"></button>
+                <button class="impacto-dot" onclick="impactoGoTo(3)"></button>
+            </div>
         </div>
     </section>
 
-    <!-- FINCAS ALIADAS -->
+    <!-- ══ FINCAS ALIADAS ══ -->
     <section id="fincas" class="reveal">
-        <p class="section-tag" data-es>Red Cafetera Ecomindala</p>
-        <p class="section-tag" data-en>Ecomindala Coffee Network</p>
-        <h2 class="section-title" data-es>Nuestras<br><em>Fincas Aliadas</em></h2>
-        <h2 class="section-title" data-en>Our<br><em>Partner Farms</em></h2>
-        <div class="divider"></div>
-        <p class="lead" data-es>Una red de fincas cafeteras conectadas mediante monitoreo IoT para garantizar calidad, trazabilidad y mejores decisiones en campo. La misma tecnología que hace de <strong>Kitopamba</strong> un café de clase mundial.</p>
-        <p class="lead" data-en>A network of coffee farms connected through IoT monitoring for quality, traceability, and better field decisions. The same technology that makes <strong>Kitopamba</strong> a world-class coffee.</p>
-        <div class="fincas-grid" id="fincas-container"></div>
+        <div class="tienda-showcase">
+            <div class="tienda-texto">
+                <p class="section-tag" data-es>Red Cafetera Ecomindala</p>
+                <p class="section-tag" data-en>Ecomindala Coffee Network</p>
+                <h2 class="section-title" data-es>Nuestras<br><em>Fincas Aliadas</em></h2>
+                <h2 class="section-title" data-en>Our<br><em>Partner Farms</em></h2>
+                <div class="divider"></div>
+                <p class="lead lead-justify" data-es><strong>Nuestras fincas aliadas</strong> son el corazón de la red cafetera Ecomindala. Son familias del territorio nariñense que comparten nuestra visión: producir café de excelencia cuidando la tierra, la gente y cada proceso desde la semilla hasta la taza.</p>
+                <p class="lead lead-justify" data-en><strong>Our partner farms</strong> are the heart of the Ecomindala coffee network. They are families from the Nariño territory who share our vision: producing excellence coffee while caring for the land, the people and every process from seed to cup.</p>
+                <p class="lead lead-justify" style="margin-top:16px" data-es>Cada finca está conectada a nuestra plataforma de <strong>monitoreo IoT</strong> en tiempo real, que registra temperatura de fermentación, pH, grados Brix y condiciones ambientales de cada proceso. Así garantizamos que el café que lleva el sello <strong>Ecomindala</strong> cumpla los más altos estándares, lote a lote, familia a familia.</p>
+                <p class="lead lead-justify" style="margin-top:16px" data-en>Each farm is connected to our real-time <strong>IoT monitoring</strong> platform, recording fermentation temperature, pH, Brix degrees and environmental conditions for every process. This ensures that coffee bearing the <strong>Ecomindala</strong> seal meets the highest standards, lot by lot, family by family.</p>
+                <div class="tienda-stats">
+                    <div class="tienda-stat">
+                        <strong>15+</strong>
+                        <span data-es>Familias aliadas</span><span data-en>Partner families</span>
+                    </div>
+                    <div class="tienda-stat">
+                        <strong>100%</strong>
+                        <span data-es>IoT conectado</span><span data-en>IoT connected</span>
+                    </div>
+                    <div class="tienda-stat">
+                        <strong>5</strong>
+                        <span data-es>Municipios</span><span data-en>Municipalities</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tienda-visual">
+                <div class="tienda-img-wrap">
+                    <img src="imagenes/finca-principal.jpg" alt="Fincas Aliadas Ecomindala" class="tienda-img" onerror="this.src='imagenes/galeria1.jpeg'">
+                    <div class="tienda-img-overlay"></div>
+                    <div class="tienda-img-badge">
+                        <span data-es>Red IoT · Nariño, Colombia</span>
+                        <span data-en>IoT Network · Nariño, Colombia</span>
+                    </div>
+                </div>
+                <a href="fincas.html" class="tienda-ver-mas">
+                    <span data-es>Explorar fincas aliadas</span>
+                    <span data-en>Explore partner farms</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+        </div>
     </section>
 
-    <!-- CONTACTO -->
+    <!-- ══ CONTACTO ══ -->
     <section id="contacto" class="reveal">
         <div>
             <p class="section-tag" data-es>Contacto y Alianzas</p>
@@ -545,21 +804,18 @@
             <div class="divider"></div>
             <div class="contacto-info">
                 <div class="info-item">
-                    <h4 data-es>Empresa Exportadora</h4>
-                    <h4 data-en>Export Company</h4>
+                    <h4 data-es>Empresa Exportadora</h4><h4 data-en>Export Company</h4>
                     <p>Ecomindala SAS<br>Pasto, Nariño, Colombia</p>
                 </div>
                 <div class="info-item">
-                    <h4 data-es>Contacto Directo</h4>
-                    <h4 data-en>Direct Contact</h4>
-                    <a href="https://wa.me/573000000000" class="whatsapp-btn">
+                    <h4 data-es>Contacto Directo</h4><h4 data-en>Direct Contact</h4>
+                    <a href="https://wa.me/573026775940" class="whatsapp-btn">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         WhatsApp
                     </a>
                 </div>
                 <div class="info-item">
-                    <h4 data-es>Redes Sociales</h4>
-                    <h4 data-en>Social Media</h4>
+                    <h4 data-es>Redes Sociales</h4><h4 data-en>Social Media</h4>
                     <div class="redes">
                         <a href="https://www.instagram.com/TU_USUARIO" target="_blank" class="red-link">Instagram</a>
                         <a href="https://www.facebook.com/TU_PAGINA" target="_blank" class="red-link">Facebook</a>
@@ -567,10 +823,9 @@
                     </div>
                 </div>
                 <div class="info-item">
-                    <h4 data-es>Exportaciones</h4>
-                    <h4 data-en>Exports</h4>
-                    <p data-es>Integraciones con PayPal, Stripe y pasarelas nacionales (PSE, Nequi). Envíos a todo el mundo.</p>
-                    <p data-en>Integrations with PayPal, Stripe and domestic gateways. Shipping worldwide.</p>
+                    <h4 data-es>Exportaciones</h4><h4 data-en>Exports</h4>
+                    <p data-es>Envíos a todo el mundo. Integraciones con PayPal, Stripe y pasarelas nacionales (PSE, Nequi).</p>
+                    <p data-en>Shipping worldwide. Integrations with PayPal, Stripe and domestic gateways.</p>
                 </div>
             </div>
         </div>
@@ -618,8 +873,7 @@
                     <textarea rows="5" name="Mensaje" placeholder="Cuéntanos sobre tu interés en Kitopamba, volumen estimado o cualquier pregunta..." required></textarea>
                 </div>
                 <button type="submit" class="form-submit">
-                    <span data-es>Enviar Mensaje</span>
-                    <span data-en>Send Message</span>
+                    <span data-es>Enviar Mensaje</span><span data-en>Send Message</span>
                 </button>
             </form>
         </div>
@@ -637,7 +891,6 @@
             <ul>
                 <li><a href="#finca" data-es>La Finca</a><a href="#finca" data-en>The Farm</a></li>
                 <li><a href="#variedades" data-es>Variedades</a><a href="#variedades" data-en>Varieties</a></li>
-                <li><a href="#tostado" data-es>Café Tostado</a><a href="#tostado" data-en>Roasted Coffee</a></li>
                 <li><a href="#impacto" data-es>Impacto</a><a href="#impacto" data-en>Impact</a></li>
             </ul>
         </div>
@@ -654,7 +907,7 @@
             <h5 data-es>Contacto</h5><h5 data-en>Contact</h5>
             <ul>
                 <li><a href="mailto:mtorresdaza@gmail.com">mtorresdaza@gmail.com</a></li>
-                <li><a href="https://wa.me/573000000000">WhatsApp</a></li>
+                <li><a href="https://wa.me/573026775940">WhatsApp</a></li>
                 <li><a href="https://www.instagram.com/TU_USUARIO">Instagram</a></li>
                 <li><a href="https://www.linkedin.com/company/ecomindala">LinkedIn</a></li>
             </ul>
@@ -665,7 +918,7 @@
         <span><a href="#" data-es>Política de Privacidad</a><a href="#" data-en>Privacy Policy</a> · <a href="#" data-es>Términos</a><a href="#" data-en>Terms</a></span>
     </div>
 
-    <!-- CARRITO PANEL -->
+    <!-- PANEL CARRITO -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCarrito()"></div>
     <div class="cart-panel" id="cartPanel">
         <div class="cart-panel-header">
@@ -686,13 +939,12 @@
                 <span class="cart-subtotal-label" data-en>Total</span>
                 <span class="cart-subtotal-val" id="cartTotal">USD $0</span>
             </div>
+            <div class="cart-subtotal-alt" id="cartTotalAlt"></div>
             <button class="cart-checkout-btn" onclick="checkout()">
-                <span data-es>Proceder al pago</span>
-                <span data-en>Proceed to Checkout</span>
+                <span data-es>Proceder al pago vía WhatsApp</span><span data-en>Checkout via WhatsApp</span>
             </button>
             <button class="cart-clear-btn" onclick="vaciarCarrito()">
-                <span data-es>Vaciar carrito</span>
-                <span data-en>Clear cart</span>
+                <span data-es>Vaciar carrito</span><span data-en>Clear cart</span>
             </button>
         </div>
     </div>
@@ -706,8 +958,103 @@
         <span class="modal-next" onclick="cambiarImagen(1)">❯</span>
     </div>
 
-    <!-- SCRIPTS -->
+    <!-- MODAL DE PRODUCTO — fuera de todas las secciones -->
+    <div class="product-overlay" id="productOverlay" onclick="closeProduct()"></div>
+    <div class="product-modal" id="productModal">
+        <button class="pm-close" onclick="closeProduct()">✕</button>
+        <div class="pm-inner" id="pmInner">
+
+            <div class="pm-gallery">
+                <img id="pm-img" src="" alt="">
+                <div class="pm-gallery-badge" id="pm-badge">Tostado</div>
+                <div class="pm-score-badge" id="pm-score">90<small>SCA pts</small></div>
+            </div>
+
+            <div class="pm-info">
+                <div class="pm-header">
+                    <div class="pm-tag" id="pm-tag"></div>
+                    <div class="pm-name" id="pm-name"></div>
+                    <div class="pm-subtitle" id="pm-subtitle"></div>
+                </div>
+                <div class="pm-ficha">
+                    <div class="pm-ficha-section" id="pm-ficha-left">
+                        <div class="pm-ficha-title">PRODUCTOR · FINCA</div>
+                    </div>
+                    <div class="pm-ficha-section" id="pm-ficha-right">
+                        <div class="pm-ficha-title">PROCESO · PERFIL</div>
+                    </div>
+                </div>
+                <div class="pm-middle">
+                    <div class="pm-proceso">
+                        <div class="pm-proceso-title">
+                            <span class="pm-proceso-icon">⚗️</span>
+                            <span data-es>PROCESO DE BENEFICIO</span>
+                            <span data-en>PROCESSING METHOD</span>
+                        </div>
+                        <p class="pm-proceso-text" id="pm-proceso-text"></p>
+                    </div>
+                    <div class="pm-perfil">
+                        <div class="pm-perfil-title" data-es>NOTAS DE TAZA</div>
+                        <div class="pm-perfil-title" data-en>CUP NOTES</div>
+                        <div class="pm-notas" id="pm-notas"></div>
+                    </div>
+                </div>
+                <div class="pm-bottom">
+                    <div class="pm-bottom-top-row">
+                        <div class="pm-price-block">
+                            <span class="pm-price-main" id="pm-price-main">USD $22</span>
+                            <span class="pm-price-alt" id="pm-price-alt">≈ COP $92.000</span>
+                            <span class="pm-price-size" id="pm-price-size">/ 250g</span>
+                        </div>
+                        <div class="pm-qty-block">
+                            <span class="pm-qty-title" data-es>CANTIDAD</span>
+                            <span class="pm-qty-title" data-en>QUANTITY</span>
+                            <div class="pm-qty-controls">
+                                <button class="pm-qty-dec" onclick="changeQty(-1)">−</button>
+                                <span class="pm-qty-val" id="pmQtyVal">1</span>
+                                <button class="pm-qty-inc" onclick="changeQty(1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pm-bottom-pres-row">
+                        <div class="pm-pres-block">
+                            <span class="pm-sizes-title" data-es>PRESENTACIÓN</span>
+                            <span class="pm-sizes-title" data-en>PRESENTATION</span>
+                            <div class="pm-sizes" id="pm-sizes"></div>
+                        </div>
+                        <div id="pm-grind-section" class="pm-grind-block">
+                            <span class="pm-grind-title" data-es>PREPARACIÓN</span>
+                            <span class="pm-grind-title" data-en>PREPARATION</span>
+                            <div class="pm-grind-options">
+                                <button class="pm-grind-btn selected" id="grindGrano" onclick="selectGrind('grano')">
+                                    <span class="pm-grind-icon">🫘</span>
+                                    <span data-es>En grano</span><span data-en>Whole bean</span>
+                                </button>
+                                <button class="pm-grind-btn" id="grindMolido" onclick="selectGrind('molido')">
+                                    <span class="pm-grind-icon">☕</span>
+                                    <span data-es>Molido</span><span data-en>Ground</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pm-actions">
+                    <button class="pm-add-btn" id="pmAddBtn" onclick="addFromModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                        <span data-es>Agregar al carrito</span><span data-en>Add to cart</span>
+                    </button>
+                    <button class="pm-buy-now-btn" onclick="buyNowModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+                        <span data-es>Comprar ahora · WhatsApp</span><span data-en>Buy now · WhatsApp</span>
+                    </button>
+                </div>
+            </div><!-- /pm-info -->
+
+        </div><!-- /pm-inner -->
+    </div><!-- /product-modal -->
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="carrito.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Cafetera Ecomindala – Fincas Aliadas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde:        #1a3a2a;
+            --verde-medio:  #2d5a3f;
+            --verde-claro:  #4a8c62;
+            --dorado:       #c9a84c;
+            --dorado-claro: #e8c97a;
+            --crema:        #f5f0e8;
+            --blanco:       #fdfcfa;
+            --texto:        #1a1a18;
+            --texto-suave:  #5a5a54;
+            --borde:        rgba(201,168,76,0.15);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--crema);
+            color: var(--texto);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ══════════════════════════════════════
+           HEADER
+        ══════════════════════════════════════ */
+        .header {
+            position: sticky; top: 0; z-index: 200;
+            background: rgba(26,58,42,0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            height: 68px;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 0 52px;
+            border-bottom: 1px solid rgba(201,168,76,0.12);
+        }
+        .header-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px; font-weight: 600;
+            color: white; text-decoration: none;
+            letter-spacing: 0.3px;
+        }
+        .header-logo span { color: var(--dorado); }
+
+        .header-back {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s;
+        }
+        .header-back:hover {
+            color: var(--dorado);
+            border-color: rgba(201,168,76,0.4);
+        }
+        .header-back svg { width: 12px; height: 12px; }
+
+        /* ══════════════════════════════════════
+           HERO
+        ══════════════════════════════════════ */
+        .hero {
+            background: var(--verde);
+            padding: 80px 52px 64px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 70% 60% at 20% 50%, rgba(74,140,98,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 80% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+        }
+        .hero::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+            opacity: 0.3;
+        }
+        .hero-eyebrow {
+            position: relative;
+            display: inline-flex; align-items: center; gap: 12px;
+            font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--dorado); font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .hero-eyebrow::before,
+        .hero-eyebrow::after {
+            content: '';
+            display: block; width: 32px; height: 1px;
+            background: var(--dorado); opacity: 0.5;
+        }
+        .hero h1 {
+            position: relative;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(40px, 5.5vw, 72px);
+            font-weight: 300;
+            color: white;
+            line-height: 1.05;
+            margin-bottom: 22px;
+        }
+        .hero h1 em {
+            color: var(--dorado-claro);
+            font-style: italic;
+        }
+        .hero-sub {
+            position: relative;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(15px, 1.8vw, 18px);
+            color: rgba(255,255,255,0.55);
+            font-style: italic;
+            max-width: 520px; margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        /* ══════════════════════════════════════
+           STATS BAR
+        ══════════════════════════════════════ */
+        .stats-bar {
+            background: var(--verde-medio);
+            display: flex; justify-content: center;
+            border-bottom: 1px solid rgba(201,168,76,0.1);
+        }
+        .stat-item {
+            padding: 18px 52px;
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.07);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 30px; font-weight: 300;
+            color: var(--dorado-claro);
+            display: block; line-height: 1;
+        }
+        .stat-lbl {
+            font-size: 8px; letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            margin-top: 5px; display: block;
+        }
+
+        /* ══════════════════════════════════════
+           MAIN GRID
+        ══════════════════════════════════════ */
+        .main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 64px 52px 96px;
+        }
+
+        .section-header {
+            display: flex; align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(26,58,42,0.1);
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px; font-weight: 300;
+            color: var(--verde); line-height: 1.2;
+        }
+        .section-title span {
+            display: block; font-size: 10px;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--dorado); font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .fincas-count {
+            font-size: 11px; letter-spacing: 1px;
+            color: var(--texto-suave);
+        }
+        .fincas-count strong {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px; font-weight: 300;
+            color: var(--verde); margin-right: 4px;
+        }
+
+        .fincas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        /* ══════════════════════════════════════
+           TARJETA FINCA — PREMIUM REDESIGN
+        ══════════════════════════════════════ */
+        .finca-card {
+            background: var(--blanco);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            box-shadow:
+                0 0 0 1px rgba(201,168,76,0.12),
+                0 4px 24px rgba(26,58,42,0.08),
+                0 20px 48px rgba(26,58,42,0.05);
+            transition:
+                transform 0.45s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.45s ease;
+            opacity: 0;
+            transform: translateY(32px);
+            animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+        }
+        /* Franja lateral dorada */
+        .finca-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(to bottom, var(--dorado), var(--verde-claro));
+            z-index: 2;
+        }
+        .finca-card:nth-child(1) { animation-delay: 0.05s; }
+        .finca-card:nth-child(2) { animation-delay: 0.13s; }
+        .finca-card:nth-child(3) { animation-delay: 0.21s; }
+        .finca-card:nth-child(4) { animation-delay: 0.29s; }
+        .finca-card:nth-child(5) { animation-delay: 0.37s; }
+        .finca-card:nth-child(6) { animation-delay: 0.45s; }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .finca-card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 0 0 1px rgba(201,168,76,0.25),
+                0 16px 48px rgba(26,58,42,0.14),
+                0 40px 72px rgba(26,58,42,0.09);
+        }
+
+        /* ── IMAGEN ── */
+        .card-img {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            background: var(--verde);
+        }
+        .card-img img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
+            filter: brightness(0.88) saturate(1.15);
+        }
+        .finca-card:hover .card-img img { transform: scale(1.08); }
+
+        .card-img-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                160deg,
+                transparent 35%,
+                rgba(26,58,42,0.65) 100%
+            );
+        }
+
+        /* Nombre de finca sobre la imagen */
+        .card-img-title {
+            position: absolute; bottom: 20px; left: 24px; right: 24px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px; font-weight: 600;
+            color: white; line-height: 1.1;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+            letter-spacing: -0.2px;
+        }
+
+        /* Badge activo */
+        .card-badge {
+            position: absolute; top: 18px; left: 24px;
+            background: rgba(26,58,42,0.88);
+            backdrop-filter: blur(10px);
+            color: var(--dorado-claro);
+            font-size: 8px; font-weight: 600;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            padding: 5px 12px;
+            display: flex; align-items: center; gap: 7px;
+            border: 1px solid rgba(201,168,76,0.25);
+        }
+        .card-badge::before {
+            content: '';
+            width: 5px; height: 5px;
+            background: #6bdd8e; border-radius: 50%;
+            box-shadow: 0 0 7px #6bdd8e;
+            animation: pulse 2.2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+        }
+
+        /* Puntaje sobre imagen — esquina superior derecha */
+        .card-score {
+            position: absolute; top: 18px; right: 18px;
+            background: rgba(201,168,76,0.92);
+            backdrop-filter: blur(8px);
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+        }
+        .card-score-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 17px; font-weight: 600;
+            color: var(--verde); line-height: 1;
+        }
+        .card-score-lbl {
+            font-size: 7px; letter-spacing: 1px;
+            color: var(--verde); opacity: 0.7;
+            text-transform: uppercase; margin-top: 1px;
+        }
+
+        /* ── CUERPO ── */
+        .card-body { padding: 22px 24px 0; }
+
+        /* Bloque productor — fondo sutil */
+        .card-producer-block {
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(26,58,42,0.04);
+            border: 1px solid rgba(26,58,42,0.07);
+            padding: 12px 14px;
+            margin-bottom: 16px;
+        }
+        .card-producer-avatar {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--verde-medio), var(--verde-claro));
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px; font-weight: 600; color: white;
+        }
+        .card-producer-info { flex: 1; min-width: 0; }
+        .card-producer-name {
+            font-size: 14px; font-weight: 600;
+            color: var(--texto); line-height: 1.2;
+        }
+        .card-producer-celular {
+            font-size: 12px; color: var(--texto-suave);
+            margin-top: 2px;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .card-producer-celular svg { opacity: 0.5; flex-shrink: 0; }
+
+        /* Ubicación */
+        .card-location {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 13px; color: var(--verde-claro);
+            font-weight: 500; letter-spacing: 0.2px;
+            margin-bottom: 18px;
+        }
+        .card-location svg { opacity: 0.75; }
+
+        /* ── SEPARADOR CON ICONO CAFÉ ── */
+        .card-divider {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 18px;
+        }
+        .card-divider::before, .card-divider::after {
+            content: '';
+            flex: 1; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+        }
+        .card-divider-icon {
+            color: var(--dorado); opacity: 0.7; font-size: 14px;
+            line-height: 1;
+        }
+
+        /* ── DATOS ── */
+        .card-datos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin-bottom: 0;
+            border: 1px solid rgba(26,58,42,0.07);
+        }
+        .card-dato {
+            padding: 13px 14px;
+            position: relative;
+        }
+        .card-dato:nth-child(odd) {
+            border-right: 1px solid rgba(26,58,42,0.07);
+        }
+        .card-dato:nth-child(-n+2) {
+            border-bottom: 1px solid rgba(26,58,42,0.07);
+        }
+        /* Icono decorativo en cada celda */
+        .card-dato::after {
+            content: attr(data-icon);
+            position: absolute; top: 10px; right: 10px;
+            font-size: 16px; opacity: 0.12;
+            line-height: 1;
+        }
+
+        .dato-lbl {
+            font-size: 8px; letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--dorado); opacity: 0.8;
+            margin-bottom: 5px; display: block;
+        }
+        .dato-val {
+            font-size: 15px; font-weight: 600;
+            color: var(--texto); line-height: 1.35;
+        }
+        .dato-val.accent { color: var(--verde-claro); }
+
+        /* ── PERFIL TAZA ── */
+        .card-perfil {
+            padding: 16px 24px;
+            background: rgba(26,58,42,0.03);
+            border-top: 1px solid rgba(201,168,76,0.12);
+            display: flex; align-items: flex-start; gap: 12px;
+        }
+        .perfil-icon {
+            width: 30px; height: 30px;
+            background: var(--verde);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 2px;
+        }
+        .perfil-icon svg { width: 14px; height: 14px; }
+        .perfil-content { flex: 1; }
+        .perfil-lbl {
+            font-size: 8px; letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--dorado); opacity: 0.85;
+            margin-bottom: 7px; display: block;
+        }
+        .perfil-tags {
+            display: flex; flex-wrap: wrap; gap: 6px;
+        }
+        .perfil-tag {
+            font-size: 12px; color: var(--verde-medio);
+            background: rgba(45,90,63,0.08);
+            border: 1px solid rgba(45,90,63,0.15);
+            padding: 4px 12px; font-weight: 500;
+            letter-spacing: 0.2px; border-radius: 20px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .perfil-tag:hover {
+            background: var(--verde);
+            color: var(--dorado-claro);
+            border-color: transparent;
+        }
+        .perfil-tag.empty {
+            color: var(--texto-suave); opacity: 0.45;
+            background: none; border-style: dashed;
+            font-style: italic; border-radius: 2px;
+        }
+
+        /* ── FOOTER ── */
+        .card-footer {
+            padding: 13px 24px;
+            border-top: 1px solid rgba(26,58,42,0.06);
+            display: flex; align-items: center;
+            justify-content: space-between;
+            background: var(--verde);
+        }
+        .footer-region {
+            font-size: 10px; letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.45);
+            text-transform: uppercase;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .footer-region::before {
+            content: '';
+            width: 18px; height: 1px;
+            background: var(--dorado); opacity: 0.5;
+        }
+        .footer-seal {
+            display: flex; align-items: center; gap: 7px;
+        }
+        .footer-seal-icon {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(201,168,76,0.2);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .footer-seal-icon svg { width: 12px; height: 12px; }
+        .footer-seal-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 12px; color: var(--dorado-claro);
+            opacity: 0.7; letter-spacing: 0.3px;
+        }
+
+        /* ══════════════════════════════════════
+           SKELETON LOADER
+        ══════════════════════════════════════ */
+        .skeleton-card {
+            background: var(--blanco);
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(26,58,42,0.06);
+        }
+        .sk-img { height: 260px; background: #e8e4dc; }
+        .sk-body { padding: 28px; }
+        .sk-line {
+            background: linear-gradient(90deg, #ede9e0 25%, #e2ddd4 50%, #ede9e0 75%);
+            background-size: 400% 100%;
+            animation: shimmer 1.6s ease infinite;
+            border-radius: 2px; margin-bottom: 12px;
+        }
+        @keyframes shimmer {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+        .sk-line.h32 { height: 32px; width: 65%; }
+        .sk-line.h14 { height: 14px; width: 40%; }
+        .sk-line.h12 { height: 12px; width: 55%; }
+        .sk-line.h12.short { width: 30%; }
+
+        /* ══════════════════════════════════════
+           EMPTY STATE
+        ══════════════════════════════════════ */
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 80px 40px;
+            grid-column: 1 / -1;
+        }
+        .empty-icon {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            background: rgba(26,58,42,0.06);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+        }
+        .empty-state h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px; font-weight: 300; color: var(--verde);
+            margin-bottom: 8px;
+        }
+        .empty-state p {
+            font-size: 13px; color: var(--texto-suave); max-width: 320px; margin: 0 auto;
+        }
+
+        /* ══════════════════════════════════════
+           FOOTER PÁGINA
+        ══════════════════════════════════════ */
+        .page-footer {
+            background: var(--verde);
+            padding: 32px 52px;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(201,168,76,0.15);
+        }
+        .pf-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.5);
+        }
+        .pf-brand strong { color: var(--dorado-claro); font-weight: 400; }
+        .pf-copy {
+            font-size: 10px; letter-spacing: 1px;
+            color: rgba(255,255,255,0.25);
+        }
+
+        /* ══════════════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════════════ */
+        @media (max-width: 900px) {
+            .fincas-grid { grid-template-columns: 1fr; }
+            .header, .hero, .main, .page-footer { padding-left: 24px; padding-right: 24px; }
+            .stats-bar { flex-wrap: wrap; }
+            .stat-item { padding: 14px 28px; }
+        }
+        @media (max-width: 600px) {
+            .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .card-datos { grid-template-columns: 1fr; }
+            .card-dato:nth-child(odd) { border-right: none; padding-right: 0; }
+            .card-dato:nth-child(even) { padding-left: 0; }
+            .card-dato:nth-last-child(-n+2) { border-bottom: 1px solid rgba(26,58,42,0.06); }
+            .card-dato:last-child { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <a href="index.html" class="header-logo">Eco<span>mindala</span></a>
+    <a href="index.html" class="header-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Volver
+    </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-eyebrow">Red Cafetera · Nariño, Colombia</div>
+    <h1>Fincas <em>Aliadas</em></h1>
+    <p class="hero-sub">Productores comprometidos con la excelencia del café especial bajo los principios de la Red Ecomindala.</p>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+    <div class="stat-item">
+        <span class="stat-num" id="statFincas">—</span>
+        <span class="stat-lbl">Fincas aliadas</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-num">Nariño</span>
+        <span class="stat-lbl">Región</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-num">Esp.</span>
+        <span class="stat-lbl">Categoría</span>
+    </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+    <div class="section-header">
+        <div class="section-title">
+            <span>Directorio</span>
+            Nuestros productores
+        </div>
+        <div class="fincas-count" id="fincasCount" style="display:none;">
+            <strong id="countNum">0</strong> fincas registradas
+        </div>
+    </div>
+
+    <div class="fincas-grid" id="fincasGrid">
+        <!-- Skeletons mientras carga -->
+        <div class="skeleton-card">
+            <div class="sk-img"></div>
+            <div class="sk-body">
+                <div class="sk-line h14"></div>
+                <div class="sk-line h32"></div>
+                <div class="sk-line h12"></div>
+                <div class="sk-line h12 short"></div>
+            </div>
+        </div>
+        <div class="skeleton-card">
+            <div class="sk-img"></div>
+            <div class="sk-body">
+                <div class="sk-line h14"></div>
+                <div class="sk-line h32"></div>
+                <div class="sk-line h12"></div>
+                <div class="sk-line h12 short"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+    <div class="pf-brand">Red <strong>Ecomindala</strong></div>
+    <div class="pf-copy">© 2026 · Café Especial de Nariño</div>
+</footer>
+
+<script>
+const API = 'http://192.168.1.5:8000';
+
+// Separar el perfil de taza en tags individuales
+function renderPerfilTags(texto) {
+    if (!texto || texto.trim() === '' || texto === '—') {
+        return `<span class="perfil-tag empty">Sin registro</span>`;
+    }
+    // Separar por coma, punto y coma o slash
+    const tags = texto.split(/[,;\/]/).map(t => t.trim()).filter(Boolean);
+    return tags.map(t =>
+        `<span class="perfil-tag">${t.charAt(0).toUpperCase() + t.slice(1)}</span>`
+    ).join('');
+}
+
+function v(val, fallback = '—') {
+    const s = (val ?? '').toString().trim();
+    return s.length > 0 ? s : fallback;
+}
+
+async function cargarFincas() {
+    const grid = document.getElementById('fincasGrid');
+
+    try {
+        // 1. Obtener lista de fincas
+        const resFincas  = await fetch(`${API}/fincas/public`);
+        const fincas     = await resFincas.json();
+
+        grid.innerHTML = '';
+
+        if (!fincas.length) {
+            grid.innerHTML = `
+                <div class="empty-state" style="display:block;">
+                    <div class="empty-icon">🌿</div>
+                    <h3>Sin fincas registradas</h3>
+                    <p>Aún no hay fincas aliadas en el sistema.</p>
+                </div>`;
+            return;
+        }
+
+        // Actualizar contadores
+        document.getElementById('statFincas').textContent = fincas.length;
+        document.getElementById('countNum').textContent   = fincas.length;
+        document.getElementById('fincasCount').style.display = 'block';
+
+        // 2. Para cada finca, pedir calidad pública (proceso, perfil de taza)
+        const calidades = await Promise.all(
+            fincas.map(async (f) => {
+                try {
+                    const r = await fetch(`${API}/calidad/public/${f.id}`);
+                    const d = await r.json();
+                    return Array.isArray(d) && d.length ? d[0] : null;
+                } catch { return null; }
+            })
+        );
+
+        // 3. Renderizar tarjetas
+        // Nombres exactos de la API:
+        // finca: id, nombre, altura, ubicacion, descripcion, variedad_cafe, foto
+        // calidad: fecha, puntaje_sensorial, perfil_tueste, notas_cata, proceso
+        fincas.forEach((finca, idx) => {
+            const calidad = calidades[idx];
+
+            // foto viene como "uploads\\fincas\\finca_1.jpg" — normalizar separadores
+            const imgUrl = finca.foto
+                ? `${API}/${finca.foto.replace(/\\/g, '/')}`
+                : 'imagenes/finca-default.jpg';
+
+            const proceso    = v(calidad?.proceso);
+            const perfilTaza = v(calidad?.notas_cata);
+            const puntaje    = calidad?.puntaje_sensorial ?? null;
+
+            const card = document.createElement('div');
+            card.className = 'finca-card';
+            card.style.animationDelay = (idx * 0.08) + 's';
+
+            // Inicial del productor para el avatar
+            const iniciales = v(finca.nombre_productor, '?')
+                .split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+
+            card.innerHTML = `
+                <!-- IMAGEN con nombre encima -->
+                <div class="card-img">
+                    <img
+                        src="${imgUrl}"
+                        alt="${v(finca.nombre)}"
+                        onerror="this.src='imagenes/galeria1.jpeg'"
+                        loading="lazy"
+                    >
+                    <div class="card-img-overlay"></div>
+                    <div class="card-badge">Aliada Ecomindala</div>
+
+                    <!-- Puntaje sensorial flotante -->
+                    ${puntaje !== null ? `
+                    <div class="card-score">
+                        <span class="card-score-num">${puntaje}</span>
+                        <span class="card-score-lbl">pts</span>
+                    </div>` : ''}
+
+                    <!-- Nombre sobre la foto -->
+                    <div class="card-img-title">${v(finca.nombre, 'Finca sin nombre')}</div>
+                </div>
+
+                <div class="card-body">
+
+                    <!-- Bloque productor con avatar -->
+                    <div class="card-producer-block">
+                        <div class="card-producer-avatar">${iniciales}</div>
+                        <div class="card-producer-info">
+                            <div class="card-producer-name">${v(finca.nombre_productor, 'Productor no registrado')}</div>
+                            ${finca.celular_productor ? `
+                            <div class="card-producer-celular">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                                    <line x1="12" y1="18" x2="12.01" y2="18"/>
+                                </svg>
+                                ${finca.celular_productor}
+                            </div>` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Ubicación -->
+                    <div class="card-location">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        ${v(finca.ubicacion)}
+                    </div>
+
+                    <!-- Separador con ícono café -->
+                    <div class="card-divider">
+                        <span class="card-divider-icon">☕</span>
+                    </div>
+
+                    <!-- Grid de datos con emojis decorativos -->
+                    <div class="card-datos">
+                        <div class="card-dato" data-icon="🏔">
+                            <span class="dato-lbl">Altura</span>
+                            <div class="dato-val accent">${v(finca.altura)}</div>
+                        </div>
+                        <div class="card-dato" data-icon="🌱">
+                            <span class="dato-lbl">Variedad de café</span>
+                            <div class="dato-val">${v(finca.variedad_cafe)}</div>
+                        </div>
+                        <div class="card-dato" data-icon="⚙">
+                            <span class="dato-lbl">Proceso</span>
+                            <div class="dato-val">${proceso}</div>
+                        </div>
+                        <div class="card-dato" data-icon="🔥">
+                            <span class="dato-lbl">Perfil de tueste</span>
+                            <div class="dato-val">${v(calidad?.perfil_tueste)}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perfil de taza con icono -->
+                <div class="card-perfil">
+                    <div class="perfil-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                            <line x1="6" y1="1" x2="6" y2="4"/>
+                            <line x1="10" y1="1" x2="10" y2="4"/>
+                            <line x1="14" y1="1" x2="14" y2="4"/>
+                        </svg>
+                    </div>
+                    <div class="perfil-content">
+                        <span class="perfil-lbl">Perfil de taza</span>
+                        <div class="perfil-tags">${renderPerfilTags(perfilTaza)}</div>
+                    </div>
+                </div>
+
+                <!-- Footer verde -->
+                <div class="card-footer">
+                    <span class="footer-region">Nariño, Colombia</span>
+                    <div class="footer-seal">
+                        <div class="footer-seal-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="${'var(--dorado-claro)'}" stroke-width="2" stroke-linecap="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <span class="footer-seal-text">Certificada</span>
+                    </div>
+                </div>
+            `;
+
+            grid.appendChild(card);
+        });
+
+    } catch (err) {
+        console.error('Error cargando fincas:', err);
+        grid.innerHTML = `
+            <div class="empty-state" style="display:block;">
+                <div class="empty-icon">⚠️</div>
+                <h3>Sin conexión</h3>
+                <p>No se pudo conectar al servidor. Verifica tu conexión e intenta de nuevo.</p>
+            </div>`;
+    }
+}
+
+cargarFincas();
+</script>
+</body>
+</html>

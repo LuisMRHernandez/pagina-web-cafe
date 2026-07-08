@@ -29,7 +29,7 @@
     </nav>
 
     <!-- MENÚ LATERAL -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" style="display:none" onclick="toggleMobileMenu()"></div>
     <div class="mobile-menu" id="mobileMenu">
         <div class="menu-lang-row">
             <button class="menu-lang-btn active" onclick="setLang('es')">ES</button>
@@ -43,8 +43,8 @@
         <a href="#finca" onclick="closeMobileMenu()" data-en>The Farm</a>
         <a href="#galeria" onclick="closeMobileMenu()" data-es>Galería</a>
         <a href="#galeria" onclick="closeMobileMenu()" data-en>Gallery</a>
-        <a href="#variedades" onclick="closeMobileMenu()" data-es>Mundo Cafe</a>
-        <a href="#variedades" onclick="closeMobileMenu()" data-en>World coffee</a>
+        <a href="#variedades" onclick="closeMobileMenu()" data-es>Variedades</a>
+        <a href="#variedades" onclick="closeMobileMenu()" data-en>Varieties</a>
         <a href="#impacto" onclick="closeMobileMenu()" data-es>Impacto</a>
         <a href="#impacto" onclick="closeMobileMenu()" data-en>Impact</a>
         <a href="#fincas" onclick="closeMobileMenu()" data-es>Nuestra Red Cafetera</a>
@@ -61,12 +61,12 @@
         <div class="hero-overlay"></div>
         <div class="hero-pattern"></div>
         <div class="hero-content">
-            <h1 class="hero-title reveal-hero" style="animation-delay:0.2s" data-es><em>Kitupamba</em></h1>
-            <h1 class="hero-title reveal-hero" style="animation-delay:0.2s" data-en><em>Kitupamba</em></h1>
+            <h1 class="hero-title reveal-hero" style="animation-delay:0.2s" data-es><em>Kitopamba</em></h1>
+            <h1 class="hero-title reveal-hero" style="animation-delay:0.2s" data-en><em>Kitopamba</em></h1>
             <p class="hero-subtitle reveal-hero" data-es><strong>En la tradición de nuestros ancestros, las mindalas eran algo más que comercio simple; eran encuentros para compartir, para intercambiar productos, saberes, historias y proyectos.
-            Desde Altos de Kitupamba te invitamos a unirte a este mundo del Buen vivir Andino y redescubrir los más exquisitos y excepcionales cafés de Nariño, Colombia.</strong></p>
+            Desde Altos de Kitopamba te invitamos a unirte a este mundo del Buen vivir Andino y redescubrir los más exquisitos y excepcionales cafés de Nariño, Colombia.</strong></p>
             <p class="hero-subtitle reveal-hero" data-en><strong>In the tradition of our ancestors, mindalas were far more than simple commerce; they were gatherings to share, to exchange products, knowledge, stories, and projects.
-            From Altos de Kitupamba, we invite you to join this world of Andean Good Living and rediscover the most exquisite and exceptional coffees from Nariño, Colombia.</strong></p>
+            From Altos de Kitopamba, we invite you to join this world of Andean Good Living and rediscover the most exquisite and exceptional coffees from Nariño, Colombia.</strong></p>
             <div class="hero-btns reveal-hero" style="animation-delay:0.8s">
                 <a href="#tienda" class="btn-primary" data-es>Explorar oferta</a>
                 <a href="#tienda" class="btn-primary" data-en>Buy Kitopamba coffee</a>
@@ -108,6 +108,7 @@
 
     <!-- ══ TIENDA ══ -->
     <section id="tienda" class="reveal">
+
         <!-- Encabezado elegante de la tienda -->
         <div class="tienda-header">
             <p class="section-tag" data-es>Kitopamba · Ecomindala · Buesaco, Nariño</p>
@@ -367,6 +368,7 @@
                 <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--verde);margin-bottom:8px" data-en>No products in this category</h3>
             </div>
         </div><!-- /shop-main -->
+
     </section>
 
     <!-- MARQUEE 2 -->
@@ -396,11 +398,6 @@
         <div class="finca-visual">
             <div class="imagen-finca">
                 <img src="imagenes/finca.jpeg" alt="Finca Altos de Kitopamba – Ecomindala">
-            </div>
-            <div class="finca-visual-bg">
-                <div class="altitude-display">2200</div>
-                <div class="altitude-label" data-es>metros sobre el nivel del mar</div>
-                <div class="altitude-label" data-en>meters above sea level</div>
             </div>
             <div class="finca-badge">
                 <div class="score">90</div>
@@ -438,12 +435,6 @@
                     <p data-en>Controlled fermentation and slow drying on raised beds</p>
                 </div>
                 <div class="finca-detail reveal-stagger">
-                    <div class="icon">🌿</div>
-                    <h4 data-es>Altitud</h4><h4 data-en>Altitude</h4>
-                    <p data-es>2.200 metros sobre el nivel del mar</p>
-                    <p data-en>2,200 meters above sea level</p>
-                </div>
-                <div class="finca-detail reveal-stagger">
                     <div class="icon">☀️</div>
                     <h4 data-es>Cosecha</h4><h4 data-en>Harvest</h4>
                     <p data-es>Recolección manual, selección estricta de cerezas maduras</p>
@@ -453,7 +444,7 @@
         </div>
     </section>
 
-    <!-- MARQUEE 3 entre finca y galería -->
+    <!-- MARQUEE entre finca y galería -->
     <div class="marquee-band">
         <div class="marquee-track">
             <span>Bourbon Rosado</span><span class="dot">·</span>
@@ -486,46 +477,98 @@
                 <div class="slide active">
                     <img src="imagenes/Galeria/galeria1.jpeg" alt="Finca Kitopamba">
                     <div class="slide-overlay"></div>
+                    <div class="slide-caption">
+                        <span class="slide-caption-tag" data-es>Origen</span>
+                        <span class="slide-caption-tag" data-en>Origin</span>
+                        <h3 class="slide-caption-title" data-es>Donde nace<br><em>el mejor café</em></h3>
+                        <h3 class="slide-caption-title" data-en>Where the finest<br><em>coffee is born</em></h3>
+                        <p class="slide-caption-desc" data-es>Altos de Kitopamba, Buesaco, Nariño. A 2.200 metros sobre el nivel del mar, el suelo volcánico y el microclima del Cañón del Juanambu crean condiciones únicas para el café de especialidad.</p>
+                        <p class="slide-caption-desc" data-en>Altos de Kitopamba, Buesaco, Nariño. At 2,200 meters above sea level, the volcanic soil and Juanambu Canyon microclimate create unique conditions for specialty coffee.</p>
+                    </div>
                 </div>
                 <div class="slide">
-                    <img src="imagenes/Galeria/galeria2.jpeg" alt="Cultivo Kitopamba">
+                    <img src="imagenes/Galeria/galeria2.jpeg" alt="Visita académica IoT">
                     <div class="slide-overlay"></div>
+                    <div class="slide-caption">
+                        <span class="slide-caption-tag">IoT · Academia</span>
+                        <h3 class="slide-caption-title" data-es>La ciencia llega<br><em>a la finca</em></h3>
+                        <h3 class="slide-caption-title" data-en>Science arrives<br><em>at the farm</em></h3>
+                        <p class="slide-caption-desc" data-es>Estudiantes e investigadores visitan Kitopamba para conocer de primera mano cómo la tecnología IoT transforma el monitoreo del café: sensores de pH, temperatura y Brix en tiempo real.</p>
+                        <p class="slide-caption-desc" data-en>Students and researchers visit Kitopamba to experience firsthand how IoT technology transforms coffee monitoring: real-time pH, temperature and Brix sensors.</p>
+                    </div>
                 </div>
                 <div class="slide">
-                    <img src="imagenes/Galeria/galeria3.jpeg" alt="Recolección">
+                    <img src="imagenes/Galeria/galeria3.jpeg" alt="Camas de secado elevadas">
                     <div class="slide-overlay"></div>
+                    <div class="slide-caption">
+                        <span class="slide-caption-tag" data-es>Secado</span>
+                        <span class="slide-caption-tag" data-en>Drying</span>
+                        <h3 class="slide-caption-title" data-es>Paciencia que<br><em>sabe a excelencia</em></h3>
+                        <h3 class="slide-caption-title" data-en>Patience that<br><em>tastes like excellence</em></h3>
+                        <p class="slide-caption-desc" data-es>Nuestra planta de secado en camas africanas elevadas. El café descansa hasta 28 días bajo condiciones controladas, desarrollando la complejidad y dulzor que definen cada taza Kitopamba.</p>
+                        <p class="slide-caption-desc" data-en>Our raised African bed drying station. Coffee rests up to 28 days under controlled conditions, developing the complexity and sweetness that define every Kitopamba cup.</p>
+                    </div>
                 </div>
                 <div class="slide">
-                    <img src="imagenes/Galeria/galeria4.jpeg" alt="Secado">
+                    <img src="imagenes/Galeria/galeria4.jpeg" alt="Proceso de lavado y fermentación">
                     <div class="slide-overlay"></div>
+                    <div class="slide-caption">
+                        <span class="slide-caption-tag" data-es>Fermentación</span>
+                        <span class="slide-caption-tag" data-en>Fermentation</span>
+                        <h3 class="slide-caption-title" data-es>El arte de la<br><em>fermentación controlada</em></h3>
+                        <h3 class="slide-caption-title" data-en>The art of<br><em>controlled fermentation</em></h3>
+                        <p class="slide-caption-desc" data-es>Tanques de fermentación y canal de lavado donde el café pasa entre 24 y 72 horas. Cada hora es registrada por nuestros sensores IoT para garantizar el perfil sensorial deseado en la taza.</p>
+                        <p class="slide-caption-desc" data-en>Fermentation tanks and washing channel where coffee spends 24 to 72 hours. Every hour is recorded by our IoT sensors to guarantee the desired sensory profile in the cup.</p>
+                    </div>
                 </div>
                 <div class="slide">
-                    <img src="imagenes/Galeria/galeria5.jpeg" alt="Café Kitopamba">
+                    <img src="imagenes/Galeria/galeria5.jpeg" alt="Medición de azúcares Brix">
                     <div class="slide-overlay"></div>
+                    <div class="slide-caption">
+                        <span class="slide-caption-tag" data-es>Control de calidad</span>
+                        <span class="slide-caption-tag" data-en>Quality control</span>
+                        <h3 class="slide-caption-title" data-es>Dulzor medido<br><em>grano a grano</em></h3>
+                        <h3 class="slide-caption-title" data-en>Sweetness measured<br><em>bean by bean</em></h3>
+                        <p class="slide-caption-desc" data-es>Medición de grados Brix en nuestros granos: el índice de azúcares que predice la dulzura y complejidad frutal de la taza. Solo los lotes que alcanzan el umbral óptimo avanzan al proceso siguiente.</p>
+                        <p class="slide-caption-desc" data-en>Measuring Brix degrees in our beans: the sugar index that predicts cup sweetness and fruity complexity. Only lots reaching the optimal threshold advance to the next process.</p>
+                    </div>
                 </div>
                 <div class="slide">
-                    <img src="imagenes/Galeria/galeria6.jpeg" alt="Tostado">
+                    <img src="imagenes/Galeria/galeria6.jpeg" alt="Medición de humedad">
                     <div class="slide-overlay"></div>
+                    <div class="slide-caption">
+                        <span class="slide-caption-tag" data-es>Precisión</span>
+                        <span class="slide-caption-tag" data-en>Precision</span>
+                        <h3 class="slide-caption-title" data-es>La humedad perfecta<br><em>no se improvisa</em></h3>
+                        <h3 class="slide-caption-title" data-en>Perfect moisture<br><em>is never improvised</em></h3>
+                        <p class="slide-caption-desc" data-es>Control de humedad en tiempo real durante el secado. El café Kitopamba solo se ensaca cuando alcanza entre 10 y 11% de humedad — el rango que garantiza estabilidad, vida útil y pureza en la taza.</p>
+                        <p class="slide-caption-desc" data-en>Real-time moisture control during drying. Kitopamba coffee is only bagged when it reaches 10–11% moisture — the range that guarantees stability, shelf life and cup purity.</p>
+                    </div>
                 </div>
                 <div class="slide">
-                    <img src="imagenes/Galeria/galeria7.jpeg" alt="Proceso">
+                    <img src="imagenes/Galeria/galeria7.jpeg" alt="Vista panorámica finca Kitopamba">
                     <div class="slide-overlay"></div>
+                    <div class="slide-caption">
+                        <span class="slide-caption-tag" data-es>Territorio</span>
+                        <span class="slide-caption-tag" data-en>Territory</span>
+                        <h3 class="slide-caption-title" data-es>Un paisaje que<br><em>sabe a café</em></h3>
+                        <h3 class="slide-caption-title" data-en>A landscape that<br><em>tastes like coffee</em></h3>
+                        <p class="slide-caption-desc" data-es>Vista panorámica de Altos de Kitopamba. Entre neblina, volcanes apagados y barrancos profundos, cada planta de café absorbe la mineralidad única de Nariño que hace inconfundible nuestra taza.</p>
+                        <p class="slide-caption-desc" data-en>Panoramic view of Altos de Kitopamba. Amid mist, dormant volcanoes and deep ravines, each coffee plant absorbs the unique minerality of Nariño that makes our cup unmistakable.</p>
+                    </div>
                 </div>
                 <div class="slide">
-                    <img src="imagenes//Galeria/galeria8.jpeg" alt="Beneficiadero">
+                    <img src="imagenes/Galeria/galeria8.jpeg" alt="Niños en el proceso de secado">
                     <div class="slide-overlay"></div>
+                    <div class="slide-caption">
+                        <span class="slide-caption-tag" data-es>Futuro</span>
+                        <span class="slide-caption-tag" data-en>Future</span>
+                        <h3 class="slide-caption-title" data-es>El café que heredarán<br><em>nuestros hijos</em></h3>
+                        <h3 class="slide-caption-title" data-en>The coffee our<br><em>children will inherit</em></h3>
+                        <p class="slide-caption-desc" data-es>Dos niños de la finca observan con curiosidad el proceso de secado en camas elevadas. Ellos son la razón más profunda de todo lo que hacemos: un café que cuide la tierra que les dejaremos.</p>
+                        <p class="slide-caption-desc" data-en>Two children from the farm curiously observe the raised-bed drying process. They are the deepest reason for everything we do: a coffee that cares for the land we will leave them.</p>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Texto centrado sobre las imágenes -->
-            <div class="slider-content">
-                <p class="section-tag" data-es>Experiencia Cafetera</p>
-                <p class="section-tag" data-en>Coffee Experience</p>
-                <h2 class="section-title" data-es>Nuestra<br><em>Galería</em></h2>
-                <h2 class="section-title" data-en>Our<br><em>Gallery</em></h2>
-                <div class="slider-divider"></div>
-                <p class="slider-lead" data-es>Cada lote de <strong>Kitopamba</strong> cuenta una historia. Desde las montañas del Cañón del Juanambu hasta cada proceso de cultivo, fermentación y secado.</p>
-                <p class="slider-lead" data-en>Every <strong>Kitopamba</strong> lot tells a story. From the mountains of the Juanambu Canyon to each cultivation, fermentation and drying process.</p>
             </div>
 
             <!-- Flechas de navegación -->
@@ -546,6 +589,7 @@
 
     <!-- ══ MUNDO CAFÉ ══ -->
     <section id="variedades" class="reveal mundo-cafe-section">
+
         <!-- Cabecera -->
         <div class="mc-header">
             <div class="mc-header-left">
@@ -656,7 +700,9 @@
                     </a>
                 </div>
             </article>
+
         </div><!-- /mc-own-grid -->
+
     </section>
 
     <!-- MARQUEE 3 — antes de impacto -->
@@ -725,11 +771,11 @@
             <div class="impacto-slide" style="background-image: url('imagenes/Impacto/municipio.jpeg')">
                 <div class="impacto-slide-overlay"></div>
                 <div class="impacto-slide-content">
-                    <div class="impacto-slide-num">varios</div>
+                    <div class="impacto-slide-num">5</div>
                     <h3 class="impacto-slide-title" data-es>Municipios,<br><em>un solo propósito</em></h3>
                     <h3 class="impacto-slide-title" data-en>Municipalities,<br><em>one purpose</em></h3>
-                    <p class="impacto-slide-desc" data-es>Buesaco, La Unión, San Lorenzo, El Tablón de Gómez entre otros. varios municipios nariñenses que producen algunos de los cafés más puntados de Colombia, a más de 2.000 metros.</p>
-                    <p class="impacto-slide-desc" data-en>Buesaco, La Unión, San Lorenzo, El Tablón de Gómez inter alia. several Nariño municipalities producing some of Colombia's highest-scoring coffees, above 2,000 meters.</p>
+                    <p class="impacto-slide-desc" data-es>Buesaco, La Unión, San Lorenzo, El Tablón de Gómez y Cumbal. Cinco municipios nariñenses que producen algunos de los cafés más puntados de Colombia, a más de 2.000 metros.</p>
+                    <p class="impacto-slide-desc" data-en>Buesaco, La Unión, San Lorenzo, El Tablón de Gómez and Cumbal. Five Nariño municipalities producing some of Colombia's highest-scoring coffees, above 2,000 meters.</p>
                 </div>
             </div>
             <!-- Controles -->
@@ -778,7 +824,7 @@
             </div>
             <div class="tienda-visual">
                 <div class="tienda-img-wrap">
-                    <img src="imagenes/finca-principal.jpg" alt="Fincas Aliadas Ecomindala" class="tienda-img" onerror="this.src='imagenes/galeria1.jpeg'">
+                    <img src="imagenes/fincakitopamba.png" alt="Fincas Aliadas Ecomindala" class="tienda-img" onerror="this.src='imagenes/galeria1.jpeg'">
                     <div class="tienda-img-overlay"></div>
                     <div class="tienda-img-badge">
                         <span data-es>Red IoT · Nariño, Colombia</span>
@@ -809,7 +855,7 @@
                 </div>
                 <div class="info-item">
                     <h4 data-es>Contacto Directo</h4><h4 data-en>Direct Contact</h4>
-                    <a href="https://wa.me/573026775940" class="whatsapp-btn">
+                    <a href="https://wa.me/573176564364" class="whatsapp-btn">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         WhatsApp
                     </a>
@@ -817,15 +863,10 @@
                 <div class="info-item">
                     <h4 data-es>Redes Sociales</h4><h4 data-en>Social Media</h4>
                     <div class="redes">
-                        <a href="https://www.instagram.com/TU_USUARIO" target="_blank" class="red-link">Instagram</a>
-                        <a href="https://www.facebook.com/TU_PAGINA" target="_blank" class="red-link">Facebook</a>
+                        <a href="https://www.instagram.com/TU_USUARIO" target="_blank" rel="noopener noreferrer" class="red-link">Instagram</a>
+                        <a href="https://www.facebook.com/TU_PAGINA" target="_blank" rel="noopener noreferrer" class="red-link">Facebook</a>
                         <a href="mailto:mtorresdaza@gmail.com" class="red-link">Correo</a>
                     </div>
-                </div>
-                <div class="info-item">
-                    <h4 data-es>Exportaciones</h4><h4 data-en>Exports</h4>
-                    <p data-es>Envíos a todo el mundo. Integraciones con PayPal, Stripe y pasarelas nacionales (PSE, Nequi).</p>
-                    <p data-en>Shipping worldwide. Integrations with PayPal, Stripe and domestic gateways.</p>
                 </div>
             </div>
         </div>
@@ -907,7 +948,7 @@
             <h5 data-es>Contacto</h5><h5 data-en>Contact</h5>
             <ul>
                 <li><a href="mailto:mtorresdaza@gmail.com">mtorresdaza@gmail.com</a></li>
-                <li><a href="https://wa.me/573026775940">WhatsApp</a></li>
+                <li><a href="https://wa.me/573176564364">WhatsApp</a></li>
                 <li><a href="https://www.instagram.com/TU_USUARIO">Instagram</a></li>
                 <li><a href="https://www.linkedin.com/company/ecomindala">LinkedIn</a></li>
             </ul>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Resultado del pago | Kitupamba</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="pago-page">
+        <div class="pago-card">
+            <div class="pago-icon" id="pIcon">⏳</div>
+            <h1 class="pago-title" id="pTitle">Verificando tu pago…</h1>
+            <p class="pago-text" id="pText">Un momento, estamos consultando el estado de la transacción.</p>
+            <p class="pago-ref" id="pRef"></p>
+            <a href="index.html#tienda" class="btn-primary" style="background:var(--verde);color:#fff">Volver a la tienda</a>
+        </div>
+    </main>
+
+    <script src="carrito.js"></script>
+    <script>
+    (async function () {
+        const $ = id => document.getElementById(id);
+        const params = new URLSearchParams(location.search);
+        const refPayco = params.get('ref_payco');
+
+        function show(icon, title, text, ref) {
+            $('pIcon').textContent = icon;
+            $('pTitle').textContent = title;
+            $('pText').textContent = text;
+            $('pRef').textContent = ref || '';
+        }
+
+        if (!refPayco) {
+            show('ℹ️', 'Sin información de pago', 'No recibimos una referencia de transacción.', '');
+            return;
+        }
+
+        try {
+            const r = await fetch('https://secure.epayco.co/validation/v1/reference/' + encodeURIComponent(refPayco));
+            const j = await r.json();
+            if (!j || !j.success || !j.data) throw new Error('Respuesta inválida');
+            const d = j.data;
+            const ref = 'Referencia: ' + (d.x_id_invoice || refPayco) + ' · ' + (d.x_amount ? 'COP $' + Number(d.x_amount).toLocaleString('es-CO') : '');
+
+            switch (String(d.x_cod_response)) {
+                case '1':
+                    cartClear();
+                    try { localStorage.removeItem('kito_pending_order'); } catch (e) {}
+                    show('✅', '¡Pago aprobado!', 'Gracias por tu compra. Nos pondremos en contacto contigo para coordinar el envío.', ref);
+                    break;
+                case '3':
+                    show('🕒', 'Pago pendiente', 'Tu pago está siendo procesado. Te avisaremos cuando se confirme. Tu carrito se conserva.', ref);
+                    break;
+                default:
+                    show('❌', 'Pago no completado', 'La transacción fue rechazada o cancelada. Tu carrito se conserva, puedes intentarlo de nuevo.', ref);
+            }
+        } catch (e) {
+            show('⚠️', 'No pudimos verificar el pago', 'Si te descontaron el dinero, escríbenos por WhatsApp con tu referencia: ' + refPayco, '');
+        }
+    })();
+    </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════
-// KITOPAMBA — scripts.js
+// KITUPAMBA — scripts.js
 // ══════════════════════════════════════════
 
 // ── SEGURIDAD: escapar HTML antes de insertarlo en el DOM ──
@@ -86,7 +86,8 @@ const imagenesGaleria = document.querySelectorAll('.slide img');
 let imagenActual = 0;
 
 imagenesGaleria.forEach((img, index) => {
-    img.addEventListener('click', () => {
+    img.closest('.slide').addEventListener('click', (e) => {
+        if (e.target.closest('.slide-caption')) return;
         imagenActual = index;
         abrirModal(img.src);
     });
@@ -132,7 +133,7 @@ function checkout() {
         msg += `• ${i.tipo} ${i.nombre} – ${i.peso} x${i.qty} = ${fmtPrice(i.precio * i.qty)}\n`;
     });
     msg += '\nTotal: ' + fmtPrice(cart.reduce((s, i) => s + i.precio * i.qty, 0));
-    window.open('https://wa.me/573026775940?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
 }
 
 function renderCarrito() {
@@ -172,14 +173,14 @@ function renderCarrito() {
                     <div class="cart-item-name">${escapeHTML(item.nombre)}</div>
                     <div class="cart-item-meta">${escapeHTML(item.tipo)} · ${escapeHTML(item.peso)}</div>
                     <div class="cart-item-actions">
-                        <button class="cart-qty-btn" onclick="onCartChangeQty('${item.key}',-1)">−</button>
+                        <button class="cart-qty-btn" data-key="${escapeHTML(item.key)}" onclick="onCartChangeQty(this.dataset.key,-1)">−</button>
                         <span class="cart-qty-val">${item.qty}</span>
-                        <button class="cart-qty-btn" onclick="onCartChangeQty('${item.key}',1)">+</button>
+                        <button class="cart-qty-btn" data-key="${escapeHTML(item.key)}" onclick="onCartChangeQty(this.dataset.key,1)">+</button>
                     </div>
                 </div>
                 <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
                     <span class="cart-item-price">${fmtPrice(item.precio * item.qty)}</span>
-                    <button class="cart-item-remove" onclick="onCartRemove('${item.key}')">✕</button>
+                    <button class="cart-item-remove" data-key="${escapeHTML(item.key)}" onclick="onCartRemove(this.dataset.key)">✕</button>
                 </div>`;
             itemsEl.appendChild(div);
         });
@@ -292,7 +293,12 @@ function onCartRemove(key) {
 
 // ── ESCAPE KEY ──
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { cerrarModal(); closeProduct(); }
+    if (e.key === 'Escape') {
+        cerrarModal();
+        if (openProductId) closeProduct();
+        if (document.getElementById('cartPanel').classList.contains('active')) toggleCarrito();
+        if (document.getElementById('mobileMenu').classList.contains('active')) closeMobileMenu();
+    }
 });
 
 // ══════════════════════════════════════════
@@ -329,52 +335,52 @@ function fmtAlt(usd) {
 const PRODUCTS = {
     'to-bourbon': {
         img: 'imagenes/CafeTostado/BourbonRosado.png', badge: 'Tostado', score: '88+',
-        tag: 'Kitopamba · Tostado Medio · Planta Pasto, Nariño',
+        tag: 'Kitupamba · Tostado Medio · Planta Pasto, Nariño',
         name: 'Bourbon Rosado', subtitle: 'Pink Bourbon · Natural · Tostado Medio',
         notas: ['Maracuyá', 'Caramelo', 'Cacao', 'Frutas tropicales', 'Miel'],
-        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitopamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Bourbon Rosado']],
+        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Bourbon Rosado']],
         fichaR: [['Proceso','Natural – Fermentación anaerobia 72h'],['Secado','Camas africanas 22–28 días'],['Tostión','Media (Medium Roast)'],['SCA','88+ puntos'],['Disponible','En grano / Molido']],
-        proceso: 'Los cerezos maduros son seleccionados a mano por Guillermo Torres y su familia. El café se somete a fermentación anaerobia durante 72 horas en tanques sellados antes de secarse lentamente en camas africanas elevadas bajo la luz del Cañón del Juanambu, logrando una concentración de azúcares y complejidad frutal excepcional.',
+        proceso: 'Los cerezos maduros son seleccionados a mano por Patricia Gelpud y su familia. El café se somete a fermentación anaerobia durante 72 horas en tanques sellados antes de secarse lentamente en camas africanas elevadas bajo la luz del Cañón del Juanambu, logrando una concentración de azúcares y complejidad frutal excepcional.',
         sizes: [{l:'250g',p:17},{l:'350g',p:23},{l:'Libra',p:30},{l:'Kilo',p:54}],
     },
     'to-geisha': {
         img: 'imagenes/CafeTostado/Geisha.png', badge: 'Tostado', score: '90',
-        tag: 'Kitopamba · Tostado Claro · Planta Pasto, Nariño',
+        tag: 'Kitupamba · Tostado Claro · Planta Pasto, Nariño',
         name: 'Geisha', subtitle: 'Variedad Geisha · Lavado · Tostado Claro',
         notas: ['Jazmín', 'Té blanco', 'Durazno', 'Bergamota', 'Limón meyer'],
-        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitopamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Geisha']],
+        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Geisha']],
         fichaR: [['Proceso','Lavado – Fermentación controlada 36h'],['Secado','Camas africanas 18–24 días'],['Tostión','Clara (Light Roast)'],['SCA','90+ puntos'],['Disponible','En grano / Molido']],
-        proceso: 'La Geisha de Kitopamba pasa por un meticuloso proceso de fermentación controlada de 36 horas, con monitoreo IoT de temperatura y pH cada hora. El despulpado es inmediato post-cosecha para preservar la integridad floral. El secado en camas africanas bajo temperatura regulada permite un desarrollo lento que potencia los aromas de jazmín y bergamota que hacen única a esta variedad.',
+        proceso: 'La Geisha de Kitupamba pasa por un meticuloso proceso de fermentación controlada de 36 horas, con monitoreo IoT de temperatura y pH cada hora. El despulpado es inmediato post-cosecha para preservar la integridad floral. El secado en camas africanas bajo temperatura regulada permite un desarrollo lento que potencia los aromas de jazmín y bergamota que hacen única a esta variedad.',
         sizes: [{l:'250g',p:22},{l:'350g',p:29},{l:'Libra',p:38},{l:'Kilo',p:68}],
     },
     'to-caturra': {
         img: 'imagenes/CafeTostado/Caturro.png', badge: 'Tostado', score: '85+',
-        tag: 'Kitopamba · Tostado Medio · Planta Pasto, Nariño',
+        tag: 'Kitupamba · Tostado Medio · Planta Pasto, Nariño',
         name: 'Caturra', subtitle: 'Variedad Caturra · Lavado · Tostado Medio',
         notas: ['Naranja', 'Panela', 'Caramelo', 'Cítrico', 'Miel'],
-        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitopamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Caturra']],
+        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Caturra']],
         fichaR: [['Proceso','Lavado – Fermentación 24–30h'],['Secado','Camas elevadas + invernadero'],['Tostión','Media (Medium Roast)'],['SCA','85+ puntos'],['Disponible','En grano / Molido']],
-        proceso: 'El Caturra de Kitopamba se procesa por vía húmeda con fermentación en tanque abierto de 24 a 30 horas. Guillermo Torres supervisa personalmente cada etapa del beneficio. El secado combina camas africanas y cobertura de invernadero para proteger el grano de lluvias y garantizar homogeneidad lote a lote.',
+        proceso: 'El Caturra de Kitupamba se procesa por vía húmeda con fermentación en tanque abierto de 24 a 30 horas. Patricia Gelpud supervisa personalmente cada etapa del beneficio. El secado combina camas africanas y cobertura de invernadero para proteger el grano de lluvias y garantizar homogeneidad lote a lote.',
         sizes: [{l:'250g',p:14},{l:'350g',p:19},{l:'Libra',p:25},{l:'Kilo',p:44}],
     },
     'to-castillo': {
         img: 'imagenes/CafeTostado/Castillo.png', badge: 'Tostado', score: '84+',
-        tag: 'Kitopamba · Tostado Oscuro · Planta Pasto, Nariño',
+        tag: 'Kitupamba · Tostado Oscuro · Planta Pasto, Nariño',
         name: 'Castillo', subtitle: 'Variedad Castillo · Lavado · Tostado Oscuro',
         notas: ['Chocolate', 'Nuez', 'Caramelo', 'Manzana', 'Dulce'],
-        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitopamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Castillo']],
+        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Castillo']],
         fichaR: [['Proceso','Lavado – Fermentación 20–26h'],['Secado','Camas africanas 20–25 días'],['Tostión','Oscura (Dark Roast)'],['SCA','84+ puntos'],['Disponible','En grano / Molido']],
-        proceso: 'El Castillo de Kitopamba destaca por su resistencia y perfil chocolatado desarrollado a 2.200 msnm. El proceso lavado con fermentación de 20 a 26 horas limpia los azúcares externos del grano preservando la dulzura natural. La tostión oscura resalta el cuerpo pleno y el retrogusto a chocolate amargo.',
+        proceso: 'El Castillo de Kitupamba destaca por su resistencia y perfil chocolatado desarrollado a 2.200 msnm. El proceso lavado con fermentación de 20 a 26 horas limpia los azúcares externos del grano preservando la dulzura natural. La tostión oscura resalta el cuerpo pleno y el retrogusto a chocolate amargo.',
         sizes: [{l:'250g',p:13},{l:'350g',p:18},{l:'Libra',p:23},{l:'Kilo',p:42}],
     },
     'to-colombia': {
         img: 'imagenes/CafeTostado/colombia.png', badge: 'Tostado', score: '85',
-        tag: 'Kitopamba · Tostado Medio · Planta Pasto, Nariño',
+        tag: 'Kitupamba · Tostado Medio · Planta Pasto, Nariño',
         name: 'Colombia', subtitle: 'Variedad Colombia · Lavado · Tostado Medio',
         notas: ['Frutal', 'Cítrico', 'Miel', 'Avellana', 'Caramelo'],
-        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitopamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Colombia']],
+        fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Colombia']],
         fichaR: [['Proceso','Lavado – Fermentación 24h'],['Secado','Camas africanas 18–22 días'],['Tostión','Media (Medium Roast)'],['SCA','85 puntos'],['Disponible','En grano / Molido']],
-        proceso: 'La variedad Colombia de Kitopamba combina resistencia agronómica con un perfil sensorial equilibrado propio de las altitudes extremas del Cañón del Juanambu. Proceso lavado con fermentación de 24 horas y secado meticuloso en camas africanas. Guillermo Torres ha perfeccionado el punto de recolección para garantizar la madurez óptima de cada cereza.',
+        proceso: 'La variedad Colombia de Kitupamba combina resistencia agronómica con un perfil sensorial equilibrado propio de las altitudes extremas del Cañón del Juanambu. Proceso lavado con fermentación de 24 horas y secado meticuloso en camas africanas. Patricia Gelpud ha perfeccionado el punto de recolección para garantizar la madurez óptima de cada cereza.',
         sizes: [{l:'250g',p:13},{l:'350g',p:18},{l:'Libra',p:23},{l:'Kilo',p:42}],
     },
 };
@@ -403,16 +409,16 @@ function openProduct(id) {
 
     const fl = document.getElementById('pm-ficha-left');
     fl.innerHTML = '<div class="pm-ficha-title">PRODUCTOR · FINCA</div>';
-    p.fichaL.forEach(([k, v]) => { fl.innerHTML += `<div class="pm-ficha-row"><span class="pm-ficha-key">${k}</span><span class="pm-ficha-val">${v}</span></div>`; });
+    p.fichaL.forEach(([k, v]) => { fl.innerHTML += `<div class="pm-ficha-row"><span class="pm-ficha-key">${escapeHTML(k)}</span><span class="pm-ficha-val">${escapeHTML(v)}</span></div>`; });
 
     const fr = document.getElementById('pm-ficha-right');
     fr.innerHTML = '<div class="pm-ficha-title">PROCESO · PERFIL</div>';
-    p.fichaR.forEach(([k, v]) => { fr.innerHTML += `<div class="pm-ficha-row"><span class="pm-ficha-key">${k}</span><span class="pm-ficha-val">${v}</span></div>`; });
+    p.fichaR.forEach(([k, v]) => { fr.innerHTML += `<div class="pm-ficha-row"><span class="pm-ficha-key">${escapeHTML(k)}</span><span class="pm-ficha-val">${escapeHTML(v)}</span></div>`; });
 
     const procesoEl = document.getElementById('pm-proceso-text');
     if (procesoEl) procesoEl.textContent = p.proceso || '';
 
-    document.getElementById('pm-notas').innerHTML = p.notas.map(n => `<span class="pm-nota">${n}</span>`).join('');
+    document.getElementById('pm-notas').innerHTML = p.notas.map(n => `<span class="pm-nota">${escapeHTML(n)}</span>`).join('');
 
     const grindSection = document.getElementById('pm-grind-section');
     grindSection.style.display = p.badge === 'Tostado' ? 'block' : 'none';
@@ -478,6 +484,7 @@ function refreshModalPrices() {
 }
 
 function closeProduct() {
+    if (!openProductId) return;
     document.getElementById('productOverlay').classList.remove('active');
     document.getElementById('productModal').classList.remove('active');
     const scrollY = parseInt(document.body.dataset.scrollY || '0');
@@ -521,7 +528,7 @@ function buyNowModal() {
     let msg = 'Hola, quiero comprar:\n';
     msg += `• ${p.badge}${grindLabel} ${p.name} – ${s.l} x${selectedQty} = ${fmtPrice(s.p * selectedQty)}\n`;
     msg += '\nTotal: ' + fmtPrice(s.p * selectedQty);
-    window.open('https://wa.me/573176564364?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
 }
 
 function buyNowCard(id) {
@@ -531,7 +538,7 @@ function buyNowCard(id) {
     let msg = 'Hola, quiero comprar:\n';
     msg += `• ${p.badge} ${p.name} – ${s.l} x1 = ${fmtPrice(s.p)}\n`;
     msg += '\n(Por favor confirmar cantidad y presentación)';
-    window.open('https://wa.me/573176564364?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
 }
 
 function updateAllPrices() {
@@ -543,15 +550,12 @@ function updateAllPrices() {
     });
 }
 
-function filterProducts(cat, btn) {
-    document.querySelectorAll('.sf-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.sf-btn').forEach(b => {
-        if (b.onclick && b.onclick.toString().includes(`'${cat}'`)) b.classList.add('active');
-    });
+function filterProducts(cat) {
+    document.querySelectorAll('.sf-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === cat));
     let visible = 0;
     document.querySelectorAll('.product-card').forEach(card => {
         const show = cat === 'todos' || card.dataset.category === cat;
-        card.style.display = show ? 'block' : 'none';
+        card.style.display = show ? '' : 'none';   // '' conserva el display:flex de la tarjeta
         if (show) visible++;
     });
     const emptyEl = document.getElementById('shopEmpty');
@@ -569,7 +573,7 @@ function showToast(msg) {
 renderCarrito();
 
 // ══════════════════════════════════════════
-// MUNDO CAFÉ — Noticias con IA
+// MUNDO CAFÉ — Noticias del sector
 // ══════════════════════════════════════════
 
 let mcCurrentIndex = 0;
@@ -580,6 +584,19 @@ function mcGetVisible() {
     if (window.innerWidth <= 1024) return 2;
     return 3;
 }
+
+// Opcional: URL de tu propio backend que devuelva un JSON con el mismo formato.
+// NUNCA llames a APIs con clave secreta (Anthropic, etc.) directamente desde el navegador.
+const NEWS_ENDPOINT = '';
+
+const NOTICIAS_RESPALDO = [
+        { titulo: 'FNC: exportaciones de café superan los 13 millones de sacos en 2024', resumen: 'La Federación Nacional de Cafeteros destacó el crecimiento en la demanda internacional. Nariño y Huila lideran los orígenes más valorados por tostadores europeos y asiáticos.', fuente: 'Federación Nacional de Cafeteros', fecha: 'Dic 2024', tag: 'Exportaciones', url: 'https://federaciondecafeteros.org' },
+        { titulo: 'Precio interno del café supera récords históricos en Colombia', resumen: 'El precio de compra al caficultor alcanzó niveles sin precedentes impulsados por la demanda global y reducción de inventarios en Brasil, beneficiando especialmente a Nariño.', fuente: 'Portafolio', fecha: 'Ene 2025', tag: 'Precios', url: 'https://portafolio.co' },
+        { titulo: 'Nariño gana tres medallas en la Taza de Excelencia Colombia 2024', resumen: 'Tres fincas nariñenses obtuvieron los puntajes más altos del certamen, consolidando la región como principal origen de cafés especiales del país por tercer año consecutivo.', fuente: 'El Tiempo', fecha: 'Nov 2024', tag: 'Especialidad', url: 'https://eltiempo.com' },
+        { titulo: 'Cenicafé lidera proyectos IoT para mejorar beneficio del café', resumen: 'El centro de investigación cafetera implementa sensores de fermentación en fincas piloto de Nariño y Huila, con incrementos del 18% en calidad sensorial medida en taza.', fuente: 'La República', fecha: 'Feb 2025', tag: 'Tecnología', url: 'https://larepublica.co' },
+        { titulo: 'Geisha colombiana rompe récord de precio en subasta de Tokio', resumen: 'Un lote de Geisha lavado de Nariño fue adjudicado a USD $85 la libra, el precio más alto pagado por un café colombiano en los últimos cinco años en mercados asiáticos.', fuente: 'Semana', fecha: 'Mar 2025', tag: 'Especialidad', url: 'https://semana.com' },
+        { titulo: 'Mujeres cafeteras de Nariño acceden a exportación directa sin intermediarios', resumen: 'Un programa liderado por Ecomindala conecta productoras de Buesaco y La Unión con tostadores europeos, aumentando sus ingresos hasta un 40% frente al canal tradicional.', fuente: 'Portafolio', fecha: 'Abr 2025', tag: 'Impacto Social', url: 'https://portafolio.co' },
+];
 
 async function cargarNoticiasIA() {
     const track = document.getElementById('mcNewsTrack');
@@ -594,48 +611,14 @@ async function cargarNoticiasIA() {
     </div>`;
 
     try {
-        const response = await fetch('https://api.anthropic.com/v1/messages', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                model: 'claude-sonnet-4-6',
-                max_tokens: 2000,
-                tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-                messages: [{
-                    role: 'user',
-                    content: `Busca las noticias más recientes sobre café colombiano en estos sitios web colombianos: federaciondecafeteros.org, portafolio.co, eltiempo.com, semana.com, larepublica.co. Busca noticias de 2025 sobre precios del café, exportaciones, café de especialidad, Nariño cafetero o programas para caficultores.
-
-Devuelve ÚNICAMENTE un array JSON válido con exactamente 6 objetos. Sin texto antes ni después. Sin bloques de código markdown. Solo el array JSON puro que empiece con [ y termine con ]:
-
-[{"titulo":"...","resumen":"máximo 2 oraciones","fuente":"nombre del medio","fecha":"mes y año en español","tag":"categoría corta","url":"url real o #"}]`
-                }]
-            })
-        });
-
-        const data = await response.json();
-        const fullText = (data.content || [])
-            .filter(b => b.type === 'text')
-            .map(b => b.text)
-            .join('');
-
-        const startIdx = fullText.indexOf('[');
-        const endIdx   = fullText.lastIndexOf(']');
-        if (startIdx === -1 || endIdx === -1) throw new Error('No JSON');
-
-        const noticias = JSON.parse(fullText.substring(startIdx, endIdx + 1));
-        if (!Array.isArray(noticias) || !noticias.length) throw new Error('Empty');
-
+        if (!NEWS_ENDPOINT) throw new Error('Sin endpoint de noticias configurado');
+        const response = await fetch(NEWS_ENDPOINT);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const noticias = await response.json();
+        if (!Array.isArray(noticias) || !noticias.length) throw new Error('Vacío');
         renderNoticiasSlider(noticias);
     } catch (err) {
-        console.warn('Noticias de respaldo:', err.message);
-        renderNoticiasSlider([
-            { titulo: 'FNC: exportaciones de café superan los 13 millones de sacos en 2024', resumen: 'La Federación Nacional de Cafeteros destacó el crecimiento en la demanda internacional. Nariño y Huila lideran los orígenes más valorados por tostadores europeos y asiáticos.', fuente: 'Federación Nacional de Cafeteros', fecha: 'Dic 2024', tag: 'Exportaciones', url: 'https://federaciondecafeteros.org' },
-            { titulo: 'Precio interno del café supera récords históricos en Colombia', resumen: 'El precio de compra al caficultor alcanzó niveles sin precedentes impulsados por la demanda global y reducción de inventarios en Brasil, beneficiando especialmente a Nariño.', fuente: 'Portafolio', fecha: 'Ene 2025', tag: 'Precios', url: 'https://portafolio.co' },
-            { titulo: 'Nariño gana tres medallas en la Taza de Excelencia Colombia 2024', resumen: 'Tres fincas nariñenses obtuvieron los puntajes más altos del certamen, consolidando la región como principal origen de cafés especiales del país por tercer año consecutivo.', fuente: 'El Tiempo', fecha: 'Nov 2024', tag: 'Especialidad', url: 'https://eltiempo.com' },
-            { titulo: 'Cenicafé lidera proyectos IoT para mejorar beneficio del café', resumen: 'El centro de investigación cafetera implementa sensores de fermentación en fincas piloto de Nariño y Huila, con incrementos del 18% en calidad sensorial medida en taza.', fuente: 'La República', fecha: 'Feb 2025', tag: 'Tecnología', url: 'https://larepublica.co' },
-            { titulo: 'Geisha colombiana rompe récord de precio en subasta de Tokio', resumen: 'Un lote de Geisha lavado de Nariño fue adjudicado a USD $85 la libra, el precio más alto pagado por un café colombiano en los últimos cinco años en mercados asiáticos.', fuente: 'Semana', fecha: 'Mar 2025', tag: 'Especialidad', url: 'https://semana.com' },
-            { titulo: 'Mujeres cafeteras de Nariño acceden a exportación directa sin intermediarios', resumen: 'Un programa liderado por Ecomindala conecta productoras de Buesaco y La Unión con tostadores europeos, aumentando sus ingresos hasta un 40% frente al canal tradicional.', fuente: 'Portafolio', fecha: 'Abr 2025', tag: 'Impacto Social', url: 'https://portafolio.co' },
-        ]);
+        renderNoticiasSlider(NOTICIAS_RESPALDO);
     } finally {
         if (btn) btn.classList.remove('loading');
     }

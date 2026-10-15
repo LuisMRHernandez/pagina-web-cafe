@@ -130,9 +130,9 @@ function checkout() {
     if (!cart.length) return;
     let msg = 'Hola, quiero pedir:\n';
     cart.forEach(i => {
-        msg += `• ${i.tipo} ${i.nombre} – ${i.peso} x${i.qty} = ${fmtPrice(i.precio * i.qty)}\n`;
+        msg += `• ${i.tipo} ${i.nombre} – ${i.peso} x${i.qty} = ${fmtCOP(i.precio * i.qty)}\n`;
     });
-    msg += '\nTotal: ' + fmtPrice(cart.reduce((s, i) => s + i.precio * i.qty, 0));
+    msg += '\nTotal: ' + fmtCOP(cart.reduce((s, i) => s + i.precio * i.qty, 0));
     window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
 }
 
@@ -305,8 +305,9 @@ document.addEventListener('keydown', e => {
 // TIENDA — Moneda, Productos, Modal
 // ══════════════════════════════════════════
 
+// Los precios oficiales están en COP. COP_RATE solo se usa para mostrar el equivalente aproximado en USD.
 const COP_RATE = 4200;
-let shopCurrency = 'USD';
+let shopCurrency = 'COP';
 
 function setCurrency(cur, btn) {
     shopCurrency = cur;
@@ -317,21 +318,33 @@ function setCurrency(cur, btn) {
     renderCarrito();
 }
 
-function fmtPrice(usd) {
-    if (shopCurrency === 'COP') {
-        const cop = Math.round(usd * COP_RATE / 1000) * 1000;
-        return 'COP $' + cop.toLocaleString('es-CO');
-    }
-    return 'USD $' + usd;
+function fmtCOP(cop) {
+    return 'COP $' + Math.round(cop).toLocaleString('es-CO');
 }
 
-function fmtAlt(usd) {
-    if (shopCurrency === 'COP') return '≈ USD $' + usd;
-    const cop = Math.round(usd * COP_RATE / 1000) * 1000;
-    return '≈ COP $' + cop.toLocaleString('es-CO');
+function fmtUSD(cop) {
+    return 'USD $' + (cop / COP_RATE).toFixed(2);
 }
 
-// ── Productos ──
+// Precio principal según la moneda elegida (el valor de entrada siempre es COP)
+function fmtPrice(cop) {
+    return shopCurrency === 'COP' ? fmtCOP(cop) : fmtUSD(cop);
+}
+
+// Equivalente en la otra moneda
+function fmtAlt(cop) {
+    return shopCurrency === 'COP' ? '≈ ' + fmtUSD(cop) : fmtCOP(cop);
+}
+
+// ── Presentaciones oficiales Kitupamba (precios en COP) ──
+const TAMANOS_OFICIALES = [
+    { l: '250 g',  p: 31500 },
+    { l: '340 g',  p: 55000 },
+    { l: '500 g',  p: 65000 },
+    { l: '1000 g', p: 80000 },
+];
+
+// ── Productos ──  (para un precio distinto en un producto: sizes: [{l:'250 g', p:...}, ...])
 const PRODUCTS = {
     'to-bourbon': {
         img: 'imagenes/CafeTostado/BourbonRosado.png', badge: 'Tostado', score: '88+',
@@ -341,7 +354,7 @@ const PRODUCTS = {
         fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Bourbon Rosado']],
         fichaR: [['Proceso','Natural – Fermentación anaerobia 72h'],['Secado','Camas africanas 22–28 días'],['Tostión','Media (Medium Roast)'],['SCA','88+ puntos'],['Disponible','En grano / Molido']],
         proceso: 'Los cerezos maduros son seleccionados a mano por Patricia Gelpud y su familia. El café se somete a fermentación anaerobia durante 72 horas en tanques sellados antes de secarse lentamente en camas africanas elevadas bajo la luz del Cañón del Juanambu, logrando una concentración de azúcares y complejidad frutal excepcional.',
-        sizes: [{l:'250g',p:17},{l:'350g',p:23},{l:'Libra',p:30},{l:'Kilo',p:54}],
+        sizes: TAMANOS_OFICIALES,
     },
     'to-geisha': {
         img: 'imagenes/CafeTostado/Geisha.png', badge: 'Tostado', score: '90',
@@ -351,7 +364,7 @@ const PRODUCTS = {
         fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Geisha']],
         fichaR: [['Proceso','Lavado – Fermentación controlada 36h'],['Secado','Camas africanas 18–24 días'],['Tostión','Clara (Light Roast)'],['SCA','90+ puntos'],['Disponible','En grano / Molido']],
         proceso: 'La Geisha de Kitupamba pasa por un meticuloso proceso de fermentación controlada de 36 horas, con monitoreo IoT de temperatura y pH cada hora. El despulpado es inmediato post-cosecha para preservar la integridad floral. El secado en camas africanas bajo temperatura regulada permite un desarrollo lento que potencia los aromas de jazmín y bergamota que hacen única a esta variedad.',
-        sizes: [{l:'250g',p:22},{l:'350g',p:29},{l:'Libra',p:38},{l:'Kilo',p:68}],
+        sizes: TAMANOS_OFICIALES,
     },
     'to-caturra': {
         img: 'imagenes/CafeTostado/Caturro.png', badge: 'Tostado', score: '85+',
@@ -361,7 +374,7 @@ const PRODUCTS = {
         fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Caturra']],
         fichaR: [['Proceso','Lavado – Fermentación 24–30h'],['Secado','Camas elevadas + invernadero'],['Tostión','Media (Medium Roast)'],['SCA','85+ puntos'],['Disponible','En grano / Molido']],
         proceso: 'El Caturra de Kitupamba se procesa por vía húmeda con fermentación en tanque abierto de 24 a 30 horas. Patricia Gelpud supervisa personalmente cada etapa del beneficio. El secado combina camas africanas y cobertura de invernadero para proteger el grano de lluvias y garantizar homogeneidad lote a lote.',
-        sizes: [{l:'250g',p:14},{l:'350g',p:19},{l:'Libra',p:25},{l:'Kilo',p:44}],
+        sizes: TAMANOS_OFICIALES,
     },
     'to-castillo': {
         img: 'imagenes/CafeTostado/Castillo.png', badge: 'Tostado', score: '84+',
@@ -371,7 +384,7 @@ const PRODUCTS = {
         fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Castillo']],
         fichaR: [['Proceso','Lavado – Fermentación 20–26h'],['Secado','Camas africanas 20–25 días'],['Tostión','Oscura (Dark Roast)'],['SCA','84+ puntos'],['Disponible','En grano / Molido']],
         proceso: 'El Castillo de Kitupamba destaca por su resistencia y perfil chocolatado desarrollado a 2.200 msnm. El proceso lavado con fermentación de 20 a 26 horas limpia los azúcares externos del grano preservando la dulzura natural. La tostión oscura resalta el cuerpo pleno y el retrogusto a chocolate amargo.',
-        sizes: [{l:'250g',p:13},{l:'350g',p:18},{l:'Libra',p:23},{l:'Kilo',p:42}],
+        sizes: TAMANOS_OFICIALES,
     },
     'to-colombia': {
         img: 'imagenes/CafeTostado/colombia.png', badge: 'Tostado', score: '85',
@@ -381,7 +394,7 @@ const PRODUCTS = {
         fichaL: [['Productor','Patricia Gelpud'],['Finca','Altos de Kitupamba'],['Municipio','Buesaco, Nariño'],['Altura','2.200 msnm'],['Variedad','Colombia']],
         fichaR: [['Proceso','Lavado – Fermentación 24h'],['Secado','Camas africanas 18–22 días'],['Tostión','Media (Medium Roast)'],['SCA','85 puntos'],['Disponible','En grano / Molido']],
         proceso: 'La variedad Colombia de Kitupamba combina resistencia agronómica con un perfil sensorial equilibrado propio de las altitudes extremas del Cañón del Juanambu. Proceso lavado con fermentación de 24 horas y secado meticuloso en camas africanas. Patricia Gelpud ha perfeccionado el punto de recolección para garantizar la madurez óptima de cada cereza.',
-        sizes: [{l:'250g',p:13},{l:'350g',p:18},{l:'Libra',p:23},{l:'Kilo',p:42}],
+        sizes: TAMANOS_OFICIALES,
     },
 };
 
@@ -402,7 +415,7 @@ function openProduct(id) {
     document.getElementById('pm-img').src              = p.img;
     document.getElementById('pm-img').alt              = p.name;
     document.getElementById('pm-badge').textContent    = p.badge;
-    document.getElementById('pm-score').innerHTML      = p.score + '<small>SCA pts</small>';
+    document.getElementById('pm-score').innerHTML      = '<b>' + p.score + '</b><small>SCA</small>';
     document.getElementById('pm-tag').textContent      = p.tag;
     document.getElementById('pm-name').textContent     = p.name;
     document.getElementById('pm-subtitle').textContent = p.subtitle;
@@ -526,8 +539,8 @@ function buyNowModal() {
     const s = p.sizes[selectedSizeIdx];
     const grindLabel = p.badge === 'Tostado' ? (selectedGrind === 'molido' ? ' · Molido' : ' · En grano') : '';
     let msg = 'Hola, quiero comprar:\n';
-    msg += `• ${p.badge}${grindLabel} ${p.name} – ${s.l} x${selectedQty} = ${fmtPrice(s.p * selectedQty)}\n`;
-    msg += '\nTotal: ' + fmtPrice(s.p * selectedQty);
+    msg += `• ${p.badge}${grindLabel} ${p.name} – ${s.l} x${selectedQty} = ${fmtCOP(s.p * selectedQty)}\n`;
+    msg += '\nTotal: ' + fmtCOP(s.p * selectedQty);
     window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
 }
 
@@ -536,7 +549,7 @@ function buyNowCard(id) {
     if (!p) return;
     const s = p.sizes[0];
     let msg = 'Hola, quiero comprar:\n';
-    msg += `• ${p.badge} ${p.name} – ${s.l} x1 = ${fmtPrice(s.p)}\n`;
+    msg += `• ${p.badge} ${p.name} – ${s.l} x1 = ${fmtCOP(s.p)}\n`;
     msg += '\n(Por favor confirmar cantidad y presentación)';
     window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg), '_blank', 'noopener,noreferrer');
 }
@@ -570,6 +583,7 @@ function showToast(msg) {
     setTimeout(() => el.classList.remove('show'), 2800);
 }
 
+updateAllPrices();
 renderCarrito();
 
 // ══════════════════════════════════════════

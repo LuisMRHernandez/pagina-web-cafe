@@ -280,14 +280,9 @@ section { padding: 100px 80px; }
 .pc-img { position: relative; overflow: hidden; aspect-ratio: 1/1; background: var(--crema); }
 .pc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
 .product-card:hover .pc-img img { transform: scale(1.04); }
-.pc-badge { position: absolute; top: 12px; left: 12px; background: var(--verde); color: var(--dorado); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; font-weight: 700; }
-.pc-score { position: absolute; top: 12px; right: 12px; background: var(--dorado); color: var(--verde); font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; padding: 3px 9px; }
 .pc-info { padding: 20px 20px 16px; }
-.pc-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--dorado); font-weight: 700; margin-bottom: 6px; display: block; }
 .pc-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--verde); margin-bottom: 4px; line-height: 1.2; }
-.pc-variety { font-size: 11px; color: var(--texto-suave); margin-bottom: 14px; }
 .pc-quick-specs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
-.pc-spec-pill { font-size: 10px; background: var(--crema); color: var(--texto-suave); padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; }
 .pc-footer { padding: 12px 20px 16px; border-top: 1px solid rgba(0,0,0,0.09); margin-top: auto; }
 .pc-footer-price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .pc-price { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--verde); }
@@ -449,14 +444,10 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.8; }
 .product-modal.active .pm-inner { opacity: 1; transform: translateY(0); }
 .pm-gallery { flex: 0 0 38%; position: relative; background: var(--crema); overflow: hidden; height: 100%; }
 .pm-gallery img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-.pm-gallery-badge { position: absolute; top: 16px; left: 16px; background: var(--verde); color: var(--dorado); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; font-weight: 700; }
-.pm-score-badge { position: absolute; bottom: 16px; left: 16px; background: var(--dorado); color: var(--verde); font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; padding: 7px 14px; line-height: 1; }
-.pm-score-badge small { font-size: 10px; font-family: 'DM Sans', sans-serif; display: block; font-weight: 400; letter-spacing: 1px; }
 .pm-info { flex: 1; height: 100%; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; background: var(--blanco); -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--dorado) transparent; }
 .pm-info::-webkit-scrollbar { width: 4px; }
 .pm-info::-webkit-scrollbar-thumb { background: var(--dorado); }
 .pm-header { padding: 20px 48px 16px 36px; border-bottom: 1px solid rgba(0,0,0,0.07); }
-.pm-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--dorado); font-weight: 700; margin-bottom: 5px; }
 .pm-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 2.4vw, 30px); font-weight: 600; color: var(--verde); line-height: 1.1; margin-bottom: 4px; }
 .pm-subtitle { font-size: 11px; color: var(--texto-suave); }
 .pm-ficha { display: grid; grid-template-columns: 1fr 1fr; background: var(--crema); border-bottom: 1px solid rgba(0,0,0,0.07); }
@@ -474,7 +465,6 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.8; }
 .pm-proceso-text { font-size: 12px; color: var(--texto-suave); line-height: 1.7; margin: 0; }
 .pm-perfil-title { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--texto-suave); font-weight: 700; margin-bottom: 7px; }
 .pm-notas { display: flex; flex-wrap: wrap; gap: 5px; }
-.pm-nota { background: var(--crema); border: 1px solid rgba(0,0,0,0.09); padding: 4px 10px; font-size: 11px; color: var(--texto-suave); border-radius: 20px; }
 .pm-bottom { padding: 16px 36px; display: flex; flex-direction: column; gap: 14px; border-bottom: 1px solid rgba(0,0,0,0.07); }
 .pm-bottom-top-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .pm-price-block { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
@@ -703,3 +693,75 @@ body.lang-en [data-es] { display: none !important; }
 .pago-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--verde); margin-bottom: 12px; }
 .pago-text { font-size: 14px; color: var(--texto-suave); line-height: 1.7; margin-bottom: 8px; }
 .pago-ref { font-size: 12px; letter-spacing: 1px; color: var(--texto-suave); margin: 16px 0 28px; word-break: break-all; }
+
+
+/* ══ ETIQUETAS DE PRODUCTO — versión elegante ══ */
+/* Insignia de tipo (Tostado / Roasted): cristal verde con filete dorado */
+.pc-badge, .pm-gallery-badge {
+    position: absolute; top: 14px; left: 14px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 13px 6px 11px;
+    font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500;
+    letter-spacing: 2.4px; text-transform: uppercase;
+    color: var(--dorado-claro);
+    background: rgba(14,38,26,0.78);
+    border: 1px solid rgba(201,168,76,0.5);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.pc-badge::before, .pm-gallery-badge::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--dorado); flex-shrink: 0;
+}
+
+/* Sello de puntaje SCA: medallón circular */
+.pc-score, .pm-score-badge {
+    position: absolute; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 58px; height: 58px; border-radius: 50%; padding: 0; text-align: center; line-height: 1;
+    background: rgba(253,252,250,0.95); color: var(--verde);
+    border: 1px solid var(--dorado);
+    box-shadow: 0 0 0 3px rgba(253,252,250,0.35), 0 6px 18px rgba(0,0,0,0.18);
+}
+.pc-score { top: 12px; right: 12px; }
+.pm-score-badge { left: 16px; bottom: 16px; width: 74px; height: 74px; }
+.pc-score b, .pm-score-badge b { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; letter-spacing: -0.3px; }
+.pm-score-badge b { font-size: 28px; }
+.pc-score small, .pm-score-badge small {
+    display: block; margin-top: 4px;
+    font-family: 'DM Sans', sans-serif; font-size: 7.5px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--dorado);
+}
+
+/* Línea de origen con filete */
+.pc-tag, .pm-tag {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+    font-size: 9px; font-weight: 600; letter-spacing: 2.2px; text-transform: uppercase; color: var(--dorado);
+}
+.pc-tag::before, .pm-tag::before { content: ''; width: 18px; height: 1px; background: var(--dorado); flex-shrink: 0; }
+
+/* Variedad en cursiva serif */
+.pc-variety { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: var(--texto-suave); margin-bottom: 16px; line-height: 1.3; }
+
+/* Notas de taza: cápsulas con filete dorado */
+.pc-spec-pill, .pm-nota {
+    font-size: 10px; letter-spacing: 1.3px; text-transform: uppercase;
+    color: var(--verde-medio); background: transparent;
+    border: 1px solid rgba(201,168,76,0.55); border-radius: 20px; padding: 4px 12px;
+    transition: background 0.25s, border-color 0.25s;
+}
+.pc-spec-pill:hover, .pm-nota:hover { background: var(--crema); border-color: var(--dorado); }
+
+/* Presentaciones (250 g · 340 g · 500 g · 1000 g) */
+.pm-size-btn { padding: 9px 12px; min-width: 76px; gap: 3px; border: 1px solid rgba(26,58,42,0.18); }
+.pm-size-btn .sz-label { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; letter-spacing: 0.3px; color: var(--verde); }
+.pm-size-btn .sz-price { font-size: 10px; letter-spacing: 0.4px; color: var(--texto-suave); }
+.pm-size-btn:hover { border-color: var(--dorado); }
+.pm-size-btn.selected { background: var(--verde); border-color: var(--dorado); box-shadow: inset 0 0 0 1px rgba(201,168,76,0.35); }
+.pm-size-btn.selected .sz-label { color: var(--dorado-claro); }
+.pm-size-btn.selected .sz-price { color: rgba(255,255,255,0.8); }
+
+@media (max-width: 640px) {
+    .pc-score { width: 52px; height: 52px; }
+    .pc-score b { font-size: 19px; }
+    .pm-score-badge { width: 62px; height: 62px; }
+    .pm-score-badge b { font-size: 23px; }
+}

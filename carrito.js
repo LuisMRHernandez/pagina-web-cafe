@@ -1,10 +1,11 @@
 /**
  * carrito.js — Carrito compartido (index.html / tienda.html)
  * Usa localStorage con clave 'kito_cart'
- * Formato único: { key, nombre, tipo, peso, precio (USD), qty }
+ * Formato único: { key, nombre, tipo, peso, precio (COP), qty }
  */
 
-const CART_KEY = 'kito_cart';
+// v2: los precios ahora se guardan en COP (antes USD). Clave nueva para no mezclar carritos viejos.
+const CART_KEY = 'kito_cart_v2';
 
 // Número único de WhatsApp (formato internacional, sin "+"). Cámbialo solo aquí.
 const WHATSAPP_NUMBER = '573176564364';

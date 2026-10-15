@@ -23,10 +23,9 @@ const PAYMENT_CONFIG = {
 
 const PENDING_ORDER_KEY = 'kito_pending_order';
 
-// Total del carrito en COP (misma regla de redondeo que se muestra en pantalla)
+// Total del carrito en COP (los precios del carrito ya están en pesos)
 function cartTotalCOP(cart) {
-    const usd = cart.reduce((s, i) => s + i.precio * i.qty, 0);
-    return Math.round(usd * COP_RATE / 1000) * 1000;
+    return Math.round(cart.reduce((s, i) => s + i.precio * i.qty, 0));
 }
 
 function pagarEnLinea() {

@@ -1015,43 +1015,45 @@
     <div class="product-modal" id="productModal">
         <button class="pm-close" onclick="closeProduct()">✕</button>
         <div class="pm-inner" id="pmInner">
+            <div class="pm-info" id="pmInfo">
+                <div class="pm-progress" aria-hidden="true"><span id="pmProgress"></span></div>
 
-            <div class="pm-gallery">
-                <img id="pm-img" src="" alt="">
-                <div class="pm-gallery-badge" id="pm-badge">Tostado</div>
-                <div class="pm-score-badge" id="pm-score"><b>90</b><small>SCA</small></div>
-            </div>
+                <!-- ESCENA FIJA: la foto aparece al centro con el scroll, las notas de taza la rodean y al final la foto se retira -->
+                <section class="pm-stage" id="pmStage">
+                    <div class="pm-stage-sticky">
+                        <div class="pm-gallery-badge" id="pm-badge">Tostado</div>
+                        <div class="pm-score-badge" id="pm-score"><b>90</b><small>SCA</small></div>
 
-            <div class="pm-info">
-                <div class="pm-header">
-                    <div class="pm-tag" id="pm-tag"></div>
-                    <div class="pm-name" id="pm-name"></div>
-                    <div class="pm-subtitle" id="pm-subtitle"></div>
-                </div>
-                <div class="pm-ficha">
-                    <div class="pm-ficha-section" id="pm-ficha-left">
-                        <div class="pm-ficha-title">PRODUCTOR · FINCA</div>
-                    </div>
-                    <div class="pm-ficha-section" id="pm-ficha-right">
-                        <div class="pm-ficha-title">PROCESO · PERFIL</div>
-                    </div>
-                </div>
-                <div class="pm-middle">
-                    <div class="pm-proceso">
-                        <div class="pm-proceso-title">
-                            <span class="pm-proceso-icon">⚗️</span>
-                            <span data-es>PROCESO DE BENEFICIO</span>
-                            <span data-en>PROCESSING METHOD</span>
+                        <div class="pm-stage-head">
+                            <div class="pm-tag rv" id="pm-tag"></div>
+                            <div class="pm-name rv" id="pm-name" style="--d:80ms"></div>
+                            <div class="pm-subtitle rv" id="pm-subtitle" style="--d:140ms"></div>
                         </div>
-                        <p class="pm-proceso-text" id="pm-proceso-text"></p>
+
+                        <div class="pm-stage-body">
+                            <div class="pm-notes pm-notes-l" id="pm-notes-l"></div>
+                            <div class="pm-imgwrap">
+                                <div class="pm-glow"></div>
+                                <img class="pm-stage-img" id="pm-img" src="" alt="">
+                            </div>
+                            <div class="pm-notes pm-notes-r" id="pm-notes-r"></div>
+                        </div>
+
+                        <div class="pm-stage-foot" aria-hidden="true">
+                            <span data-es>Desliza para descubrir</span><span data-en>Scroll to discover</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                        </div>
                     </div>
-                    <div class="pm-perfil">
-                        <div class="pm-perfil-title" data-es>NOTAS DE TAZA</div>
-                        <div class="pm-perfil-title" data-en>CUP NOTES</div>
-                        <div class="pm-notas" id="pm-notas"></div>
-                    </div>
-                </div>
-                <div class="pm-bottom">
+                </section>
+
+                <!-- Historia: se genera en scripts.js (buildStory) y aparece con el scroll -->
+                <div id="pmStory"></div>
+
+                <!-- COMPRA: al final de todo -->
+                <section class="pm-buy" id="pmBuy">
+                    <div class="pm-eyebrow rv"><b>04</b><span data-es>Llévalo a casa</span><span data-en>Take it home</span></div>
+                    <div class="pm-sec-title rv" style="--d:80ms"><span data-es>Elige tu presentación</span><span data-en>Choose your size</span></div>
+                    <div class="pm-bottom">
                     <div class="pm-bottom-top-row">
                         <div class="pm-price-block">
                             <span class="pm-price-main" id="pm-price-main">COP $31.500</span>
@@ -1100,8 +1102,19 @@
                         <span data-es>Comprar ahora · WhatsApp</span><span data-en>Buy now · WhatsApp</span>
                     </button>
                 </div>
-            </div><!-- /pm-info -->
+                </section>
 
+                <!-- Atajo flotante: lleva a las opciones de compra (aparece al terminar la escena, se oculta al llegar) -->
+                <div class="pm-bar hide" id="pmBar">
+                    <div class="pm-bar-info">
+                        <span class="pm-bar-name" id="pmBarName"></span>
+                        <span class="pm-bar-price" id="pmBarPrice"></span>
+                    </div>
+                    <button class="pm-bar-btn" type="button" onclick="document.getElementById('pmBuy').scrollIntoView({behavior:'smooth',block:'start'})">
+                        <span data-es>Ver opciones de compra</span><span data-en>See purchase options</span>
+                    </button>
+                </div>
+            </div><!-- /pm-info -->
         </div><!-- /pm-inner -->
     </div><!-- /product-modal -->
 

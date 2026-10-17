@@ -412,7 +412,10 @@ function openProduct(id) {
     selectedGrind   = 'grano';
     selectedQty     = 1;
 
-    document.getElementById('pm-img').src              = p.img;
+    const stageImg = document.getElementById('pm-img');
+    pmEdge = PM_EDGE_DEFAULT;
+    stageImg.onload = () => { pmEdge = pmSampleEdge(stageImg) || PM_EDGE_DEFAULT; pmSizeStage(); pmApplyStageNow(); };
+    stageImg.src = p.img;
     document.getElementById('pm-img').alt              = p.name;
     document.getElementById('pm-badge').textContent    = p.badge;
     document.getElementById('pm-score').innerHTML      = '<b>' + p.score + '</b><small>SCA</small>';
@@ -420,18 +423,8 @@ function openProduct(id) {
     document.getElementById('pm-name').textContent     = p.name;
     document.getElementById('pm-subtitle').textContent = p.subtitle;
 
-    const fl = document.getElementById('pm-ficha-left');
-    fl.innerHTML = '<div class="pm-ficha-title">PRODUCTOR · FINCA</div>';
-    p.fichaL.forEach(([k, v]) => { fl.innerHTML += `<div class="pm-ficha-row"><span class="pm-ficha-key">${escapeHTML(k)}</span><span class="pm-ficha-val">${escapeHTML(v)}</span></div>`; });
-
-    const fr = document.getElementById('pm-ficha-right');
-    fr.innerHTML = '<div class="pm-ficha-title">PROCESO · PERFIL</div>';
-    p.fichaR.forEach(([k, v]) => { fr.innerHTML += `<div class="pm-ficha-row"><span class="pm-ficha-key">${escapeHTML(k)}</span><span class="pm-ficha-val">${escapeHTML(v)}</span></div>`; });
-
-    const procesoEl = document.getElementById('pm-proceso-text');
-    if (procesoEl) procesoEl.textContent = p.proceso || '';
-
-    document.getElementById('pm-notas').innerHTML = p.notas.map(n => `<span class="pm-nota">${escapeHTML(n)}</span>`).join('');
+    pmBuildCallouts(p.notas);
+    buildStory(p);
 
     const grindSection = document.getElementById('pm-grind-section');
     grindSection.style.display = p.badge === 'Tostado' ? 'block' : 'none';
@@ -458,11 +451,316 @@ function openProduct(id) {
     document.getElementById('productOverlay').classList.add('active');
     document.getElementById('productModal').classList.add('active');
 
-    setTimeout(() => {
-        const info = document.querySelector('.pm-info');
-        if (info) info.scrollTop = 0;
-    }, 50);
+    pmSizeStage();
+    document.getElementById('pmInfo').scrollTop = 0;
+    pmSetStageTarget(0, true);
+    document.getElementById('pmProgress').style.width = '0%';
+    pmOnScroll();
+    setTimeout(() => { pmInitReveal(); pmWatchBuy(); pmOnScroll(); }, 120);
 }
+
+// ══════════════════════════════════════════
+// MODAL DE PRODUCTO — HISTORIA CON SCROLL
+// ══════════════════════════════════════════
+const PM_REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+const PM_LABELS = {
+    'Productor': ['Productor', 'Producer'], 'Finca': ['Finca', 'Farm'], 'Municipio': ['Municipio', 'Municipality'],
+    'Altura': ['Altura', 'Elevation'], 'Variedad': ['Variedad', 'Variety'], 'Proceso': ['Proceso', 'Process'],
+    'Secado': ['Secado', 'Drying'], 'Tostión': ['Tostión', 'Roast'], 'SCA': ['SCA', 'SCA'], 'Disponible': ['Disponible', 'Available']
+};
+
+function pmLabel(k) {
+    const l = PM_LABELS[k] || [k, k];
+    return `<span data-es>${escapeHTML(l[0])}</span><span data-en>${escapeHTML(l[1])}</span>`;
+}
+function pmGet(arr, key) { const r = arr.find(([k]) => k === key); return r ? r[1] : ''; }
+function pmNum(str) { const m = String(str).match(/[\d.,]+/); return m ? parseInt(m[0].replace(/[.,]/g, ''), 10) : NaN; }
+function pmFmt(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+
+function buildStory(p) {
+    // 01 · Origen
+    const rows = p.fichaL.map(([k, v]) => {
+        const n = k === 'Altura' ? pmNum(v) : NaN;
+        const val = isNaN(n)
+            ? escapeHTML(v)
+            : `<span data-count="${n}">0</span><small>${escapeHTML(String(v).replace(/^[\d.,\s]+/, ''))}</small>`;
+        return `<div class="pm-or-row rv"><span class="pm-or-k">${pmLabel(k)}</span><span class="pm-or-v">${val}</span></div>`;
+    }).join('');
+
+    // 02 · Del beneficio a la tostión
+    const steps = ['Proceso', 'Secado', 'Tostión'].map(k => [k, pmGet(p.fichaR, k)]).filter(([, v]) => v);
+    const tl = steps.map(([k, v], i) => `
+        <div class="pm-tl-item rv" style="--d:${i * 120}ms">
+            <span class="pm-tl-dot">${i + 1}</span>
+            <div class="pm-tl-k">${pmLabel(k)}</div>
+            <div class="pm-tl-v">${escapeHTML(v)}</div>
+        </div>`).join('');
+
+    const words = (p.proceso || '').split(/\s+/).filter(Boolean)
+        .map(w => `<span class="pm-w">${escapeHTML(w)}</span>`).join(' ');
+    const quote = words ? `
+        <div class="pm-quote">
+            <div class="pm-eyebrow"><span data-es>La historia del lote</span><span data-en>The story of this lot</span></div>
+            <p id="pmQuote">${words}</p>
+        </div>` : '';
+
+    // 03 · Puntaje SCA
+    const score  = pmNum(p.score);
+    const suffix = String(p.score).includes('+') ? '+' : '';
+    const scoreSec = isNaN(score) ? '' : `
+        <section class="pm-sec pm-score-sec">
+            <div class="pm-eyebrow rv"><b>03</b><span data-es>Puntaje de catación</span><span data-en>Cupping score</span></div>
+            <div class="pm-score-big rv" style="--d:100ms"><span data-count="${score}" data-suffix="${suffix}">0</span><small>SCA</small></div>
+            <div class="pm-score-cap rv" style="--d:200ms"><span data-es>puntos sobre 100</span><span data-en>points out of 100</span></div>
+            <div class="pm-score-track rv" style="--w:${Math.min(100, score)}%; --d:250ms">
+                <div class="pm-score-fill"></div>
+                <span class="pm-score-tick" style="left:80%"></span>
+            </div>
+            <div class="pm-score-scale rv" style="--d:350ms">
+                <span style="left:0">0</span>
+                <span style="left:80%; transform:translateX(-50%)"><span data-es>80 · Especialidad</span><span data-en>80 · Specialty</span></span>
+                <span style="right:0">100</span>
+            </div>
+        </section>`;
+
+    document.getElementById('pmStory').innerHTML = `
+        <section class="pm-sec pm-origen">
+            <div class="pm-eyebrow rv"><b>01</b><span data-es>Origen</span><span data-en>Origin</span></div>
+            <div class="pm-sec-title rv" style="--d:80ms"><span data-es>Donde nace esta taza</span><span data-en>Where this cup begins</span></div>
+            ${rows}
+        </section>
+        <section class="pm-sec">
+            <div class="pm-eyebrow rv"><b>02</b><span data-es>Del beneficio a la tostión</span><span data-en>From processing to roasting</span></div>
+            <div class="pm-sec-title rv" style="--d:80ms"><span data-es>Así se hizo este café</span><span data-en>How this coffee was made</span></div>
+            <div class="pm-tl rv rv-plain"><div class="pm-tl-line"></div>${tl}</div>
+            ${quote}
+        </section>
+        ${scoreSec}`;
+
+    pmWords = Array.from(document.querySelectorAll('#pmQuote .pm-w'));
+    pmWordsOn = -1;
+    if (PM_REDUCED) pmWords.forEach(w => w.classList.add('on'));
+}
+
+let pmObserver = null, pmBuyObserver = null, pmWords = [], pmWordsOn = -1, pmTick = false;
+let pmBuyVisible = false, pmStageDone = false;
+const PM_EDGE_DEFAULT = [20, 16, 13];
+let pmEdge = PM_EDGE_DEFAULT, pmSpTarget = 0, pmSpCur = 0, pmRaf = 0;
+
+function pmRunCounters(root) {
+    const list = Array.from(root.querySelectorAll('[data-count]'));
+    if (root.matches('[data-count]')) list.push(root);
+    list.forEach(el => {
+        const target = Number(el.dataset.count) || 0;
+        const suffix = el.dataset.suffix || '';
+        if (PM_REDUCED) { el.textContent = pmFmt(target) + suffix; return; }
+        const t0 = performance.now(), dur = 1500;
+        const step = t => {
+            const k = Math.min(1, (t - t0) / dur);
+            el.textContent = pmFmt(target * (1 - Math.pow(1 - k, 3))) + suffix;
+            if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    });
+}
+
+function pmInitReveal() {
+    const info = document.getElementById('pmInfo');
+    if (!info) return;
+    if (pmObserver) pmObserver.disconnect();
+    info.querySelectorAll('.rv.in').forEach(el => el.classList.remove('in'));
+    const items = info.querySelectorAll('.rv');
+    if (!('IntersectionObserver' in window) || PM_REDUCED) {
+        items.forEach(el => { el.classList.add('in'); pmRunCounters(el); });
+        return;
+    }
+    pmObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('in');
+            pmRunCounters(e.target);
+            pmObserver.unobserve(e.target);
+        });
+    }, { root: info, threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    items.forEach(el => pmObserver.observe(el));
+}
+
+function pmUpdateBar() {
+    const bar = document.getElementById('pmBar');
+    if (bar) bar.classList.toggle('hide', pmBuyVisible || !pmStageDone);
+}
+
+// El atajo "Ver opciones de compra" aparece al terminar la escena y se oculta cuando ya estás en la compra
+function pmWatchBuy() {
+    const info = document.getElementById('pmInfo');
+    const bar  = document.getElementById('pmBar');
+    const buy  = document.getElementById('pmBuy');
+    if (!info || !bar || !buy) return;
+    if (pmBuyObserver) pmBuyObserver.disconnect();
+    pmBuyVisible = false;
+    pmStageDone  = false;
+    bar.classList.add('hide');
+    if (!('IntersectionObserver' in window)) { pmStageDone = true; pmUpdateBar(); return; }
+    pmBuyObserver = new IntersectionObserver(([e]) => { pmBuyVisible = e.isIntersecting; pmUpdateBar(); }, { root: info, threshold: 0 });
+    pmBuyObserver.observe(buy);
+}
+
+function pmSizeStage() {
+    const info = document.getElementById('pmInfo');
+    const body = document.querySelector('.pm-stage-body');
+    const img  = document.getElementById('pm-img');
+    if (!info || !body || !img) return;
+    info.style.setProperty('--pm-vh', info.clientHeight + 'px');
+
+    // La foto ocupa el mayor tamaño posible sin recortarse; en celular las notas van debajo
+    const nw = img.naturalWidth  || 4;
+    const nh = img.naturalHeight || 3;
+    const mobile = window.innerWidth <= 768;
+    const W = info.clientWidth;
+    const callH = mobile ? Math.max(document.getElementById('pm-notes-l').offsetHeight, document.getElementById('pm-notes-r').offsetHeight) + 10 : 0;
+    const availW = mobile ? W : Math.min(W * 0.58, 1200);
+    const availH = Math.max(120, body.clientHeight - callH - (mobile ? 16 : 18));
+    const k = Math.min(availW / nw, availH / nh);
+    info.style.setProperty('--img-w', Math.round(nw * k) + 'px');
+    info.style.setProperty('--img-h', Math.round(nh * k) + 'px');
+}
+
+// Color medio del borde de la foto: el fondo de la escena se funde con él
+function pmSampleEdge(img) {
+    try {
+        const w = 48, h = 48, cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        const cx = cv.getContext('2d', { willReadFrequently: true });
+        cx.drawImage(img, 0, 0, w, h);
+        const d = cx.getImageData(0, 0, w, h).data;
+        let r = 0, g = 0, b = 0, n = 0;
+        for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+            if (x > 2 && x < w - 3 && y > 2 && y < h - 3) continue;
+            const i = (y * w + x) * 4;
+            if (d[i + 3] < 128) continue;
+            r += d[i]; g += d[i + 1]; b += d[i + 2]; n++;
+        }
+        return n ? [Math.round(r / n), Math.round(g / n), Math.round(b / n)] : null;
+    } catch (e) { return null; }   // imagen de otro origen o abierta como archivo local
+}
+
+// Suavizado: la animación "alcanza" al scroll en vez de saltar, así se siente más lenta y fluida
+function pmLoop() {
+    pmRaf = 0;
+    const stage = document.getElementById('pmStage');
+    if (!stage) return;
+    const d = pmSpTarget - pmSpCur;
+    if (Math.abs(d) < 0.0004) pmSpCur = pmSpTarget;
+    else pmSpCur += d * 0.055;
+    pmApplyStage(stage, pmSpCur);
+    if (pmSpCur !== pmSpTarget) pmRaf = requestAnimationFrame(pmLoop);
+}
+
+function pmSetStageTarget(sp, immediate) {
+    if (PM_REDUCED) { sp = 1; immediate = true; }
+    pmSpTarget = sp;
+    if (immediate) {
+        pmSpCur = sp;
+        const stage = document.getElementById('pmStage');
+        if (stage) pmApplyStage(stage, sp);
+        return;
+    }
+    if (!pmRaf) pmRaf = requestAnimationFrame(pmLoop);
+}
+
+function pmApplyStageNow() {
+    const stage = document.getElementById('pmStage');
+    if (stage) pmApplyStage(stage, pmSpCur);
+}
+
+function pmBuildCallouts(notas) {
+    const left = ['<div class="pm-callout pm-co-label" data-i="-0.6"><span data-es>Notas de taza</span><span data-en>Cup notes</span></div>'];
+    const right = [];
+    notas.forEach((n, i) => {
+        const html = `<div class="pm-callout" data-i="${i}"><span class="pm-co-n">${String(i + 1).padStart(2, '0')}</span><span class="pm-co-t">${escapeHTML(n)}</span></div>`;
+        (i % 2 === 0 ? left : right).push(html);
+    });
+    document.getElementById('pm-notes-l').innerHTML = left.join('');
+    document.getElementById('pm-notes-r').innerHTML = right.join('');
+}
+
+// Progreso de la escena fija (0 → 1):
+//  0.05–0.30 el nombre sube y se compacta · 0.10–0.42 aparece la foto y el fondo se oscurece
+//  0.44–0.81 salen las notas una a una · 0.81–0.92 la escena completa queda quieta · luego sube la historia
+function pmApplyStage(stage, sp) {
+    const cl = t => Math.min(1, Math.max(0, t));
+    const S  = t => { t = cl(t); return t * t * (3 - 2 * t); };
+    const w  = (a, b) => S((sp - a) / (b - a));
+    const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+    const rgb = c => 'rgb(' + c.join(',') + ')';
+    const lum = c => (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255;
+
+    const dk = w(0.12, 0.42);
+    const CREMA = [245, 240, 232], VERDE = [26, 58, 42], SUAVE = [90, 90, 84], CLARO = [214, 208, 196];
+    const dark = lum(pmEdge) < 0.5;                       // si la foto es clara, el texto se queda verde
+    stage.style.setProperty('--sbg',    rgb(mix(CREMA, pmEdge, dk)));
+    stage.style.setProperty('--c-name', rgb(dark ? mix(VERDE, CREMA, dk) : VERDE));
+    stage.style.setProperty('--c-sub',  rgb(dark ? mix(SUAVE, CLARO, dk) : SUAVE));
+    stage.style.setProperty('--hm',  w(0.05, 0.30).toFixed(3));
+    stage.style.setProperty('--in',  w(0.10, 0.42).toFixed(3));
+    stage.style.setProperty('--cue', (1 - cl(sp / 0.05)).toFixed(3));
+    stage.querySelectorAll('.pm-callout').forEach(el => {
+        const i = Number(el.dataset.i);
+        el.style.setProperty('--k', w(0.44 + i * 0.065, 0.55 + i * 0.065).toFixed(3));
+    });
+}
+
+function pmOnScroll() {
+    const info = document.getElementById('pmInfo');
+    if (!info) return;
+    const max = info.scrollHeight - info.clientHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, info.scrollTop / max)) : 0;
+    document.getElementById('pmProgress').style.width = (p * 100).toFixed(1) + '%';
+
+    const stage = document.getElementById('pmStage');
+    if (stage) {
+        const range = stage.offsetHeight - info.clientHeight;
+        const scrolled = info.getBoundingClientRect().top - stage.getBoundingClientRect().top;
+        const sp = range > 0 ? Math.min(1, Math.max(0, scrolled / range)) : 1;
+        pmSetStageTarget(sp, false);
+        const done = PM_REDUCED ? info.scrollTop > info.clientHeight * 0.6 : sp >= 0.9;
+        if (done !== pmStageDone) { pmStageDone = done; pmUpdateBar(); }
+    }
+
+    // El texto de la historia se ilumina palabra por palabra al subir por la pantalla
+    if (pmWords.length && !PM_REDUCED) {
+        const q = document.getElementById('pmQuote');
+        if (!q) return;
+        const r = q.getBoundingClientRect(), v = info.getBoundingClientRect();
+        const startTop = v.top + v.height * 0.85;
+        const endTop   = v.top + v.height * 0.40 - r.height;
+        const k = Math.min(1, Math.max(0, (startTop - r.top) / (startTop - endTop)));
+        const n = Math.round(k * pmWords.length);
+        if (n !== pmWordsOn) {
+            pmWordsOn = n;
+            pmWords.forEach((w, i) => w.classList.toggle('on', i < n));
+        }
+    }
+}
+
+function pmTeardown() {
+    if (pmRaf) { cancelAnimationFrame(pmRaf); pmRaf = 0; }
+    if (pmObserver) { pmObserver.disconnect(); pmObserver = null; }
+    if (pmBuyObserver) { pmBuyObserver.disconnect(); pmBuyObserver = null; }
+}
+
+window.addEventListener('resize', () => { if (openProductId) { pmSizeStage(); pmOnScroll(); } });
+
+(function () {
+    const info = document.getElementById('pmInfo');
+    if (!info) return;
+    info.addEventListener('scroll', () => {
+        if (pmTick) return;
+        pmTick = true;
+        requestAnimationFrame(() => { pmTick = false; pmOnScroll(); });
+    }, { passive: true });
+})();
 
 function selectGrind(tipo) {
     selectedGrind = tipo;
@@ -494,6 +792,10 @@ function refreshModalPrices() {
     document.getElementById('pm-price-main').textContent = fmtPrice(s.p);
     document.getElementById('pm-price-alt').textContent  = fmtAlt(s.p);
     document.getElementById('pm-price-size').textContent = '/ ' + s.l;
+    const barName  = document.getElementById('pmBarName');
+    const barPrice = document.getElementById('pmBarPrice');
+    if (barName)  barName.textContent  = p.name + ' · ' + s.l;
+    if (barPrice) barPrice.textContent = fmtPrice(s.p);
 }
 
 function closeProduct() {
@@ -508,6 +810,7 @@ function closeProduct() {
     document.body.style.overflow = '';
     window.scrollTo({ top: scrollY, behavior: 'instant' });
     openProductId = null;
+    pmTeardown();
 }
 
 function addFromModal() {

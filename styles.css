@@ -979,3 +979,21 @@ body.lang-en [data-es] { display: none !important; }
     .pm-stage-head .pm-tag { --t0: 11px; }
     .pm-stage-head .pm-name { --n0: clamp(48px, 14vw, 72px); }
 }
+
+/* Celular: foto más grande (recortada a formato alto, centrada en la bolsa) y cabecera/notas más compactas */
+@media (max-width: 768px) {
+    .pm-stage { --head-h: 112px; }
+    .pm-stage-head .pm-tag { opacity: calc(1 - var(--hm)); max-height: calc(64px * (1 - var(--hm))); margin: 0; overflow: hidden; }
+    .pm-stage-head .pm-name { --n1: clamp(28px, 8vw, 34px); }
+    .pm-stage-body { padding-bottom: 12px; }
+    .pm-imgwrap { margin: calc(var(--img-h) * -0.09) 0; }
+    .pm-stage-img { object-fit: cover; object-position: center; }
+    .pm-notes { position: relative; z-index: 2; gap: 8px; }
+    .pm-co-label { display: none; }
+    .pm-co-n { padding-bottom: 3px; }
+    .pm-co-t { font-size: 22px; }
+}
+@media (max-width: 768px) {
+    .pm-stage .pm-score-badge { width: 54px; height: 54px; right: 8px; bottom: 8px; }
+    .pm-stage .pm-score-badge b { font-size: 20px; }
+}

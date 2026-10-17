@@ -613,17 +613,28 @@ function pmSizeStage() {
     if (!info || !body || !img) return;
     info.style.setProperty('--pm-vh', info.clientHeight + 'px');
 
-    // La foto ocupa el mayor tamaño posible sin recortarse; en celular las notas van debajo
+    // La foto ocupa el mayor tamaño posible. En escritorio no se recorta; en celular (pantalla vertical)
+    // se recorta a un formato más alto, centrado en la bolsa, y se solapa con sus márgenes oscuros.
     const nw = img.naturalWidth  || 4;
     const nh = img.naturalHeight || 3;
     const mobile = window.innerWidth <= 768;
     const W = info.clientWidth;
-    const callH = mobile ? Math.max(document.getElementById('pm-notes-l').offsetHeight, document.getElementById('pm-notes-r').offsetHeight) + 10 : 0;
-    const availW = mobile ? W : Math.min(W * 0.58, 1200);
-    const availH = Math.max(120, body.clientHeight - callH - (mobile ? 16 : 18));
-    const k = Math.min(availW / nw, availH / nh);
-    info.style.setProperty('--img-w', Math.round(nw * k) + 'px');
-    info.style.setProperty('--img-h', Math.round(nh * k) + 'px');
+    if (mobile) {
+        const OV = 0.09;                                                      // fracción de la foto que se solapa arriba y abajo
+        const callH = Math.max(document.getElementById('pm-notes-l').offsetHeight, document.getElementById('pm-notes-r').offsetHeight) + 10;
+        const availH = Math.max(160, body.clientHeight - callH - 12);
+        const wantH = availH / (1 - 2 * OV);
+        const capH  = (W / (0.56 * nw)) * nh;                                 // deja visible al menos el 56% del ancho de la foto
+        const H = Math.max(Math.min(wantH, capH), W * nh / nw);               // nunca más baja que la foto completa
+        info.style.setProperty('--img-w', Math.round(W) + 'px');
+        info.style.setProperty('--img-h', Math.round(H) + 'px');
+    } else {
+        const availW = Math.min(W * 0.58, 1200);
+        const availH = Math.max(120, body.clientHeight - 18);
+        const k = Math.min(availW / nw, availH / nh);
+        info.style.setProperty('--img-w', Math.round(nw * k) + 'px');
+        info.style.setProperty('--img-h', Math.round(nh * k) + 'px');
+    }
 }
 
 // Color medio del borde de la foto: el fondo de la escena se funde con él

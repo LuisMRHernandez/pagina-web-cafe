@@ -997,3 +997,23 @@ body.lang-en [data-es] { display: none !important; }
     .pm-stage .pm-score-badge { width: 54px; height: 54px; right: 8px; bottom: 8px; }
     .pm-stage .pm-score-badge b { font-size: 20px; }
 }
+
+/* Todo en una sola pestaña: Origen | Proceso arriba; historia | puntaje abajo */
+.pm-one { display: grid; grid-template-columns: 1fr 1fr; }
+.pm-one .pm-sec { padding: 40px 40px 36px; }
+.pm-one .pm-sec-title { margin-bottom: 18px; font-size: clamp(26px, 2.6vw, 34px); }
+.pm-one .pm-or-row { padding: 12px 0; }
+.pm-proceso { background: var(--blanco); }
+.pm-one .pm-tl-item { padding-bottom: 22px; }
+.pm-low { grid-column: 1 / -1; display: grid; grid-template-columns: 1.5fr 1fr; background: var(--crema); }
+.pm-lote { display: flex; align-items: center; }
+.pm-lote .pm-quote { margin: 0; padding: 0; border: 0; }
+.pm-lote .pm-quote p { font-size: clamp(18px, 1.7vw, 22px); }
+.pm-low .pm-score-sec { border-left: 1px solid rgba(26,58,42,0.12); display: flex; flex-direction: column; justify-content: center; }
+.pm-low .pm-score-big { font-size: clamp(58px, 6vw, 84px); }
+.pm-low .pm-score-cap { margin: 6px 0 24px; }
+@media (max-width: 768px) {
+    .pm-one, .pm-low { grid-template-columns: 1fr; }
+    .pm-one .pm-sec { padding: 32px 18px 28px; }
+    .pm-low .pm-score-sec { border-left: 0; border-top: 1px solid rgba(26,58,42,0.12); }
+}

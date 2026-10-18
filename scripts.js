@@ -525,18 +525,22 @@ function buildStory(p) {
         </section>`;
 
     document.getElementById('pmStory').innerHTML = `
-        <section class="pm-sec pm-origen">
-            <div class="pm-eyebrow rv"><b>01</b><span data-es>Origen</span><span data-en>Origin</span></div>
-            <div class="pm-sec-title rv" style="--d:80ms"><span data-es>Donde nace esta taza</span><span data-en>Where this cup begins</span></div>
-            ${rows}
-        </section>
-        <section class="pm-sec">
-            <div class="pm-eyebrow rv"><b>02</b><span data-es>Del beneficio a la tostión</span><span data-en>From processing to roasting</span></div>
-            <div class="pm-sec-title rv" style="--d:80ms"><span data-es>Así se hizo este café</span><span data-en>How this coffee was made</span></div>
-            <div class="pm-tl rv rv-plain"><div class="pm-tl-line"></div>${tl}</div>
-            ${quote}
-        </section>
-        ${scoreSec}`;
+        <div class="pm-one">
+            <section class="pm-sec pm-origen">
+                <div class="pm-eyebrow rv"><b>01</b><span data-es>Origen</span><span data-en>Origin</span></div>
+                <div class="pm-sec-title rv" style="--d:80ms"><span data-es>Donde nace esta taza</span><span data-en>Where this cup begins</span></div>
+                ${rows}
+            </section>
+            <section class="pm-sec pm-proceso">
+                <div class="pm-eyebrow rv"><b>02</b><span data-es>Del beneficio a la tostión</span><span data-en>From processing to roasting</span></div>
+                <div class="pm-sec-title rv" style="--d:80ms"><span data-es>Así se hizo este café</span><span data-en>How this coffee was made</span></div>
+                <div class="pm-tl rv rv-plain"><div class="pm-tl-line"></div>${tl}</div>
+            </section>
+            <div class="pm-low">
+                <div class="pm-sec pm-lote">${quote}</div>
+                ${scoreSec}
+            </div>
+        </div>`;
 
     pmWords = Array.from(document.querySelectorAll('#pmQuote .pm-w'));
     pmWordsOn = -1;

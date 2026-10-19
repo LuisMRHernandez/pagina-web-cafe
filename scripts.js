@@ -667,7 +667,7 @@ function pmLoop() {
     if (!stage) return;
     const d = pmSpTarget - pmSpCur;
     if (Math.abs(d) < 0.0004) pmSpCur = pmSpTarget;
-    else pmSpCur += d * 0.055;
+    else pmSpCur += d * (window.innerWidth <= 768 ? 0.09 : 0.055);
     pmApplyStage(stage, pmSpCur);
     if (pmSpCur !== pmSpTarget) pmRaf = requestAnimationFrame(pmLoop);
 }
